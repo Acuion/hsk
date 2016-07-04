@@ -1,0 +1,499 @@
+@font-face
+{
+	font-family: "Quartz MS";
+	src: url("fonts/QuartzMS.TTF");
+}
+
+@font-face
+{
+	font-family: "MyriadPro";
+	src: url("fonts/MyriadPro.otf");
+}
+
+@font-face
+{
+	font-family: "BuxtonSketch";
+	src: url("fonts/BuxtonSketch.ttf");
+}
+
+body
+{
+	margin: 0;
+	font-family: MyriadPro;
+	background: url('images/background.jpg') no-repeat;
+	color: white;
+}
+
+a
+{
+	color: white;
+}
+
+.buxton
+{
+	font-family: BuxtonSketch;
+}
+
+.quartz
+{
+	font-family: "Quartz MS";
+}
+
+.flip-vertical
+{
+	transform: scaleY(-1);
+}
+
+.flip-horisontal
+{
+	transform: scaleX(-1);
+}
+
+.flip-vertical.flip-horisontal
+{
+	transform: scaleX(-1) scaleY(-1);
+}
+
+.font23px
+{
+	font-size: 23px;
+}
+
+.font15px
+{
+	font-size: 15px;
+}
+
+.font40px
+{
+	font-size: 40px;
+}
+
+.font50px
+{
+	font-size: 40px;
+}
+
+.floatLeft
+{
+	float: left;
+}
+
+.color4E
+{
+	color: #4E4E4E;
+}
+
+.underlined
+{
+	text-decoration: underline;
+}
+
+.kill-result
+{
+    background: #222;
+    border: 1px solid #525252;
+	border-radius: 2px;
+    color: #fff;
+    height: 74px;
+    width: 300px;
+	display: none;
+}
+
+.kill-info
+{
+	margin-top: 27px
+}
+
+#progress-perc-info
+{
+	width: 300px;
+	position: absolute;
+	top: 3px;
+	left: 200px;
+}
+
+#progress-pointer
+{
+	position: absolute;
+	top: 0px;
+	left: -20px;
+}
+
+#pers-name
+{
+	opacity: 0;
+}
+
+#pers-name-part-left
+{
+	left: calc(50% - 10px);
+	transform: translate(-100%, 0);
+}
+
+#pers-name-part-center
+{
+	left: calc(50% - 5px);
+}
+
+#pers-name-part-right
+{
+	left: calc(50% + 10px);
+}
+
+.pers-name-part
+{
+	text-align: center;
+	position: absolute;
+	top: 175px;
+	font-size: 40px;
+	pointer-events: none;
+}
+
+.incircle-info
+{
+	text-align: center;
+	height: 285px;
+	width: 130px;
+	position: absolute;
+	top: 145px;
+	transform: translate(-50%, 0);
+	pointer-events: none;
+}
+
+#score-info
+{
+	left: calc(50% + 45px);
+}
+
+#kills-info
+{
+	left: calc(50% - 45px);
+}
+
+#rating-info
+{
+	left: 50%;
+	top: 60px;
+}
+
+.progress-info
+{
+	font-family: "Quartz MS";
+	position: absolute;
+	left: 50%;
+	top: 15px;
+	transform: translate(-50%, 0);
+	text-align: center;
+	width: 200px;
+}
+
+.center-absolute
+{
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 0);
+}
+
+#progress-center
+{
+	opacity: 0;
+	height: 285px;
+	width: 285px;
+	top: 260px;
+	pointer-events: none;
+}
+
+#words-right
+{
+	width: 300px;
+	top: 300px;
+	opacity: 0;
+	display: none;
+	margin-left: 300px;
+	text-align: center;
+}
+
+#victim-left
+{
+	width: 300px;
+	top: 250px;
+	opacity: 0;
+	display: none;
+	margin-left: -300px;
+	text-align: center;
+}
+
+.score-progress
+{
+	top: 18px;
+	height: 250px;
+	width: 250px;
+	pointer-events: none;
+}
+
+.score-progress > svg {
+	height: 100%;
+	display: block;
+}
+
+#pers-logo
+{
+	opacity: 0;
+	top: 50px;
+	pointer-events: none;
+}
+
+#backg-timer
+{
+	margin-top: 40px;
+	position: absolute;
+	top: 0;
+	z-index: -1;
+}
+
+#timer-div
+{
+	font-family: "Quartz MS";
+	font-size: 100px;
+	text-align: center;
+	margin: auto;
+	margin-top: 40px;
+	width: 570px;
+}
+
+#text330
+{
+	width: 330px;
+	text-align: left;
+}
+
+#hello-page
+{
+	overflow: visible;
+	text-align: center;
+	margin: auto;
+	margin-top: 100px;
+	width: 1100px;
+	min-height: 310px;
+	height: 300px;
+	position: relative;
+}
+
+#news-right
+{
+	float: right;
+	position: relative;
+}
+
+#inside-logo
+{
+	top: 0;
+	margin-top: 65px;
+	cursor: pointer;
+}
+
+#leader-left
+{
+	float: left;
+	position: relative;	
+}
+
+#main-div
+{
+	overflow: hidden;
+}
+
+#enter-hint
+{
+	position:absolute;
+	margin-left: 200px;
+	margin-top: -5px;
+	width: 80px;
+}
+
+#copyright
+{
+	position: absolute;
+	bottom: 0;
+	margin-bottom: 10px;
+	margin-left: 10px;
+}
+
+#socnetw
+{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+#sochint
+{
+	position: absolute;
+	right: 0;
+	margin-top: -30px;
+	margin-right: 70px;
+	width: 200px;
+}
+
+#return-hint
+{
+	left: 140px;
+	margin-top: -30px;
+	width: 108px;
+}
+
+#rules-wrapper
+{
+	text-align: left;
+	overflow-y: auto;
+	overflow-x: hidden;
+	width: 400px;
+	height: 0;
+	max-height: 420px;
+	top: -55px;
+	opacity: 0;
+}
+
+#back-from-rules
+{
+	text-align: center;
+	display: none;
+	top: 290px;
+}
+
+#registr
+{
+	display: none;
+	opacity: 0;
+	width: 400px;
+	top: 0;
+	opacity: 0;
+}
+
+.form-field
+{
+	font-size: 17px;
+	line-height: 20px;
+	margin-bottom: 16px;
+	border-radius: 3px;
+	border: none;
+	border-bottom: solid 2px #c9c9c9;
+	transition: border 0.3s;
+	background-color: transparent;
+	text-align: center;
+	color: white;
+}
+
+.victim-field
+{
+	width: 250px;
+}
+
+.reg-field
+{
+	width: 5px; /*250*/
+}
+
+.reg-hint
+{
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+
+#reg-hint-1
+{
+	right: -175px;
+	top: 80px;
+	width: 210px;
+}
+
+#reg-hint-2
+{
+	width: 200px;
+	left: -130px;
+	top: 160px;
+}
+
+#reg-hint-3
+{
+	width: 230px;
+	right: -195px;
+	top: 120px;
+}
+
+#reg-hint-4
+{
+	left: -140px;
+	top: 210px;
+	width: 210px;
+}
+
+.reg-hint-pic
+{
+	position: absolute;
+}
+
+#reg-hint-1-pic
+{
+	left: -31px;
+}
+
+#reg-hint-2-pic
+{
+	right: 4px;
+	top: 0px;
+}
+
+#reg-hint-3-pic
+{
+	left: -31px;
+	top: 100px;
+}
+
+#reg-hint-4-pic
+{
+	right: -40px;
+	top: 20px;
+}
+
+#reg-back
+{
+	font-size: 13px;
+	top: 273px;
+	opacity: 0.8;
+}
+
+#captcha-hint
+{
+	position: absolute;
+	top: 270px;
+}
+
+.reg-header
+{
+	font-weight: bold;
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+}
+::-webkit-scrollbar-button {
+	width: 8px;
+	height:5px;
+}
+::-webkit-scrollbar-track {
+	background:#eee;
+	border: thin solid lightgray;
+	box-shadow: 0px 0px 3px #dfdfdf inset;
+	border-radius:10px;
+}
+::-webkit-scrollbar-thumb {
+	background:#999;
+	border: thin solid gray;
+	border-radius:10px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background:#7d7d7d;
+}			
