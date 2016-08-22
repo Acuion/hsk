@@ -293,6 +293,14 @@ a
 	cursor: pointer;
 }
 
+#leaderboard
+{
+	width: 360;
+	height: 255px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
 #leader-left
 {
 	float: left;
