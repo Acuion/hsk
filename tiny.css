@@ -13,3 +13,19 @@
 {
     margin-top: 20px;
 }
+
+#timer-div
+{
+	font-size: 60px;
+	width: 380px;
+}
+
+#backg-timer
+{
+	width: 380px;
+}
+
+#hello-page
+{
+	margin-top: 50px;
+}
