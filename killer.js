@@ -107,7 +107,7 @@ function ToggleLK()
 	ToggleMainScreen();
 	if (LKActive)
 	{
-		setTimeout(function(){$("#pers-logo").animate({opacity: 1}, 300); $('#pers-name').animate({opacity: 1}, 300);}, 700);
+		setTimeout(function(){$("#pers-logo").animate({opacity: 1}, 300); $('.pers-name-part').animate({opacity: 1}, 300);}, 700);
 		bck2.animate(1);
 		scoreProgress.animate(scorePerc);
 		$("#progress-center").animate({opacity: 1}, 700);
@@ -124,7 +124,7 @@ function ToggleLK()
 		$("#progress-center").animate({opacity: 0}, 700);
 		$("#words-right").animate({opacity: 0}, 700, function(){$("#words-right").hide();});
 		$("#victim-left").animate({opacity: 0}, 700, function(){$("#victim-left").hide();});
-		$('#pers-name').animate({opacity: 0}, 300);
+		$('.pers-name-part').animate({opacity: 0}, 300);
 	}
 }
 
