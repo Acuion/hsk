@@ -20,7 +20,7 @@ body
 {
 	margin: 0;
 	font-family: "MyriadPro";
-	background: black url('images/background.jpg') no-repeat;
+	background: #0d0d0d url('images/background.jpg') no-repeat;
 	color: white;
 	position: relative;
 }
