@@ -248,6 +248,7 @@ a
 {
 	margin-top: 40px;
 	position: absolute;
+	width: 1100px;
 	top: 0;
 	z-index: -1;
 }
@@ -259,7 +260,7 @@ a
 	text-align: center;
 	margin: auto;
 	margin-top: 40px;
-	width: 570px;
+	width: 1100px;
 }
 
 #text330
@@ -296,7 +297,7 @@ a
 #leaderboard
 {
 	width: 360;
-	height: 255px;
+	height: 235px;
 	overflow-y: auto;
 	overflow-x: hidden;
 }
@@ -484,8 +485,8 @@ a
 	font-weight: bold;
 }
 
-::-webkit-scrollbar {
-	width: 8px;
+::-webkit-scrollbar {/*todo crossbrowser*/
+	width: 6px;
 }
 ::-webkit-scrollbar-button {
 	width: 8px;
