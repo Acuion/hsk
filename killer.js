@@ -66,8 +66,8 @@ function ToggleMainScreen()
 {
 	if (MainShown)
 	{
-		$("#leader-left").animate({opacity: 0, left: -100}, 1000);
-		$("#news-right").animate({opacity: 0, right: -100}, 1000);
+		$("#leader-left").animate({opacity: 0, left: -100}, 700);
+		$("#news-right").animate({opacity: 0, right: -100}, 700);
 		$("#enter-hint").animate({opacity: 0}, 300);
 		$("#about-game").animate({opacity: 0}, 400);
 		$("#about-game").css( 'pointer-events', 'none' );
@@ -81,8 +81,8 @@ function ToggleMainScreen()
 	}
 	else
 	{
-		$("#leader-left").animate({opacity: 1, left: 0}, 1000);
-		$("#news-right").animate({opacity: 1, right: 0}, 1000);
+		$("#leader-left").animate({opacity: 1, left: 0}, 700);
+		$("#news-right").animate({opacity: 1, right: 0}, 700);
 		
 		$("#timer-div").animate({marginTop: 40, opacity: 1}, 1000);
 		$("#backg-timer").animate({marginTop: 40, opacity: 1}, 1000);

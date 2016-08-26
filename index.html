@@ -1,250 +1,254 @@
 
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<script src="jquery/jquery-2.1.4.min.js"></script>
-	<script src="jquery/jquery.rotate.js"></script>
-	<script src="killer.js"></script>
-	<script src="extraJs/progressbar.min.js"></script>
-	<script src="https://www.google.com/recaptcha/api.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" media="all and (min-width: 1100px)" href="wide.css">
+    <link rel="stylesheet" type="text/css" media="all and (max-width: 1100px)" href="tiny.css">
+    <script src="jquery/jquery-2.1.4.min.js"></script>
+    <script src="jquery/jquery.rotate.js"></script>
+    <script src="killer.js"></script>
+    <script src="extraJs/progressbar.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 <body>
-	<div id="main-div">
-		<div id="timer-div">
-			<div id="timer">
-				88:88:88:88
-			</div>
-			<div class="color4E" id="backg-timer">
-				88:88:88:88
-			</div>
-		</div>
-		<div id="hello-page">
-			<div id="leader-left">
-				<img src="images/Leaderboard.png">
-				<table width="330" style="margin-left: 20px">
-					<tr><td width="30px">№</td><td width="160px">Псевдоним</td><td>Очков</td><td>Убийств</td></tr>
-				</table>
-				<div id="leaderboard">
-					<table width="330" style="margin-left: 20px">
-						<tr><td>1</td><td>Nickname</td><td>1000</td><td>42</td></tr>
-						<tr><td>2</td><td>Nickname</td><td>1000</td><td>42</td></tr>
-						<tr><td>3</td><td>Nickname</td><td>1000</td><td>42</td></tr>
-						<tr><td>4</td><td>Nickname</td><td>1000</td><td>42</td></tr>
-						<tr><td>5</td><td>Nickname</td><td>1000</td><td>42</td></tr>
-						<tr><td>6</td><td>Nickname</td><td>1000</td><td>42</td></tr>
-						<tr><td>7</td><td>Nickname</td><td>1000</td><td>42</td></tr>
-						<tr><td>8</td><td>Nickname</td><td>1000</td><td>42</td></tr>
-						<tr><td>9</td><td>Nickname</td><td>1000</td><td>42</td></tr>
-						<tr><td>10</td><td>Nickname</td><td>1000</td><td>42</td></tr>
-						<tr><td>11</td><td>Nickname</td><td>1000</td><td>42</td></tr>
-						<tr><td>12</td><td>Nickname</td><td>1000</td><td>42</td></tr>
-						<tr><td>13</td><td>Nickname</td><td>1000</td><td>42</td></tr>
-						<tr><td>14</td><td>Nickname</td><td>1000</td><td>42</td></tr>
-						<tr><td>15</td><td>Nickname</td><td>1000</td><td>42</td></tr>
-						<tr><td>16</td><td>Nickname</td><td>1000</td><td>42</td></tr>
-						<tr><td>17</td><td>Nickname</td><td>1000</td><td>42</td></tr>
-						<tr><td>18</td><td>Nickname</td><td>1000</td><td>42</td></tr>
-						<tr><td>19</td><td>Nickname</td><td>1000</td><td>42</td></tr>
-						<tr><td>20</td><td>Nickname</td><td>1000</td><td>42</td></tr>
-					</table>
-				</div>
-			</div>
-			
-			<div class="center-absolute">
-				<div class="buxton font23px" id="enter-hint">
-					<img src="images/pointer.png">Вход
-				</div>
-				<img src="images/logo.png" id="logo" style="pointer-events:none;">
-				<div class="reg-hint buxton" id="return-hint">
-					<img class="flip-vertical" src="images/pointer.png">на главную
-				</div>
-				<img src="images/InsideLogo.png" class="center-absolute" id="inside-logo" onclick="ToggleLK();">
-				
-				<div>
-					<div class="center-absolute" id="rules-wrapper">
-						<h3 style="text-align: center">HSE.KILLER</h3>
-						<p>1) Пункт правил под номером один, много какого-то текстаМного какого-то текстаМного какого-то текста</p>
-						<p>2) Пункт правил под номером дваа, много какого-то текстаМного какого-то текстаМного какого-то текста</p>
-						<p>3) Пункт правил под номером три, много какого-то текстаМного какого-то текстаМного какого-то текста</p>
-						<p>4) Пункт правил под номером четыре! Много какого-то текстаМного какого-то текстаМного какого-то текста Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
-						<p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
-						<p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
-						<p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
-						<p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
-						<p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
-						<p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
-						<p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
-						<p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
-						<p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
-						<p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
-					</div>
-					<div class="center-absolute" id="back-from-rules"><a href="#" onclick="ToggleRules();">НАЗАД</a></div>
-				</div>
-					
-				<div class="center-absolute" id="registr">
-					<div class="center-absolute" id="reg-back">
-						<a href="#" onclick="ToggleRegister();">НАЗАД</a>
-					</div>
-					<form>
-						<div id="reglabel"><h3 id="reglabel-text">РЕГИСТРАЦИЯ НА ИГРУ</h3></div>
-						<div><span onclick="$('#reg-1').focus()" class="reg-header">Логин в LMS</span></div>
-						<input type="text" name="loginlms" class="reg-field form-field buxton" id="reg-1">
-							<div class="reg-hint buxton font15px" id="reg-hint-1">
-								<img class="reg-hint-pic" id="reg-hint-1-pic" src="images/pointer.png">
-								Данные для входа в LMS нужны для единоразового забора системой гарантированно верных имени и фамилии, а также чтобы не допустить повторной регистрации
-							</div>
-						<div><span onclick="$('#reg-2').focus()" class="reg-header">Пароль в LMS</span></div>
-						<input type="password" name="passwordlms" class="reg-field form-field buxton" id="reg-2">
-							<div class="reg-hint buxton font15px" id="reg-hint-2">
-								<img class="reg-hint-pic flip-horisontal flip-vertical" id="reg-hint-2-pic" src="images/pointer.png">
-								Мы не храним ваши пароли,<br>честное вышкинское!
-							</div>
-						<div><span onclick="$('#reg-3').focus()" class="reg-header">Псевдоним для таблицы рекордов</span></div><!--!!!TODO!! Ограничение по колву символов+проверка на сервере-->
-						<input type="text" name="anon" class="reg-field form-field buxton" id="reg-3">
-							<div class="reg-hint buxton font15px" id="reg-hint-3">
-								<img class="reg-hint-pic flip-vertical" id="reg-hint-3-pic" src="images/pointer.png">
-								Чтобы сохранить интригу, игроки в таблице рекордов будут фигурировать под выбранными псевдонимами. Кстати, выбрать себе оскорбительный псевдоним - один из способов получить бан в нашей игре (или, что ещё хуже, мы сами выберем тебе новый ник)
-							</div>
-						<div style="margin-top: 10px">
-							<a href="#" onclick="Register();">[В] ЗАРЕГИСТРИРОВАТЬСЯ</a>
-							<div class="reg-hint buxton font15px" id="reg-hint-4">
-								<img class="reg-hint-pic  flip-horisontal" id="reg-hint-4-pic" src="images/pointer.png">
-								Авторизация VK необходима для возможности быстрой связи с игроками, получения уведомлений и упрощённого входа в личный кабинет
-							</div>
-						</div>
-					</form>
-				</div>
-				
-				<div style="margin-top: 7px;" id="about-game">
-					<a href="#" onclick="ToggleRules();">ОБ ИГРЕ</a><font style="text-decoration: none;">&nbsp;&nbsp;&nbsp;&nbsp;</font><a href="#" onclick="ToggleRegister();">РЕГИСТРАЦИЯ</a>
-				</div>
-			</div>
-			
-			<div id="news-right">
-				<img src="images/ProjectNews.png">
-				<div id="text330" style="margin-left: 20px">
-				03.07.2016: Вроде как закончена основная версия<br>
-				04.02.2016: Начата работа над этим дизайном<br>
-				30.11.2015: Родилась идея этого проекта
-				</div>
-			</div>
-		</div>
-		
-		<div><!-- вторая страница -->
-			<img src="images/lk.png" class="center-absolute" id="pers-logo">
-			<div id="pers-name">
-				<div class="pers-name-part" id="pers-name-part-left">
-				Иванов Иван
-				</div>
-				<div class="pers-name-part" id="pers-name-part-center">
-				/
-				</div>
-				<div class="pers-name-part" id="pers-name-part-right">
-				Some nickname 
-				</div>
-			</div>
-			<div class="center-absolute" id="victim-left"><!-- жертва -->
-				<form>
-					<span class="reg-header">ФИО</span>
-					<div>
-						<input type="text" name="name" class="victim-field form-field buxton" value="Натаров Юрий Олегович" readonly>
-					</div>
-					<span class="reg-header">Группа</span>
-					<div>
-						<input type="text" name="dep" class="victim-field form-field buxton" value="Н НН БИиПМ 15 ПИ" readonly>
-					</div>
-					<div id="vic-secword">
-						<span class="reg-header">Секретное слово</span>
-						<div>
-							<input type="text" name="secword" class="victim-field form-field buxton" value="[наведи, чтобы увидеть]" id="vic-secword-text" readonly>
-						</div>
-					</div>
-					<span class="reg-header" onclick="$('#vic-deathword-text').focus()">Смертельное слово</span>
-					<div>
-						<input type="text" name="deathword" class="victim-field form-field buxton" id="vic-deathword-text">
-					</div>
-					<div class="buxton kill-result" id="succ-kill">
-						<img src="images/killSuccess.png" class="floatLeft">
-						<div class="kill-info">Успешное убийство! +42 очка</div>
-					</div>
-					<div class="buxton kill-result" id="fail-kill">
-						<img src="images/killFailed.png" class="floatLeft">
-						<div class="kill-info">Неверное секретное слово</div>
-					</div>
-					<div id="recap-div" class="g-recaptcha" data-callback="RecaptchaKill" data-theme="dark" data-sitekey="6LfCSiETAAAAAKRizhoIIxKoP7ge1WkJzhm_sll5"></div>
-				</form>
-			</div>
-			<div class="center-absolute" id="progress-center"><!-- круг с прогрессом -->
-				<div id="progress-perc-info" class="buxton">
-					<div id="progress-text">Твой результат лучше чем у ?% игроков</div>
-					<img src="images/pointer.png" id="progress-pointer">
-				</div>
-				<div class="center-absolute score-progress" id="score-progress-bck"></div>
-				<div class="center-absolute score-progress" id="score-progress"></div>
-				<div class="incircle-info" id="rating-info">
-					место в рейтинге
-					<div class="progress-info font50px color4E">
-						888
-					</div>
-					<div class="progress-info font50px" id="proc-rank">
-						042
-					</div>
-				</div>
-				<div class="incircle-info" id="kills-info">
-					убийств
-					<div class="progress-info font40px color4E">
-						888
-					</div>
-					<div class="progress-info font40px" id="proc-kills">
-						013
-					</div>
-				</div>
-				<div class="incircle-info" id="score-info">
-					очков
-					<div class="progress-info font40px color4E">
-						888
-					</div>
-					<div class="progress-info font40px" id="proc-score">
-						057
-					</div>
-				</div>
-				<div class="buxton" id="captcha-hint">
-					<img class="flip-vertical" src="images/pointer.png">
-					Прохождение капчи автоматически отсылает запрос на убийство
-				</div>
-			</div>
-			<div class="center-absolute" id="words-right"><!-- слова и ачивки --> 
-					<div id="deathword" style="margin-top: 20px">
-						<div class="underlined">смертельное слово</div>
-						<div id="deathword-text">[наведи, чтобы увидеть]</div>
-					</div>
-					<div id="secretword" style="margin-top: 20px">
-						<div class="underlined">секретное слово</div>
-						<div id="secretword-text">[наведи, чтобы увидеть]</div>
-					</div>
-					<div style="margin-top: 30px">
-						<img id="ac1" src="images/achievement.png">
-						<img id="ac2" src="images/achievement.png">
-						<img id="ac3" src="images/achievement.png">
-						<img id="ac4" src="images/achievement.png">
-						<img id="ac5" src="images/achievement.png">
-					</div>
-					<div id="achievement-hint"></div>
-			</div>
-		</div>
-	</div>
-	<div id="copyright">
-		© Acuion
-	</div>
-	<div id="socnetw">
-		<div id="sochint" class="buxton">
-			будь в курсе всех новостей<img class="flip-horisontal" src="images/pointer.png">
-		</div>
-		<img src="images/vk.png">
-		<img src="images/vk.png">
-		<img src="images/vk.png">
-	</div>
+    <div id="main-div">
+        <div id="timer-div">
+            <div id="timer">
+                88:88:88:88
+            </div>
+            <div class="color4E" id="backg-timer">
+                88:88:88:88
+            </div>
+        </div>
+        <div id="hello-page">
+            <div class="inrow" id="leader-left">
+                <img src="images/Leaderboard.png">
+                <table width="330" style="margin-left: 20px">
+                    <tr><td width="30px">№</td><td width="160px">Псевдоним</td><td>Очков</td><td>Убийств</td></tr>
+                </table>
+                <div id="leaderboard">
+                    <table width="330" style="margin-left: 20px">
+                        <tr><td>1</td><td>Nickname</td><td>1000</td><td>42</td></tr>
+                        <tr><td>2</td><td>Nickname</td><td>1000</td><td>42</td></tr>
+                        <tr><td>3</td><td>Nickname</td><td>1000</td><td>42</td></tr>
+                        <tr><td>4</td><td>Nickname</td><td>1000</td><td>42</td></tr>
+                        <tr><td>5</td><td>Nickname</td><td>1000</td><td>42</td></tr>
+                        <tr><td>6</td><td>Nickname</td><td>1000</td><td>42</td></tr>
+                        <tr><td>7</td><td>Nickname</td><td>1000</td><td>42</td></tr>
+                        <tr><td>8</td><td>Nickname</td><td>1000</td><td>42</td></tr>
+                        <tr><td>9</td><td>Nickname</td><td>1000</td><td>42</td></tr>
+                        <tr><td>10</td><td>Nickname</td><td>1000</td><td>42</td></tr>
+                        <tr><td>11</td><td>Nickname</td><td>1000</td><td>42</td></tr>
+                        <tr><td>12</td><td>Nickname</td><td>1000</td><td>42</td></tr>
+                        <tr><td>13</td><td>Nickname</td><td>1000</td><td>42</td></tr>
+                        <tr><td>14</td><td>Nickname</td><td>1000</td><td>42</td></tr>
+                        <tr><td>15</td><td>Nickname</td><td>1000</td><td>42</td></tr>
+                        <tr><td>16</td><td>Nickname</td><td>1000</td><td>42</td></tr>
+                        <tr><td>17</td><td>Nickname</td><td>1000</td><td>42</td></tr>
+                        <tr><td>18</td><td>Nickname</td><td>1000</td><td>42</td></tr>
+                        <tr><td>19</td><td>Nickname</td><td>1000</td><td>42</td></tr>
+                        <tr><td>20</td><td>Nickname</td><td>1000</td><td>42</td></tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div  class="inrow" id="logo-center">
+                <div class="buxton font23px" id="enter-hint">
+                    <img src="images/pointer.png">Вход
+                </div>
+                <img src="images/logo.png" id="logo" style="pointer-events:none;">
+                <div class="reg-hint buxton" id="return-hint">
+                    <img class="flip-vertical" src="images/pointer.png">на главную
+                </div>
+                <img src="images/InsideLogo.png" class="center-absolute" id="inside-logo" onclick="ToggleLK();">
+                
+                <div>
+                    <div class="center-absolute" id="rules-wrapper">
+                        <h3 style="text-align: center">HSE.KILLER</h3>
+                        <p>1) Пункт правил под номером один, много какого-то текстаМного какого-то текстаМного какого-то текста</p>
+                        <p>2) Пункт правил под номером дваа, много какого-то текстаМного какого-то текстаМного какого-то текста</p>
+                        <p>3) Пункт правил под номером три, много какого-то текстаМного какого-то текстаМного какого-то текста</p>
+                        <p>4) Пункт правил под номером четыре! Много какого-то текстаМного какого-то текстаМного какого-то текста Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
+                        <p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
+                        <p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
+                        <p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
+                        <p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
+                        <p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
+                        <p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
+                        <p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
+                        <p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
+                        <p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
+                        <p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
+                    </div>
+                    <div class="center-absolute" id="back-from-rules"><a href="#" onclick="ToggleRules();">НАЗАД</a></div>
+                </div>
+                    
+                <div class="center-absolute" id="registr">
+                    <div class="center-absolute" id="reg-back">
+                        <a href="#" onclick="ToggleRegister();">НАЗАД</a>
+                    </div>
+                    <form>
+                        <div id="reglabel"><h3 id="reglabel-text">РЕГИСТРАЦИЯ НА ИГРУ</h3></div>
+                        <div><span onclick="$('#reg-1').focus()" class="reg-header">Логин в LMS</span></div>
+                        <input type="text" name="loginlms" class="reg-field form-field buxton" id="reg-1">
+                            <div class="reg-hint buxton font15px" id="reg-hint-1">
+                                <img class="reg-hint-pic" id="reg-hint-1-pic" src="images/pointer.png">
+                                Данные для входа в LMS нужны для единоразового забора системой гарантированно верных имени и фамилии, а также чтобы не допустить повторной регистрации
+                            </div>
+                        <div><span onclick="$('#reg-2').focus()" class="reg-header">Пароль в LMS</span></div>
+                        <input type="password" name="passwordlms" class="reg-field form-field buxton" id="reg-2">
+                            <div class="reg-hint buxton font15px" id="reg-hint-2">
+                                <img class="reg-hint-pic flip-horisontal flip-vertical" id="reg-hint-2-pic" src="images/pointer.png">
+                                Мы не храним ваши пароли,<br>честное вышкинское!
+                            </div>
+                        <div><span onclick="$('#reg-3').focus()" class="reg-header">Псевдоним для таблицы рекордов</span></div><!--!!!TODO!! Ограничение по колву символов+проверка на сервере-->
+                        <input type="text" name="anon" class="reg-field form-field buxton" id="reg-3">
+                            <div class="reg-hint buxton font15px" id="reg-hint-3">
+                                <img class="reg-hint-pic flip-vertical" id="reg-hint-3-pic" src="images/pointer.png">
+                                Чтобы сохранить интригу, игроки в таблице рекордов будут фигурировать под выбранными псевдонимами. Кстати, выбрать себе оскорбительный псевдоним - один из способов получить бан в нашей игре (или, что ещё хуже, мы сами выберем тебе новый ник)
+                            </div>
+                        <div style="margin-top: 10px">
+                            <a href="#" onclick="Register();">[В] ЗАРЕГИСТРИРОВАТЬСЯ</a>
+                            <div class="reg-hint buxton font15px" id="reg-hint-4">
+                                <img class="reg-hint-pic  flip-horisontal" id="reg-hint-4-pic" src="images/pointer.png">
+                                Авторизация VK необходима для возможности быстрой связи с игроками, получения уведомлений и упрощённого входа в личный кабинет
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <div style="margin-top: 7px;" id="about-game">
+                    <a href="#" onclick="ToggleRules();">ОБ ИГРЕ</a><font style="text-decoration: none;">&nbsp;&nbsp;&nbsp;&nbsp;</font><a href="#" onclick="ToggleRegister();">РЕГИСТРАЦИЯ</a>
+                </div>
+            </div>
+            
+            <div class="inrow" id="news-right">
+                <img src="images/ProjectNews.png">
+                <div id="text330" style="margin-left: 20px">
+                03.07.2016: Вроде как закончена основная версия<br>
+                04.02.2016: Начата работа над этим дизайном<br>
+                30.11.2015: Родилась идея этого проекта
+                </div>
+            </div>
+        </div>
+        
+        <div><!-- вторая страница -->
+            <img src="images/lk.png" class="center-absolute" id="pers-logo">
+            <div id="pers-name">
+                <div class="pers-name-part" id="pers-name-part-left">
+                Иванов Иван
+                </div>
+                <div class="pers-name-part" id="pers-name-part-center">
+                /
+                </div>
+                <div class="pers-name-part" id="pers-name-part-right">
+                Some nickname 
+                </div>
+            </div>
+            <div class="center-absolute" id="victim-left"><!-- жертва -->
+                <form>
+                    <span class="reg-header">ФИО</span>
+                    <div>
+                        <input type="text" name="name" class="victim-field form-field buxton" value="Натаров Юрий Олегович" readonly>
+                    </div>
+                    <span class="reg-header">Группа</span>
+                    <div>
+                        <input type="text" name="dep" class="victim-field form-field buxton" value="Н НН БИиПМ 15 ПИ" readonly>
+                    </div>
+                    <div id="vic-secword">
+                        <span class="reg-header">Секретное слово</span>
+                        <div>
+                            <input type="text" name="secword" class="victim-field form-field buxton" value="[наведи, чтобы увидеть]" id="vic-secword-text" readonly>
+                        </div>
+                    </div>
+                    <span class="reg-header" onclick="$('#vic-deathword-text').focus()">Смертельное слово</span>
+                    <div>
+                        <input type="text" name="deathword" class="victim-field form-field buxton" id="vic-deathword-text">
+                    </div>
+                    <div class="buxton kill-result" id="succ-kill">
+                        <img src="images/killSuccess.png" class="floatLeft">
+                        <div class="kill-info">Успешное убийство! +42 очка</div>
+                    </div>
+                    <div class="buxton kill-result" id="fail-kill">
+                        <img src="images/killFailed.png" class="floatLeft">
+                        <div class="kill-info">Неверное секретное слово</div>
+                    </div>
+                    <div id="recap-div" class="g-recaptcha" data-callback="RecaptchaKill" data-theme="dark" data-sitekey="6LfCSiETAAAAAKRizhoIIxKoP7ge1WkJzhm_sll5"></div>
+                </form>
+            </div>
+
+            <div class="center-absolute" id="progress-center"><!-- круг с прогрессом -->
+                <div id="progress-perc-info" class="buxton">
+                    <div id="progress-text">Твой результат лучше чем у ?% игроков</div>
+                    <img src="images/pointer.png" id="progress-pointer">
+                </div>
+                <div class="center-absolute score-progress" id="score-progress-bck"></div>
+                <div class="center-absolute score-progress" id="score-progress"></div>
+                <div class="incircle-info" id="rating-info">
+                    место в рейтинге
+                    <div class="progress-info font50px color4E">
+                        888
+                    </div>
+                    <div class="progress-info font50px" id="proc-rank">
+                        042
+                    </div>
+                </div>
+                <div class="incircle-info" id="kills-info">
+                    убийств
+                    <div class="progress-info font40px color4E">
+                        888
+                    </div>
+                    <div class="progress-info font40px" id="proc-kills">
+                        013
+                    </div>
+                </div>
+                <div class="incircle-info" id="score-info">
+                    очков
+                    <div class="progress-info font40px color4E">
+                        888
+                    </div>
+                    <div class="progress-info font40px" id="proc-score">
+                        057
+                    </div>
+                </div>
+                <div class="buxton" id="captcha-hint">
+                    <img class="flip-vertical" src="images/pointer.png">
+                    Прохождение капчи автоматически отсылает запрос на убийство
+                </div>
+            </div>
+
+            <div class="center-absolute" id="words-right"><!-- слова и ачивки --> 
+                    <div id="deathword" style="margin-top: 20px">
+                        <div class="underlined">смертельное слово</div>
+                        <div id="deathword-text">[наведи, чтобы увидеть]</div>
+                    </div>
+                    <div id="secretword" style="margin-top: 20px">
+                        <div class="underlined">секретное слово</div>
+                        <div id="secretword-text">[наведи, чтобы увидеть]</div>
+                    </div>
+                    <div style="margin-top: 30px">
+                        <img id="ac1" src="images/achievement.png">
+                        <img id="ac2" src="images/achievement.png">
+                        <img id="ac3" src="images/achievement.png">
+                        <img id="ac4" src="images/achievement.png">
+                        <img id="ac5" src="images/achievement.png">
+                    </div>
+                    <div id="achievement-hint"></div>
+            </div>
+        </div>
+    </div>
+    <div id="copyright">
+        © Acuion
+    </div>
+    <div id="socnetw">
+        <div id="sochint" class="buxton">
+            будь в курсе всех новостей<img class="flip-horisontal" src="images/pointer.png">
+        </div>
+        <img src="images/vk.png">
+        <img src="images/vk.png">
+        <img src="images/vk.png">
+    </div>
 </body>
 </html>

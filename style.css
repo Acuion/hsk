@@ -20,7 +20,7 @@ body
 {
 	margin: 0;
 	font-family: MyriadPro;
-	background: url('images/background.jpg') no-repeat;
+	background: black url('images/background.jpg') no-repeat;
 	color: white;
 }
 
@@ -103,6 +103,12 @@ a
 .kill-info
 {
 	margin-top: 27px
+}
+
+.inrow
+{
+	display: inline-block;
+	vertical-align: top;
 }
 
 #progress-perc-info
@@ -275,15 +281,8 @@ a
 	text-align: center;
 	margin: auto;
 	margin-top: 100px;
-	width: 1100px;
 	min-height: 310px;
 	height: 300px;
-	position: relative;
-}
-
-#news-right
-{
-	float: right;
 	position: relative;
 }
 
@@ -304,8 +303,20 @@ a
 
 #leader-left
 {
-	float: left;
 	position: relative;	
+	height: 300px;
+}
+
+#logo-center
+{
+	position: relative;
+	height: 300px;
+}
+
+#news-right
+{
+	position: relative;
+	height: 300px;
 }
 
 #main-div
