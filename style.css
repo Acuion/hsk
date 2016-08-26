@@ -298,18 +298,21 @@ a
 {
 	position: relative;	
 	height: 300px;
+	width: 340px;
 }
 
 #logo-center
 {
 	position: relative;
 	height: 300px;
+	width: 300px;
 }
 
 #news-right
 {
 	position: relative;
 	height: 300px;
+	width: 340px;
 }
 
 #main-div
@@ -320,7 +323,7 @@ a
 #enter-hint
 {
 	position:absolute;
-	margin-left: 200px;
+	margin-left: 210px;
 	margin-top: -5px;
 	width: 80px;
 }
@@ -351,7 +354,7 @@ a
 
 #return-hint
 {
-	left: 140px;
+	left: 205px;
 	margin-top: -30px;
 	width: 108px;
 }
