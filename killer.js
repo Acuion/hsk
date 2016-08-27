@@ -59,7 +59,7 @@ $(document).ready(function(){
 			$('#proc-rank').html(pad(Math.round(rank * (bar.value() / scorePerc)), 3));
 		}
 	});
-	if (window.innerWidth < 390) { document.getElementById('viewport').setAttribute('content','width=390');}
+	//if (window.innerWidth < 390) { document.getElementById('viewport').setAttribute('content','width=390');}
 });
 
 var MainShown = true;
