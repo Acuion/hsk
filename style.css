@@ -315,6 +315,11 @@ a
 	width: 340px;
 }
 
+.reg-hint-pic
+{
+	position: absolute;
+}
+
 #main-div
 {
 	overflow: hidden;
@@ -416,62 +421,6 @@ a
 	position: absolute;
 	opacity: 0;
 	pointer-events: none;
-}
-
-#reg-hint-1
-{
-	right: -175px;
-	top: 80px;
-	width: 210px;
-}
-
-#reg-hint-2
-{
-	width: 200px;
-	left: -130px;
-	top: 160px;
-}
-
-#reg-hint-3
-{
-	width: 230px;
-	right: -195px;
-	top: 120px;
-}
-
-#reg-hint-4
-{
-	left: -140px;
-	top: 210px;
-	width: 210px;
-}
-
-.reg-hint-pic
-{
-	position: absolute;
-}
-
-#reg-hint-1-pic
-{
-	left: -31px;
-}
-
-#reg-hint-2-pic
-{
-	right: 4px;
-	top: 0px;
-}
-
-#reg-hint-3-pic
-{
-	left: -31px;
-	top: 100px;
-}
-
-#reg-hint-4-pic
-{
-	right: -40px;
-	top: 20px;
 }
 
 #reg-back
