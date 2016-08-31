@@ -30,14 +30,14 @@
 	margin-top: 50px;
 }
 
-::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.3s ease;}
-::-moz-placeholder                {opacity: 1; transition: opacity 0.3s ease;}
-:-moz-placeholder                 {opacity: 1; transition: opacity 0.3s ease;}
-:-ms-input-placeholder            {opacity: 1; transition: opacity 0.3s ease;}
-:focus::-webkit-input-placeholder {opacity: 0; transition: opacity 0.3s ease;}
-:focus::-moz-placeholder          {opacity: 0; transition: opacity 0.3s ease;}
-:focus:-moz-placeholder           {opacity: 0; transition: opacity 0.3s ease;}
-:focus:-ms-input-placeholder      {opacity: 0; transition: opacity 0.3s ease;}
+.form-field::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.3s ease;}/*TODO: IE&FF?!*/
+.form-field::-moz-placeholder                {opacity: 1; transition: opacity 0.3s ease;}
+.form-field:-moz-placeholder                 {opacity: 1; transition: opacity 0.3s ease;}
+.form-field:-ms-input-placeholder            {opacity: 1; transition: opacity 0.3s ease;}
+.form-field:focus::-webkit-input-placeholder {opacity: 0; transition: opacity 0.3s ease;}
+.form-field:focus::-moz-placeholder          {opacity: 0; transition: opacity 0.3s ease;}
+.form-field:focus:-moz-placeholder           {opacity: 0; transition: opacity 0.3s ease;}
+.form-field:focus:-ms-input-placeholder      {opacity: 0; transition: opacity 0.3s ease;}
 
 #reg-hint-1
 {

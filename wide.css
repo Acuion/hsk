@@ -30,10 +30,10 @@
 	margin-top: 100px;
 }
 
-::-webkit-input-placeholder       {opacity: 0;}
-::-moz-placeholder                {opacity: 0;}
-:-moz-placeholder                 {opacity: 0;}
-:-ms-input-placeholder            {opacity: 0;}
+.form-field::-webkit-input-placeholder       {opacity: 0;}
+.form-field::-moz-placeholder                {opacity: 0;}
+.form-field:-moz-placeholder                 {opacity: 0;}
+.form-field:-ms-input-placeholder            {opacity: 0;}
 
 #reg-hint-1
 {
