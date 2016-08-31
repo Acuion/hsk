@@ -6,7 +6,7 @@ var rotInterval;
 
 window.onresize = function()
 {
-	if (window.innerWidth > 1007)
+	if (window.innerWidth > 1107)
 		currDispMode = 1;
 	else
 		currDispMode = 0;
@@ -14,7 +14,7 @@ window.onresize = function()
 };
 
 $(document).ready(function(){
-	if (window.innerWidth > 1007)
+	if (window.innerWidth > 1107)
 		currDispMode = 1;
 	else
 		currDispMode = 0;
@@ -161,8 +161,8 @@ function ToogleMainFade()
 		$("#inside-logo").animate({opacity: 1}, 1000);
 		$("#inside-logo").css( 'pointer-events', 'auto' );
 
-		$("#leader-left").css( 'pointer-events', 'none' );
-		$("#news-right").css( 'pointer-events', 'none' );
+		$("#leader-left").css( 'pointer-events', 'auto' );
+		$("#news-right").css( 'pointer-events', 'auto' );
 
 		if (currDispMode == 1)
 		{
