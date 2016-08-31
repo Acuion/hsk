@@ -146,9 +146,9 @@ function ToggleLK()
 		bck2.animate(1);
 		scoreProgress.animate(scorePerc);
 		$("#progress-center").animate({opacity: 1}, 700);
-		$("#words-right").show();
+		$("#words-right").css('display','inline-block');
 		$("#words-right").animate({opacity: 1}, 700);
-		$("#victim-left").show();
+		$("#victim-left").css('display','inline-block');
 		$("#victim-left").animate({opacity: 1}, 700);
 	}
 	else

@@ -201,7 +201,7 @@ a
 #progress-center
 {
 	opacity: 0;
-	height: 285px;
+	height: 300px;
 	width: 285px;
 	pointer-events: none;
 	position: relative;
@@ -267,13 +267,17 @@ a
 	text-align: left;
 }
 
+#lk-page
+{
+	text-align: center;
+	margin: auto;
+}
+
 #hello-page
 {
 	overflow: visible;
 	text-align: center;
 	margin: auto;
-	min-height: 310px;
-	height: 300px;
 	position: relative;
 }
 
