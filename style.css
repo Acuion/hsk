@@ -203,27 +203,25 @@ a
 	opacity: 0;
 	height: 285px;
 	width: 285px;
-	top: 260px;
 	pointer-events: none;
+	position: relative;
 }
 
 #words-right
 {
 	width: 300px;
-	top: 300px;
+	height: 285px;
 	opacity: 0;
 	display: none;
-	margin-left: 300px;
 	text-align: center;
 }
 
 #victim-left
 {
-	width: 300px;
-	top: 250px;
+	width: 310px;
+	height: 330px;
 	opacity: 0;
 	display: none;
-	margin-left: -300px;
 	text-align: center;
 }
 

@@ -6,15 +6,16 @@ var rotInterval;
 
 window.onresize = function()
 {
-	if (window.innerWidth > 1107)
+	if (window.innerWidth >= 1107)
 		currDispMode = 1;
 	else
 		currDispMode = 0;
-	ForcedMainFade();
+	if (MainShown)
+		ForcedMainFade();
 };
 
 $(document).ready(function(){
-	if (window.innerWidth > 1107)
+	if (window.innerWidth >= 1107)
 		currDispMode = 1;
 	else
 		currDispMode = 0;
@@ -83,8 +84,6 @@ function ToggleMainScreen()
 {
 	if (MainShown)
 	{
-		$("#leader-left").animate({opacity: 0, left: -100}, 700);
-		$("#news-right").animate({opacity: 0, right: -100}, 700);
 		$("#enter-hint").animate({opacity: 0}, 300);
 		$("#about-game").animate({opacity: 0}, 400);
 		$("#about-game").css( 'pointer-events', 'none' );
@@ -95,12 +94,31 @@ function ToggleMainScreen()
 		$("#inside-logo").css( 'pointer-events', 'none' );
 		$("#logo").animate({width: 140}, 1000, function(){if (!MainShown) $("#return-hint").animate({opacity: 1}, 300);});
 		$("#inside-logo").animate({width: 60, marginTop: 40}, 1000, function(){$("#inside-logo").css( 'pointer-events', 'auto' );});
+
+		if (currDispMode == 1)
+		{
+			$("#leader-left").animate({opacity: 0, left: -100}, 700);
+			$("#news-right").animate({opacity: 0, right: -100}, 700);
+		}
+		else
+		{
+			$("#leader-left").animate({opacity: 0, top: -100, height: 78}, 700);
+			$("#news-right").animate({opacity: 0, bottom: -100}, 700);
+		}
 	}
 	else
 	{
-		$("#leader-left").animate({opacity: 1, left: 0}, 700);
-		$("#news-right").animate({opacity: 1, right: 0}, 700);
-		
+		if (currDispMode == 1)
+		{
+			$("#leader-left").animate({opacity: 1, left: 0}, 700);
+			$("#news-right").animate({opacity: 1, right: 0}, 700);
+		}
+		else
+		{
+			$("#leader-left").animate({opacity: 1, top: 0, height: 300}, 700);
+			$("#news-right").animate({opacity: 1, bottom: 0}, 700);
+		}
+
 		$("#timer-div").animate({marginTop: 40, opacity: 1}, 1000);
 		$("#backg-timer").animate({marginTop: 40, opacity: 1}, 1000);
 		
