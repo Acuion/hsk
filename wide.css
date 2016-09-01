@@ -7,7 +7,7 @@
 #hello-page
 {
 	width: 1100px;
-    height: 300px;
+    height: 310px;
 }
 
 #leader-left
@@ -90,4 +90,31 @@
 {
 	right: -40px;
 	top: 20px;
+}
+
+.pers-name-part
+{
+	font-size: 40px;
+}
+
+.wide-mode-pic
+{
+	display: block;
+}
+
+.tiny-mode-pic
+{
+	display: none;
+}
+
+#progress-perc-info
+{
+	top: 3px;
+	left: 200px;
+}
+
+#progress-pointer
+{
+	top: 0px;
+	left: -20px;
 }

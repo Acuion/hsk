@@ -73,3 +73,31 @@
 	top: -15px;
 	transform: scaleX(-1) rotate(130deg);
 }
+
+.pers-name-part
+{
+	font-size: 24px;
+}
+
+.wide-mode-pic
+{
+	display: none;
+}
+
+.tiny-mode-pic
+{
+	display: block;
+}
+
+#progress-perc-info
+{
+	top: -5px;
+	left: 0px;
+}
+
+#progress-pointer
+{
+	top: 30px;
+	left: 219px;
+	transform: scaleX(-1) rotate(-70deg);
+}

@@ -141,8 +141,8 @@ function ToggleLK()
 	LKActive = !LKActive;
 	ToggleMainScreen();
 	if (LKActive)
-	{
-		setTimeout(function(){$("#pers-logo").animate({opacity: 1}, 300); $('.pers-name-part').animate({opacity: 1}, 300);}, 700);
+	{//активируем LK
+		setTimeout(function(){$(".pers-logo").animate({opacity: 1}, 300); $('.pers-name-part').animate({opacity: 1}, 300); $("#lk-page").css('z-index', '0');}, 700);
 		bck2.animate(1);
 		scoreProgress.animate(scorePerc);
 		$("#progress-center").animate({opacity: 1}, 700);
@@ -153,7 +153,8 @@ function ToggleLK()
 	}
 	else
 	{
-		$("#pers-logo").animate({opacity: 0}, 300);
+		$("#lk-page").css('z-index', '-1');
+		$(".pers-logo").animate({opacity: 0}, 300);
 		bck2.animate(0);
 		scoreProgress.animate(0);
 		$("#progress-center").animate({opacity: 0}, 700);
@@ -237,8 +238,8 @@ function ForcedMainFade()
 	$("#inside-logo").css('opacity', '1');
 	$("#inside-logo").css( 'pointer-events', 'auto' );
 	
-	$("#leader-left").css( 'pointer-events', 'none' );
-	$("#news-right").css( 'pointer-events', 'none' );
+	$("#leader-left").css( 'pointer-events', 'auto' );
+	$("#news-right").css( 'pointer-events', 'auto' );
 
 	$("#leader-left").css('opacity', '1');
 	$("#news-right").css('opacity', '1');
