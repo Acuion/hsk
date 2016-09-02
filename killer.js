@@ -57,17 +57,15 @@ $(document).ready(function(){
 	$('#reg-1').on('input', OnRegChange);
 	$('#reg-2').on('input', OnRegChange);
 	$('#reg-3').on('input', OnRegChange);
-	
-	var acHints = ['<div class="underlined">Кильки в бочке I</div>Пример ачивки', '<div class="underlined">Кильки в бочке II</div>Пример ачивки', '<div class="underlined">Кильки в бочке III</div>Пример ачивки', '<div class="underlined">Кильки в бочке VI</div>Пример ачивки', '<div class="underlined">Кильки в бочке V</div>Пример ачивки'];
 
-	var achfw = function(i) {return function(){WriteAchievementHint(acHints[i]);}};
-	for (var i = 1; i <= 5; ++i)
+	var achfwD = function(i) {return function(){if (currDispMode != 1) return; WriteAchievementWrapper(i); }};
+	var achfwM = function(i) {return function(){if (currDispMode != 0) return; WriteAchievementWrapper(i); }};
+	for (var i = 1; i <= achievementCount; ++i)
 	{
-		var fnc = achfw(i - 1);
-		$('#ac' + i).on('click', fnc);
-		$('#ac' + i).on('mouseenter', fnc);
-		$('#ac' + i).on('mouseleave', ClearAchievementHint);
+		$('#ac' + i).on('click', achfwM(i));
+		$('#ac' + i).on('mouseenter', achfwD(i));
 	}
+	WriteAchievementWrapper(1);
 
 	FlipWordInit('#deathword', 'azaza');
 	FlipWordInit('#secretword', 'ururu');
@@ -93,6 +91,15 @@ $(document).ready(function(){
 	});
 	ResizeEvent();
 });
+
+function WriteAchievementWrapper(i)
+{
+	WriteAchievementHint(acHints[i - 1]);
+	for (var j = 1; j <= achievementCount; ++j)
+		$('#ac' + j).removeClass('ach-selected');
+	$('#ac' + i).addClass('ach-selected');
+	console.log('#ac' + i);
+}
 
 var MainShown = true;
 function ToggleMainScreen()
@@ -167,6 +174,8 @@ var LKActive = false;
 var scorePerc = 0.72;
 var kills = 13, score = 57, rank = 42;
 var bck2, scoreProgress;
+var achievementCount = 5;
+var acHints = ['<div class="underlined">Кильки в бочке I</div>Пример ачивки', '<div class="underlined">Кильки в бочке II</div>Пример ачивки', '<div class="underlined">Кильки в бочке III</div>Пример ачивки', '<div class="underlined">Кильки в бочке VI</div>Пример ачивки', '<div class="underlined">Кильки в бочке V</div>Пример ачивки'];
 function ToggleLK()
 {
 	LKActive = !LKActive;
@@ -438,13 +447,8 @@ function WriteAchievementHint(textToWrite)
 {
 	$('#achievement-hint').html(textToWrite);
 	$('#achievement-hint').stop();
+	$('#achievement-hint').animate({opacity: 0, marginTop: -20}, 0);
 	$('#achievement-hint').animate({opacity: 1, marginTop: 0}, 200);
-}
-
-function ClearAchievementHint()
-{
-	$('#achievement-hint').stop();
-	$('#achievement-hint').css({opacity: 0, marginTop: -10}, 0);
 }
 
 function RecaptchaKill(recaptchaResponse)

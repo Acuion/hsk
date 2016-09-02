@@ -440,6 +440,11 @@ a
 	font-weight: bold;
 }
 
+.ach-selected
+{
+	background-image: url('images/achievementSelected.png');
+}
+
 ::-webkit-scrollbar {/*todo crossbrowser*/
 	width: 6px;
 }
