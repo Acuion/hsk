@@ -119,26 +119,26 @@ function ToggleMainScreen()
 
 		if (currDispMode == 1)
 		{
-			$("#leader-left").animate({opacity: 0, left: -100}, 700);
-			$("#news-right").animate({opacity: 0, right: -100}, 700);
+			$("#leader-left").animate({opacity: 0, top: -100}, 500);
+			$("#news-right").animate({opacity: 0, top: -100}, 500);
 		}
 		else
 		{
-			$("#leader-left").animate({opacity: 0, top: -100, height: 78}, 700);
-			$("#news-right").animate({opacity: 0, bottom: -100}, 700);
+			$("#leader-left").animate({opacity: 0, top: -100, height: 78}, 500);
+			$("#news-right").animate({opacity: 0, bottom: -100}, 500);
 		}
 	}
 	else
 	{
 		if (currDispMode == 1)
 		{
-			$("#leader-left").animate({opacity: 1, left: 0}, 700);
-			$("#news-right").animate({opacity: 1, right: 0}, 700);
+			$("#leader-left").animate({opacity: 1, top: 0}, 500);
+			$("#news-right").animate({opacity: 1, top: 0}, 500);
 		}
 		else
 		{
-			$("#leader-left").animate({opacity: 1, top: 0, height: 300}, 700);
-			$("#news-right").animate({opacity: 1, bottom: 0}, 700);
+			$("#leader-left").animate({opacity: 1, top: 0, height: 300}, 500);
+			$("#news-right").animate({opacity: 1, bottom: 0}, 500);
 		}
 
 		$("#timer-div").animate({marginTop: 40, opacity: 1}, 1000);
