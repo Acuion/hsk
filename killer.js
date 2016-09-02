@@ -459,6 +459,8 @@ function RecaptchaKill(recaptchaResponse)
 	else
 		picToShow = '#fail-kill';
 	
+	$('#captcha-hint').animate({opacity: 0}, 200);
+
 	var flipDegs = 0;
 	var addDegs = 0;
 	var rotMod = 5;
@@ -486,6 +488,7 @@ function RecaptchaKill(recaptchaResponse)
 					$(picToShow).hide();
 					toRot = '#recap-div';
 					addDegs = 0;
+					$('#captcha-hint').animate({opacity: 1}, 200);
 				}
 			}
 			if (flipDegs == 180)
