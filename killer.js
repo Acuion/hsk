@@ -433,13 +433,10 @@ function FlipWordInit(wordId, wordText)
 	};
 	
 	$(wordId).on('click', function(){
-		if (currDispMode == 0) 
-		{ 
-			if ($(wordId + '-text').text() == '[нажми, чтобы увидеть]' || $(wordId + '-text').val() == '[нажми, чтобы увидеть]')
-				FlipWordAndReplaceWith(wordId + '-text', wordText);
-			else
-				FlipWordAndReplaceWith(wordId + '-text','[нажми, чтобы увидеть]');
-		} 
+		if ($(wordId + '-text').text() == '[нажми, чтобы увидеть]' || $(wordId + '-text').val() == '[нажми, чтобы увидеть]')
+			FlipWordAndReplaceWith(wordId + '-text', wordText);
+		else
+			FlipWordAndReplaceWith(wordId + '-text','[нажми, чтобы увидеть]');
 	});
 }
 
