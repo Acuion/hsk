@@ -4,22 +4,36 @@ var secs = 420000;
 var rotAngle = 0;
 var rotInterval;
 
-window.onresize = function()
+function RecalcBody()
+{
+	$('body').height(Math.max(window.innerHeight, $('#hello-page').offset().top + $('#hello-page').height(), $('#lk-page').offset().top + $('#lk-page').height()));
+}
+
+function ResizeEvent()
 {
 	if (window.innerWidth >= 1107)
+	{
+		$('#caphint-text').text('Прохождение капчи автоматически отсылает запрос на убийство');
+		$('#captcha-hint-pic').addClass('flip-vertical');
 		currDispMode = 1;
+	}
 	else
+	{//mob
+		$('#caphint-text').text('Чтобы убить');
+		$('#captcha-hint-pic').removeClass('flip-vertical');
 		currDispMode = 0;
-	if (MainShown)
+	}
+	$("*").finish();
+	if (MainFaded)
 		ForcedMainFade();
-};
+		else if (!MainShown)
+			ForcedMainScreen();
+	RecalcBody();
+}
+
+window.onresize = ResizeEvent;
 
 $(document).ready(function(){
-	if (window.innerWidth >= 1107)
-		currDispMode = 1;
-	else
-		currDispMode = 0;
-
 	$('#inside-logo').hover(function(){
 		clearInterval(rotInterval);
 		rotInterval = setInterval(function(){$('#logo').rotate(rotAngle -= 0.1);}, 30);
@@ -77,6 +91,7 @@ $(document).ready(function(){
 			$('#proc-rank').html(pad(Math.round(rank * (bar.value() / scorePerc)), 3));
 		}
 	});
+	ResizeEvent();
 });
 
 var MainShown = true;
@@ -131,6 +146,22 @@ function ToggleMainScreen()
 	}
 	MainShown = !MainShown;
 }
+function ForcedMainScreen()
+{
+	$("#leader-left").animate({left: 0, top: 0, height: 300}, 0);
+	$("#news-right").animate({right: 0, bottom: 0}, 0);
+
+	if (currDispMode == 1)
+	{
+		$("#leader-left").animate({opacity: 0, left: -100}, 0);
+		$("#news-right").animate({opacity: 0, right: -100}, 0);
+	}
+	else
+	{
+		$("#leader-left").animate({opacity: 0, top: -100, height: 78}, 0);
+		$("#news-right").animate({opacity: 0, bottom: -100}, 0);
+	}
+}
 
 var LKActive = false;
 var scorePerc = 0.72;
@@ -142,7 +173,7 @@ function ToggleLK()
 	ToggleMainScreen();
 	if (LKActive)
 	{//активируем LK
-		setTimeout(function(){$(".pers-logo").animate({opacity: 1}, 300); $('.pers-name-part').animate({opacity: 1}, 300); $("#lk-page").css('z-index', '0');}, 700);
+		setTimeout(function(){$(".pers-logo").animate({opacity: 1}, 300); $('.pers-name-part').animate({opacity: 1}, 300); $("#lk-page").css('z-index', '1');}, 700);
 		bck2.animate(1);
 		scoreProgress.animate(scorePerc);
 		$("#progress-center").animate({opacity: 1}, 700);
@@ -162,6 +193,7 @@ function ToggleLK()
 		$("#victim-left").animate({opacity: 0}, 700, function(){$("#victim-left").hide();});
 		$('.pers-name-part').animate({opacity: 0}, 300);
 	}
+	RecalcBody();
 }
 
 var MainFaded = false;
@@ -226,58 +258,20 @@ function ToogleMainFade()
 }
 function ForcedMainFade()
 {
-	$("*").finish();
-	$("#enter-hint").css('opacity', '1');
-
-	$("#timer-div").css('opacity', '1');
-	$("#backg-timer").css('opacity', '1');
-	$("#about-game").css('opacity', '1');
-	$("#about-game").css('pointer-events', 'auto');
-		
-	$("#logo").css('opacity', '1');
-	$("#inside-logo").css('opacity', '1');
-	$("#inside-logo").css( 'pointer-events', 'auto' );
-	
-	$("#leader-left").css( 'pointer-events', 'auto' );
-	$("#news-right").css( 'pointer-events', 'auto' );
-
-	$("#leader-left").css('opacity', '1');
-	$("#news-right").css('opacity', '1');
-	$("#leader-left").css('left', '0');
-	$("#news-right").css('right', '0');
-	$("#leader-left").css('top', '0');
-	$("#news-right").css('bottom', '0');
+	$("#leader-left").animate({left: 0, top: 0}, 0);
+	$("#news-right").animate({right: 0, bottom: 0}, 0);
 
 	//...
-	if (!MainFaded)
-		return;
-	$("#enter-hint").css('opacity', '0');
-
-	$("#timer-div").css('opacity', '0.6');
-	$("#backg-timer").css('opacity', '0.6');
-	
-	$("#about-game").css('opacity', '0');
-	$("#about-game").css( 'pointer-events', 'none' );
-	
-	$("#logo").css('opacity', '0.1');
-	$("#inside-logo").css('opacity', '0.1');
-	$("#inside-logo").css( 'pointer-events', 'none' );
-
-	$("#leader-left").css( 'pointer-events', 'none' );
-	$("#news-right").css( 'pointer-events', 'none' );
-
-	$("#leader-left").css('opacity', '0.2');
-	$("#news-right").css('opacity', '0.2');
 
 	if (currDispMode == 1)
 	{
-		$("#leader-left").css('left', '-30');
-		$("#news-right").css('right', '-30');
+		$("#leader-left").animate({opacity: 0.2, left: -30}, 0);
+		$("#news-right").animate({opacity: 0.2, right: -30}, 0);
 	}
 	else
 	{
-		$("#leader-left").css('top', '-30');
-		$("#news-right").css('bottom', '-30');
+		$("#leader-left").animate({opacity: 0.2, top: -30}, 0);
+		$("#news-right").animate({opacity: 0.2, bottom: -30}, 0);
 	}
 }
 
@@ -429,8 +423,15 @@ function FlipWordInit(wordId, wordText)
 		}, 10);
 	};
 	
-	$(wordId).on('mouseenter', function(){FlipWordAndReplaceWith(wordId + '-text', wordText);});
-	$(wordId).on('mouseleave', function(){FlipWordAndReplaceWith(wordId + '-text','[наведи, чтобы увидеть]');});
+	$(wordId).on('click', function(){
+		if (currDispMode == 0) 
+		{ 
+			if ($(wordId + '-text').text() == '[нажми, чтобы увидеть]' || $(wordId + '-text').val() == '[нажми, чтобы увидеть]')
+				FlipWordAndReplaceWith(wordId + '-text', wordText);
+			else
+				FlipWordAndReplaceWith(wordId + '-text','[нажми, чтобы увидеть]');
+		} 
+	});
 }
 
 function WriteAchievementHint(textToWrite)

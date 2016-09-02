@@ -1,13 +1,13 @@
 #lk-page
 {
 	width: 380px;
-    height: 950px;
+	top: 250;
 }
 
 #hello-page
 {
 	width: 380px;
-    height: 950px;
+	margin-top: 50px;
 }
 
 #logo-center
@@ -29,11 +29,6 @@
 #backg-timer
 {
 	width: 380px;
-}
-
-#hello-page
-{
-	margin-top: 50px;
 }
 
 .form-field::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.3s ease;}/*TODO: IE&FF?!*/
@@ -100,4 +95,27 @@
 	top: 30px;
 	left: 219px;
 	transform: scaleX(-1) rotate(-70deg);
+}
+
+.pers-logo
+{
+	top: -200px;
+}
+
+.pers-name-part
+{
+	top: -60px;
+}
+
+#progress-center
+{
+	margin-top: 15px;
+	margin-bottom: -10px;
+}
+
+#captcha-hint
+{
+	position: relative;
+	top: -50px;
+	left: 24px;
 }

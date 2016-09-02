@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta id="viewport" name="viewport" content="width=400, initial-scale=0.6">
+    <meta id="viewport" name="viewport" content="width=400, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" media="all and (max-width: 1106px)" href="tiny.css">
     <link rel="stylesheet" type="text/css" media="all and (min-width: 1107px)" href="wide.css">
@@ -162,7 +162,7 @@
                     <div id="vic-secword">
                         <span class="reg-header">Секретное слово</span>
                         <div>
-                            <input type="text" name="secword" class="victim-field form-field buxton" value="[наведи, чтобы увидеть]" id="vic-secword-text" readonly>
+                            <input type="text" name="secword" class="victim-field form-field buxton" value="[нажми, чтобы увидеть]" id="vic-secword-text" readonly>
                         </div>
                     </div>
                     <span class="reg-header" onclick="$('#vic-deathword-text').focus()">Смертельное слово</span>
@@ -178,6 +178,10 @@
                         <div class="kill-info">Неверное секретное слово</div>
                     </div>
                     <div id="recap-div" class="g-recaptcha" data-callback="RecaptchaKill" data-theme="dark" data-sitekey="6LfCSiETAAAAAKRizhoIIxKoP7ge1WkJzhm_sll5"></div>
+                    <div class="buxton" id="captcha-hint">
+                        <img class="flip-vertical" id="captcha-hint-pic" src="images/pointer.png">
+                        <a id="caphint-text">Прохождение капчи автоматически отсылает запрос на убийство</a>
+                    </div>
                 </form>
             </div>
 
@@ -215,20 +219,16 @@
                         057
                     </div>
                 </div>
-                <div class="buxton" id="captcha-hint">
-                    <img class="flip-vertical" src="images/pointer.png">
-                    Прохождение капчи автоматически отсылает запрос на убийство
-                </div>
             </div>
 
             <div class="inrow" id="words-right">
                     <div id="deathword" style="margin-top: 20px">
                         <div class="underlined">смертельное слово</div>
-                        <div id="deathword-text">[наведи, чтобы увидеть]</div>
+                        <div id="deathword-text">[нажми, чтобы увидеть]</div>
                     </div>
                     <div id="secretword" style="margin-top: 20px">
                         <div class="underlined">секретное слово</div>
-                        <div id="secretword-text">[наведи, чтобы увидеть]</div>
+                        <div id="secretword-text">[нажми, чтобы увидеть]</div>
                     </div>
                     <div style="margin-top: 30px">
                         <img id="ac1" src="images/achievement.png">
