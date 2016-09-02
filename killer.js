@@ -24,10 +24,8 @@ function ResizeEvent()
 		currDispMode = 0;
 	}
 	$("*").finish();
-	if (MainFaded)
-		ForcedMainFade();
-		else if (!MainShown)
-			ForcedMainScreen();
+	ForcedMainFade();
+	ForcedMainScreen();
 	RecalcBody();
 }
 
@@ -158,6 +156,9 @@ function ForcedMainScreen()
 	$("#leader-left").animate({left: 0, top: 0, height: 300}, 0);
 	$("#news-right").animate({right: 0, bottom: 0}, 0);
 
+	if (MainShown)
+		return;
+
 	if (currDispMode == 1)
 	{
 		$("#leader-left").animate({opacity: 0, left: -100}, 0);
@@ -271,6 +272,8 @@ function ForcedMainFade()
 	$("#news-right").animate({right: 0, bottom: 0}, 0);
 
 	//...
+	if (!MainFaded)
+		return;
 
 	if (currDispMode == 1)
 	{
