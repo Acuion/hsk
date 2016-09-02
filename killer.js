@@ -6,7 +6,7 @@ var rotInterval;
 
 function RecalcBody()
 {
-	$('body').height(Math.max(window.innerHeight, $('#hello-page').offset().top + $('#hello-page').height(), $('#lk-page').offset().top + $('#lk-page').height()));
+	$('body').height(Math.max(730, window.innerHeight, $('#hello-page').offset().top + $('#hello-page').height(), $('#lk-page').offset().top + $('#lk-page').height()));
 }
 
 function ResizeEvent()
