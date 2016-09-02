@@ -31,7 +31,7 @@
 	width: 380px;
 }
 
-.form-field::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.3s ease;}/*TODO: IE&FF?!*/
+.form-field::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.3s ease;}
 .form-field::-moz-placeholder                {opacity: 1; transition: opacity 0.3s ease;}
 .form-field:-moz-placeholder                 {opacity: 1; transition: opacity 0.3s ease;}
 .form-field:-ms-input-placeholder            {opacity: 1; transition: opacity 0.3s ease;}

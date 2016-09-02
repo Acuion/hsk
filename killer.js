@@ -209,7 +209,7 @@ function ToggleLK()
 var MainFaded = false;
 function ToogleMainFade()
 {
-	if (MainFaded)//TODO: ресайз после анимации в одну сторону, учесть
+	if (MainFaded)
 	{
 		$("#enter-hint").animate({opacity: 1}, 400);
 
