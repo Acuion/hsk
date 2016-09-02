@@ -120,3 +120,10 @@
 	left: 24px;
 	color: black;
 }
+
+#captcha-hint-pic
+{
+	position: relative;
+	top: 3px;
+	left: 3px;
+}

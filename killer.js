@@ -58,16 +58,16 @@ $(document).ready(function(){
 	$('#reg-2').on('input', OnRegChange);
 	$('#reg-3').on('input', OnRegChange);
 	
-	$('#ac1').on('mouseenter', function(){WriteAchievementHint('<div class="underlined">Кильки в бочке I</div>Пример ачивки');});
-	$('#ac1').on('mouseleave', ClearAchievementHint);
-	$('#ac2').on('mouseenter', function(){WriteAchievementHint('<div class="underlined">Кильки в бочке II</div>Пример ачивки');});
-	$('#ac2').on('mouseleave', ClearAchievementHint);
-	$('#ac3').on('mouseenter', function(){WriteAchievementHint('<div class="underlined">Кильки в бочке III</div>Пример ачивки');});
-	$('#ac3').on('mouseleave', ClearAchievementHint);
-	$('#ac4').on('mouseenter', function(){WriteAchievementHint('<div class="underlined">Кильки в бочке VI</div>Пример ачивки');});
-	$('#ac4').on('mouseleave', ClearAchievementHint);
-	$('#ac5').on('mouseenter', function(){WriteAchievementHint('<div class="underlined">Кильки в бочке V</div>Пример ачивки');});
-	$('#ac5').on('mouseleave', ClearAchievementHint);
+	var acHints = ['<div class="underlined">Кильки в бочке I</div>Пример ачивки', '<div class="underlined">Кильки в бочке II</div>Пример ачивки', '<div class="underlined">Кильки в бочке III</div>Пример ачивки', '<div class="underlined">Кильки в бочке VI</div>Пример ачивки', '<div class="underlined">Кильки в бочке V</div>Пример ачивки'];
+
+	var achfw = function(i) {return function(){WriteAchievementHint(acHints[i]);}};
+	for (var i = 1; i <= 5; ++i)
+	{
+		var fnc = achfw(i - 1);
+		$('#ac' + i).on('click', fnc);
+		$('#ac' + i).on('mouseenter', fnc);
+		$('#ac' + i).on('mouseleave', ClearAchievementHint);
+	}
 
 	FlipWordInit('#deathword', 'azaza');
 	FlipWordInit('#secretword', 'ururu');
@@ -488,7 +488,6 @@ function RecaptchaKill(recaptchaResponse)
 					$(picToShow).hide();
 					toRot = '#recap-div';
 					addDegs = 0;
-					$('#captcha-hint').animate({opacity: 1}, 200);
 				}
 			}
 			if (flipDegs == 180)
@@ -500,6 +499,7 @@ function RecaptchaKill(recaptchaResponse)
 			if (flipDegs == 0)
 			{
 				clearInterval(rotIntr);
+				$('#captcha-hint').animate({opacity: 1}, 200);
 			}
 		}
 	}, 10);
