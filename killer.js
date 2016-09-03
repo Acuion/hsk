@@ -27,10 +27,9 @@ function ResizeEvent()
 	ForcedMainFade();
 	ForcedMainScreen();
 	RecalcBody();
-	if (window.innerWidth < 400)
+	$('#viewport').attr('content', 'width=device-width, user-scalable=0');
+	if ($(window).width() < 400)
 		$('#viewport').attr('content', 'width=400, user-scalable=0');
-	else
-		$('#viewport').attr('content', 'user-scalable=0');
 }
 
 window.onresize = ResizeEvent;
