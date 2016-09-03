@@ -27,6 +27,10 @@ function ResizeEvent()
 	ForcedMainFade();
 	ForcedMainScreen();
 	RecalcBody();
+	if (window.innerWidth < 400)
+		$('#viewport').attr('content', 'width=400, user-scalable=0');
+	else
+		$('#viewport').attr('content', 'user-scalable=0');
 }
 
 window.onresize = ResizeEvent;
@@ -88,7 +92,52 @@ $(document).ready(function(){
 		}
 	});
 	ResizeEvent();
+	$(window).bind('hashchange', HashManager);
+	HashManager();
 });
+
+var prvHash = "";
+function HashGoStart()
+{
+	switch (prvHash)
+	{
+		case "#about-game":
+			ToggleRules();
+		break;
+		case "#registration":
+			ToggleRegister();
+		break;
+		case "#pers-cab":
+			ToggleLK();
+		break;
+	}
+	location.hash = "";
+}
+function HashManager()
+{
+	$("*").finish();
+	switch (prvHash)
+	{
+		case "#about-game":
+		case "#registration":
+		case "#pers-cab":
+			HashGoStart();
+		break;
+	}
+	switch (location.hash)
+	{
+		case "#about-game":
+			ToggleRules();
+		break;
+		case "#registration":
+			ToggleRegister();
+		break;
+		case "#pers-cab":
+			ToggleLK();
+		break;
+	}
+	prvHash = location.hash;
+}
 
 function WriteAchievementWrapper(i)
 {
@@ -96,7 +145,6 @@ function WriteAchievementWrapper(i)
 	for (var j = 1; j <= achievementCount; ++j)
 		$('#ac' + j).removeClass('ach-selected');
 	$('#ac' + i).addClass('ach-selected');
-	console.log('#ac' + i);
 }
 
 var MainShown = true;
@@ -191,6 +239,7 @@ function ToggleLK()
 		$("#words-right").animate({opacity: 1}, 700);
 		$("#victim-left").css('display','inline-block');
 		$("#victim-left").animate({opacity: 1}, 700);
+		$("#inside-logo-link").attr('href', '#');
 	}
 	else
 	{
@@ -202,6 +251,7 @@ function ToggleLK()
 		$("#words-right").animate({opacity: 0}, 700, function(){$("#words-right").hide();});
 		$("#victim-left").animate({opacity: 0}, 700, function(){$("#victim-left").hide();});
 		$('.pers-name-part').animate({opacity: 0}, 300);
+		$("#inside-logo-link").attr('href', '#pers-cab');
 	}
 	RecalcBody();
 }

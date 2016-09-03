@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta id="viewport" name="viewport" content="width=400, user-scalable=no">
+    <meta id="viewport" name="viewport" content="user-scalable=no">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" media="all and (max-width: 1106px)" href="tiny.css">
     <link rel="stylesheet" type="text/css" media="all and (min-width: 1107px)" href="wide.css">
@@ -62,7 +62,7 @@
                 <div class="reg-hint buxton" id="return-hint">
                     <img class="flip-vertical" src="images/pointer.png">на главную
                 </div>
-                <img src="images/InsideLogo.png" class="center-absolute" id="inside-logo" onclick="ToggleLK();">
+                <a id="inside-logo-link" href="#pers-cab"><img src="images/InsideLogo.png" class="center-absolute" id="inside-logo"></a>
                 
                 <div>
                     <div class="center-absolute" id="rules-wrapper">
@@ -82,12 +82,12 @@
                         <p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
                         <p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
                     </div>
-                    <div class="center-absolute" id="back-from-rules"><a href="javascript:void(0)" onclick="ToggleRules();">НАЗАД</a></div>
+                    <div class="center-absolute" id="back-from-rules"><a href="#">НАЗАД</a></div>
                 </div>
                     
                 <div class="center-absolute" id="registr">
                     <div class="center-absolute" id="reg-back">
-                        <a href="javascript:void(0)" onclick="ToggleRegister();">НАЗАД</a>
+                        <a href="#">НАЗАД</a>
                     </div>
                     <form>
                         <div id="reglabel"><h3 id="reglabel-text">РЕГИСТРАЦИЯ НА ИГРУ</h3></div>
@@ -120,7 +120,7 @@
                 </div>
                 
                 <div style="margin-top: 7px;" id="about-game">
-                    <a href="javascript:void(0)" onclick="ToggleRules();">ОБ ИГРЕ</a><font style="text-decoration: none;">&nbsp;&nbsp;&nbsp;&nbsp;</font><a href="javascript:void(0)" onclick="ToggleRegister();">РЕГИСТРАЦИЯ</a>
+                    <a href="#about-game">ОБ ИГРЕ</a><font style="text-decoration: none;">&nbsp;&nbsp;&nbsp;&nbsp;</font><a href="#registration">РЕГИСТРАЦИЯ</a>
                 </div>
             </div>
             
