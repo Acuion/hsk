@@ -247,6 +247,19 @@ function LoginIntoLK()
 
 function FillLK()
 {
+	var data = $.parseJSON(GET('/engine/profile.php'));
+	$('#victim-name').val(data['victim_name']);
+	$('#victim-dep').val(data['victim_dep']);
+	$('#vic-secword-text').val(data['victim_secret_word']);
+
+	kills = data['killed_count'];
+	score = data['score'];
+	rank = 42;//TODO!
+	scorePerc = 0.72;//TODO!
+
+	$('#deathword-text').text(data['death_word']);
+	$('#secretword-text').text(data['secret_word']);
+
 	ToggleLK();
 }
 
@@ -582,4 +595,12 @@ function RecaptchaKill(recaptchaResponse)
 			}
 		}
 	}, 10);
+}
+
+function GET(link)
+{
+	var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", link, false);
+    xmlHttp.send(null);
+    return xmlHttp.responseText;
 }

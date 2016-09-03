@@ -1,11 +1,9 @@
 ﻿<?php
-	//error_reporting(E_ERROR);
-	
 	include 'oapi.php';
 	include 'dbworks.php';//KillerTheGame - table
 
 	$member = authOpenAPIMember();
-
+	
 	if($member !== FALSE)
 	{ 
 		if ($member['player'] === false)

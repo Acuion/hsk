@@ -1,10 +1,10 @@
 <?php
 include 'dbworks.php';//KillerTheGame - table
 
-//error_reporting(E_ERROR);
-
 function authOpenAPIMember()
 { //vk copypaste
+  include 'privatedata.php';
+
   $session = array(); 
   $member = FALSE; 
   $valid_keys = array('expire', 'mid', 'secret', 'sid', 'sig'); 
@@ -23,7 +23,7 @@ function authOpenAPIMember()
     } 
     ksort($session); 
 
-	$sign = ''; 
+	  $sign = ''; 
     foreach ($session as $key => $value) { 
       if ($key != 'sig') { 
         $sign .= ($key.'='.$value); 
@@ -31,16 +31,15 @@ function authOpenAPIMember()
     } 
     $sign .= $vksecretkey; //sc key
     $sign = md5($sign);
-	
-	//mine
-	$playerinfo = mysql_num_rows(mysql_query("SELECT * FROM KillerTheGame WHERE vk_id = '".$session['mid']."'"));
-    
-	if ($session['sig'] == $sign && $session['expire'] > time()) { 
+
+	  //mine
+	  $playerinfo = mysql_num_rows(mysql_query("SELECT * FROM KillerTheGame WHERE vk_id = '".$session['mid']."'"));
+	  if ($session['sig'] == $sign && $session['expire'] > time()) { 
       $member = array( 
         'id' => intval($session['mid']), 
         'secret' => $session['secret'], 
         'sid' => $session['sid'],
-		'player' => (($playerinfo === false || $playerinfo === 0) ? false : true)
+		    'player' => (($playerinfo === false || $playerinfo === 0) ? false : true)
       ); 
     } 
   }

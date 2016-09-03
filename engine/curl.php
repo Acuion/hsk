@@ -1,6 +1,4 @@
 <?php
-//error_reporting(E_ERROR);
-
 function curl_CookieReset($cookiename)
 {
 	unlink($cookiename);
