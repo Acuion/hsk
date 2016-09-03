@@ -1,19 +1,19 @@
 @font-face
 {
 	font-family: "Quartz";
-	src: url("fonts/QuartzMS.TTF");
+	src: url("../fonts/QuartzMS.TTF");
 }
 
 @font-face
 {
 	font-family: "MyriadPro";
-	src: url("fonts/MyriadPro.otf");/*todo: лицензии шрифтов*/
+	src: url("../fonts/MyriadPro.otf");/*todo: лицензии шрифтов*/
 }
 
 @font-face
 {
 	font-family: "BuxtonSketch";
-	src: url("fonts/BuxtonSketch.ttf");
+	src: url("../fonts/BuxtonSketch.ttf");
 }
 
 body
@@ -21,7 +21,7 @@ body
 	overflow-x: hidden;
 	margin: 0;
 	font-family: "MyriadPro";
-	background: #030303 url('images/background.jpg') no-repeat;
+	background: #030303 url('../images/background.jpg') no-repeat;
 	color: white;
 	position: relative;
 }
