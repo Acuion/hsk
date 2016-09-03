@@ -93,6 +93,7 @@ $(document).ready(function(){
 	ResizeEvent();
 	$(window).bind('hashchange', HashManager);
 	HashManager();
+	VK.init({apiId: 5170996});
 });
 
 var prvHash = "";
@@ -107,7 +108,7 @@ function HashGoStart()
 			ToggleRegister();
 		break;
 		case "#pers-cab":
-			ToggleLK();
+			LoginIntoLK();
 		break;
 	}
 	location.hash = "";
@@ -132,7 +133,7 @@ function HashManager()
 			ToggleRegister();
 		break;
 		case "#pers-cab":
-			ToggleLK();
+			LoginIntoLK();
 		break;
 	}
 	prvHash = location.hash;
@@ -224,6 +225,31 @@ var kills = 13, score = 57, rank = 42;
 var bck2, scoreProgress;
 var achievementCount = 5;
 var acHints = ['<div class="underlined">Кильки в бочке I</div>Пример ачивки', '<div class="underlined">Кильки в бочке II</div>Пример ачивки', '<div class="underlined">Кильки в бочке III</div>Пример ачивки', '<div class="underlined">Кильки в бочке VI</div>Пример ачивки', '<div class="underlined">Кильки в бочке V</div>Пример ачивки'];
+function LoginIntoLK()
+{
+	if (!LKActive)
+	{
+		VK.Auth.getLoginStatus(function(response)
+		{
+			if (response.session)
+				FillLK();
+			else
+				VK.Auth.login(function(response)
+				{
+					if (response.session)
+						FillLK();
+				});
+		});
+	}
+	else
+		ToggleLK();
+}
+
+function FillLK()
+{
+	ToggleLK();
+}
+
 function ToggleLK()
 {
 	LKActive = !LKActive;
