@@ -329,7 +329,7 @@ function ToggleLK()
 		$("#words-right").animate({opacity: 1}, 700);
 		$("#victim-left").css('display','inline-block');
 		$("#victim-left").animate({opacity: 1}, 700);
-		$("#inside-logo-link").attr('href', '#');
+		$("#inside-logo-link").attr('href', '#main');
 	}
 	else
 	{
