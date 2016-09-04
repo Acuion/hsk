@@ -67,10 +67,6 @@ $(document).ready(function(){
 		$('#ac' + i).on('mouseenter', achfwD(i));
 	}
 	WriteAchievementWrapper(1);
-
-	FlipWordInit('#deathword', 'azaza');
-	FlipWordInit('#secretword', 'ururu');
-	FlipWordInit('#vic-secword', 'Уран');
 	
 	bck2 = new ProgressBar.Circle('#score-progress-bck', {
 		color: '#4E4E4E',
@@ -92,8 +88,8 @@ $(document).ready(function(){
 	});
 	ResizeEvent();
 	$(window).bind('hashchange', HashManager);
-	HashManager();
 	VK.init({apiId: 5170996});
+	HashManager();
 });
 
 var prvHash = "";
@@ -247,20 +243,44 @@ function LoginIntoLK()
 
 function FillLK()
 {
-	var data = $.parseJSON(GET('/engine/profile.php'));
-	$('#victim-name').val(data['victim_name']);
-	$('#victim-dep').val(data['victim_dep']);
-	$('#vic-secword-text').val(data['victim_secret_word']);
+	var stage2 = function (data)
+	{
+		data = $.parseJSON(data);
+		if (data['result'] != 'success')
+		{
+			if (data['result'] == 'not a player')
+			{
+				prvHash = '';
+				window.location.href = "#registration";
+			}
+			return;
+		}
+		$('#victim-name').val(data['victim_name']);
+		$('#victim-dep').val(data['victim_dep']);
 
-	kills = data['killed_count'];
-	score = data['score'];
-	rank = 42;//TODO!
-	scorePerc = 0.72;//TODO!
+		kills = data['killed_count'];
+		score = data['score'];
+		var stage3 = function (rank)
+		{
+			rank++;
+			var stage4 = function(plc)
+			{
+				scorePerc =  1 - (rank - 1) / plc;
 
-	$('#deathword-text').text(data['death_word']);
-	$('#secretword-text').text(data['secret_word']);
+				FlipWordInit('#deathword', data['death_word']);
+				FlipWordInit('#secretword', data['secret_word']);
+				FlipWordInit('#vic-secword', data['victim_secret_word']);
 
-	ToggleLK();
+				$('#pers-name-part-left').text(data['name']);
+				$('#pers-name-part-right').text(data['anon_id']);
+
+				ToggleLK();
+			}
+			GET('/engine/leaderboard.php?count=1', stage4);
+		}
+		GET('/engine/leaderboard.php?getpos=' + data['anon_id'], stage3);
+	}
+	GET('/engine/profile.php', stage2);
 }
 
 function ToggleLK()
@@ -442,22 +462,22 @@ function OnRegChange()
 
 function Register()
 {
-	$("#reg-1").val($("#reg-1").val().trim());
-	$("#reg-2").val($("#reg-2").val().trim());
-	$("#reg-3").val($("#reg-3").val().trim());
+	var login = $("#reg-1").val().trim();
+	var password = $("#reg-2").val().trim();
+	var anon_id = $("#reg-3").val().trim();
 	
 	var fieldsOk = true;
-	if ($("#reg-1").val() == '')
+	if (login == '')
 	{
 		$("#reg-1").animate({width: 300}, 300, function(){$("#reg-1").animate({width: 250}, 300);});
 		fieldsOk = false;
 	}
-	if ($("#reg-2").val() == '')
+	if (password == '')
 	{
 		$("#reg-2").animate({width: 300}, 300, function(){$("#reg-2").animate({width: 250}, 300);});
 		fieldsOk = false;
 	}
-	if ($("#reg-3").val() == '')
+	if (anon_id == '')
 	{
 		$("#reg-3").animate({width: 300}, 300, function(){$("#reg-3").animate({width: 250}, 300);});
 		fieldsOk = false;
@@ -465,17 +485,25 @@ function Register()
 	
 	if (!fieldsOk)
 		return;
-	
-	if ($("#reg-3").val() == 'aq')
+
+	var registerResult = function (result)
 	{
-		FlipRegisterLabel('ПСЕВДОНИМ ЗАНЯТ', 'red', true);
-		return;
-	}
-	
-	FlipRegisterLabel('УСПЕШНАЯ РЕГИСТРАЦИЯ', 'green', true);
-	$("#reg-1").val('');
-	$("#reg-2").val('');
-	$("#reg-3").val('');
+		result = $.parseJSON(result);
+		switch (result['result'])
+		{
+			case 'УСПЕШНАЯ РЕГИСТРАЦИЯ':
+				$("#reg-1").val('');
+				$("#reg-2").val('');
+				$("#reg-3").val('');
+				FlipRegisterLabel(result['result'], 'green', true);
+			break;
+			default:
+				FlipRegisterLabel(result['result'], 'red', true);
+			break;
+		}
+	};
+
+	POST('/engine/regvialms.php', {lmslogin: login, lmspassw: password, anonid: anon_id}, registerResult);
 }
 
 var rotInt, backRotInt;
@@ -597,10 +625,12 @@ function RecaptchaKill(recaptchaResponse)
 	}, 10);
 }
 
-function GET(link)
+function GET(link, callback)
 {
-	var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open("GET", link, false);
-    xmlHttp.send(null);
-    return xmlHttp.responseText;
+	$.get(link, callback);
+}
+
+function POST(link, data, callback)
+{
+	$.post(link, data, callback);
 }
