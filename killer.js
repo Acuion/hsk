@@ -255,16 +255,10 @@ function LoginIntoLK()
 {
 	if (!LKActive)
 	{
-		VK.Auth.getLoginStatus(function(response)
+		VK.Auth.login(function(response)
 		{
 			if (response.session)
 				FillLK();
-			else
-				VK.Auth.login(function(response)
-				{
-					if (response.session)
-						FillLK();
-				});
 		});
 	}
 	else
