@@ -3,6 +3,7 @@ var currDispMode = -1;//0-mob,1-desk
 var secs = 420000;
 var rotAngle = 0;
 var rotInterval;
+var leaderboard;
 
 function RecalcBody()
 {
@@ -81,15 +82,44 @@ $(document).ready(function(){
 		strokeWidth: 5,
 		step: function(state, bar){
 			$('#progress-text').html('Твой результат лучше чем у ' + Math.round(bar.value() * 100) + '% игроков');
-			$('#proc-score').html(pad(Math.round(score * (bar.value() / scorePerc)), 3));
-			$('#proc-kills').html(pad(Math.round(kills * (bar.value() / scorePerc)), 3));
-			$('#proc-rank').html(pad(Math.round(rank * (bar.value() / scorePerc)), 3));
+			if (scorePerc == 0)
+			{
+				$('#proc-score').html(pad(Math.round(score)), 3);
+				$('#proc-kills').html(pad(Math.round(kills)), 3);
+				$('#proc-rank').html(pad(Math.round(rank)), 3);
+			}
+			else
+			{
+				$('#proc-score').html(pad(Math.round(score * (bar.value() / scorePerc)), 3));
+				$('#proc-kills').html(pad(Math.round(kills * (bar.value() / scorePerc)), 3));
+				$('#proc-rank').html(pad(Math.round(rank * (bar.value() / scorePerc)), 3));
+			}
 		}
 	});
 	ResizeEvent();
 	$(window).bind('hashchange', HashManager);
 	VK.init({apiId: 5170996});
-	HashManager();
+
+	var leaderLoad = function (data)
+	{
+		leaderboard = $.parseJSON(data);
+		var lastPlace = 0;
+		var lastScore = -1;
+		for (var i = 0; i < leaderboard.length; ++i)
+		{
+			if (lastScore != leaderboard[i]['score'])
+			{
+				lastScore = leaderboard[i]['score'];
+				lastPlace++;
+			}
+			leaderboard[i]['place'] = lastPlace;
+			$('#leaderboard-table').append('<tr><td width="30px">' + lastPlace + '</td><td width="160px">' + leaderboard[i]['anon_id'] + '</td><td width="70px">' + leaderboard[i]['score'] + '</td><td width="70px">' + leaderboard[i]['killed_count'] + '</td></tr>');
+		}
+
+		HashManager();
+	};
+
+	GET('/engine/leaderboard.php', leaderLoad)
 });
 
 var prvHash = "";
@@ -260,25 +290,31 @@ function FillLK()
 
 		kills = data['killed_count'];
 		score = data['score'];
-		var stage3 = function (rank)
-		{
-			rank++;
-			var stage4 = function(plc)
+		var lowerRank = 0;
+		for (var i = 0; i < leaderboard.length; ++i)
+			if (leaderboard[i]['anon_id'] == data['anon_id'])
 			{
-				scorePerc =  1 - (rank - 1) / plc;
-
-				FlipWordInit('#deathword', data['death_word']);
-				FlipWordInit('#secretword', data['secret_word']);
-				FlipWordInit('#vic-secword', data['victim_secret_word']);
-
-				$('#pers-name-part-left').text(data['name']);
-				$('#pers-name-part-right').text(data['anon_id']);
-
-				ToggleLK();
+				rank = leaderboard[i]['place'];
+				while (i < leaderboard.length && leaderboard[i]['place'] == rank)
+					++i;
+				lowerRank = i - 1;
+				break;
 			}
-			GET('/engine/leaderboard.php?count=1', stage4);
+		var stage4 = function(plc)
+		{
+			scorePerc =  1 - (lowerRank + 1) / plc;
+
+			FlipWordInit('#deathword', data['death_word']);
+			FlipWordInit('#secretword', data['secret_word']);
+			FlipWordInit('#vic-secword', data['victim_secret_word']);
+
+			$('#pers-name-part-left').text(data['name']);
+			$('#pers-name-part-right').text(data['anon_id']);
+
+			ToggleLK();
 		}
-		GET('/engine/leaderboard.php?getpos=' + data['anon_id'], stage3);
+		GET('/engine/leaderboard.php?count=1', stage4);
+
 	}
 	GET('/engine/profile.php', stage2);
 }
