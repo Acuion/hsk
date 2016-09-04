@@ -606,63 +606,68 @@ function WriteAchievementHint(textToWrite)
 
 function RecaptchaKill(recaptchaResponse)
 {
-	var picToShow = '';
-	
-	if ($('#vic-deathword-text').val() == 'aq')
+	var tryToKill = function(result)
 	{
-		picToShow = '#succ-kill';
-		$('#vic-deathword-text').val('');
-	}
-	else
-		picToShow = '#fail-kill';
-	
-	$('#captcha-hint').animate({opacity: 0}, 200);
+		result = $.parseJSON(result);
 
-	var flipDegs = 0;
-	var addDegs = 0;
-	var rotMod = 5;
-	$(picToShow).css( 'transform', 'rotateY(90deg)' );
-	var toRot = '#recap-div';
-	var paused = false;
-	var rotIntr = setInterval(function(){
-		if (!paused)
+		var picToShow = '';
+		if (result['result'] == 'success')
 		{
-			$(toRot).css( 'transform', 'rotateY('+(flipDegs+addDegs)+'deg)' );
-			flipDegs+=rotMod;
-			if (flipDegs == 90)
-			{
-				if (toRot == '#recap-div')
-				{
-					grecaptcha.reset();
-					$('#recap-div').hide();
-					$(picToShow).show();
-					toRot = picToShow;
-					addDegs = 180;
-				}
-				else
-				{
-					$('#recap-div').show();
-					$(picToShow).hide();
-					toRot = '#recap-div';
-					addDegs = 0;
-				}
-			}
-			if (flipDegs == 180)
-			{
-				rotMod = -5;
-				paused = true;
-				setTimeout(function(){paused = false;}, 3000);
-			}
-			if (flipDegs == 0)
-			{
-				clearInterval(rotIntr);
-				$('#captcha-hint').animate({opacity: 1}, 200);
-			}
+			picToShow = '#succ-kill';
+			$('#vic-deathword-text').val('');
 		}
-	}, 10);
+		else
+			picToShow = '#fail-kill';
+		
+		$('#captcha-hint').animate({opacity: 0}, 200);
+
+		var flipDegs = 0;
+		var addDegs = 0;
+		var rotMod = 5;
+		$(picToShow).css( 'transform', 'rotateY(90deg)' );
+		var toRot = '#recap-div';
+		var paused = false;
+		var rotIntr = setInterval(function(){
+			if (!paused)
+			{
+				$(toRot).css( 'transform', 'rotateY('+(flipDegs+addDegs)+'deg)' );
+				flipDegs+=rotMod;
+				if (flipDegs == 90)
+				{
+					if (toRot == '#recap-div')
+					{
+						grecaptcha.reset();
+						$('#recap-div').hide();
+						$(picToShow).show();
+						toRot = picToShow;
+						addDegs = 180;
+					}
+					else
+					{
+						$('#recap-div').show();
+						$(picToShow).hide();
+						toRot = '#recap-div';
+						addDegs = 0;
+					}
+				}
+				if (flipDegs == 180)
+				{
+					rotMod = -5;
+					paused = true;
+					setTimeout(function(){paused = false;}, 3000);
+				}
+				if (flipDegs == 0)
+				{
+					clearInterval(rotIntr);
+					$('#captcha-hint').animate({opacity: 1}, 200);
+				}
+			}
+		}, 10);
+	}
+	POST('/engine/profile.php', {recaptcha_response: recaptchaResponse, death_word: $('#vic-deathword-text').val()}, tryToKill);
 }
 
-function GET(link, callback)
+function GET(link, callback)//TODO: индикаторы загрузки
 {
 	$.get(link, callback);
 }

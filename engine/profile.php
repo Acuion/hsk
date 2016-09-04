@@ -1,6 +1,8 @@
 ﻿<?php
 	include 'oapi.php';
 	include 'dbworks.php';//KillerTheGame - table
+	include 'curl.php';
+	include 'privatedata.php';
 
 	$member = authOpenAPIMember();
 	
@@ -22,7 +24,8 @@
 
 			if ($_POST['death_word'])
 			{
-				if (trim(strtolower($_POST['death_word'])) === $victiminfo['death_word'])
+				$recap = json_decode(curl_POST('https://www.google.com/recaptcha/api/siteverify', 'secret='.$recaptchaSecret.'&response='.$_POST['recaptcha_response'], ''));
+				if ($recap['success'] === 'true' && trim(strtolower($_POST['death_word'])) === $victiminfo['death_word'])
 				{
 					mysql_query("UPDATE KillerTheGame SET alive=0 WHERE vk_id = '".$userinfo['victim_vk_id']."'");
 					mysql_query("UPDATE KillerTheGame SET killed_count=".($userinfo['killed_count'] + 1)." WHERE vk_id = '".$member['id']."'");
