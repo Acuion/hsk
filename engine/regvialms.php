@@ -6,7 +6,7 @@
 	$member = authOpenAPIMember();
 	$lmsl = mysql_escape_string(trim(strtolower($_POST['lmslogin'])));
 	$lmsp = $_POST['lmspassw'];
-	$anonid = mysql_escape_string($_POST['anonid']);
+	$anonid = mysql_escape_string(substr($_POST['anonid'], 0, 14));
 	
 	if ($lmsl && $lmsp && $anonid && $member !== false)
 	{
