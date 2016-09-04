@@ -442,7 +442,7 @@ a
 
 .ach-selected
 {
-	background-image: url('images/achievementSelected.png');
+	background-image: url('../images/achievementSelected.png');
 }
 
 ::-webkit-scrollbar {/*todo crossbrowser*/

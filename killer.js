@@ -297,12 +297,12 @@ function FillLK()
 				rank = leaderboard[i]['place'];
 				while (i < leaderboard.length && leaderboard[i]['place'] == rank)
 					++i;
-				lowerRank = i - 1;
+				lowerRank = i;
 				break;
 			}
 		var stage4 = function(plc)
 		{
-			scorePerc =  1 - (lowerRank + 1) / plc;
+			scorePerc =  (plc - lowerRank) / (plc - 1);
 
 			FlipWordInit('#deathword', data['death_word']);
 			FlipWordInit('#secretword', data['secret_word']);
