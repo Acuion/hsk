@@ -24,11 +24,12 @@
 
 			if ($_POST['death_word'])
 			{
-				$recap = json_decode(curl_POST('https://www.google.com/recaptcha/api/siteverify', 'secret='.$recaptchaSecret.'&response='.$_POST['recaptcha_response'], ''));
-				if ($recap['success'] === 'true' && trim(strtolower($_POST['death_word'])) === $victiminfo['death_word'])
+				$recap = curl_POST('https://www.google.com/recaptcha/api/siteverify', 'secret='.$recaptchaSecret.'&response='.$_POST['recaptcha_response'], '');
+				$recap = json_decode($recap);
+				if ($recap->success === true && trim(strtolower($_POST['death_word'])) === $victiminfo['death_word'])
 				{
 					mysql_query("UPDATE KillerTheGame SET alive=0 WHERE vk_id = '".$userinfo['victim_vk_id']."'");
-					mysql_query("UPDATE KillerTheGame SET killed_count=".($userinfo['killed_count'] + 1)." WHERE vk_id = '".$member['id']."'");
+					mysql_query("UPDATE KillerTheGame SET killed_count=".($userinfo['killed_count'] + 1)." WHERE vk_id = '".$member['id']."'");//TODO: as json
 					mysql_query("UPDATE KillerTheGame SET killed_list='".$userinfo['killed_list'].','.$userinfo['victim_vk_id']."' WHERE vk_id = '".$member['id']."'");
 					mysql_query("UPDATE KillerTheGame SET victim_vk_id='".$victiminfo['victim_vk_id']."' WHERE vk_id = '".$member['id']."'");
 					echo '{"result": "success"}';
