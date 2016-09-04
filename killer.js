@@ -96,6 +96,7 @@ $(document).ready(function(){
 			}
 		}
 	});
+
 	ResizeEvent();
 	$(window).bind('hashchange', HashManager);
 	VK.init({apiId: 5170996});
@@ -116,7 +117,7 @@ $(document).ready(function(){
 			$('#leaderboard-table').append('<tr><td width="30px">' + lastPlace + '</td><td width="160px">' + leaderboard[i]['anon_id'] + '</td><td width="70px">' + leaderboard[i]['score'] + '</td><td width="70px">' + leaderboard[i]['killed_count'] + '</td></tr>');
 		}
 
-		HashManager();
+		location.hash = 'main';
 	};
 
 	GET('/engine/leaderboard.php', leaderLoad)
@@ -127,7 +128,7 @@ function HashGoStart()
 {
 	switch (prvHash)
 	{
-		case "#about-game":
+		case "#about":
 			ToggleRules();
 		break;
 		case "#registration":
@@ -137,14 +138,14 @@ function HashGoStart()
 			LoginIntoLK();
 		break;
 	}
-	location.hash = "";
+	location.hash = "main";
 }
 function HashManager()
 {
 	$("*").finish();
 	switch (prvHash)
 	{
-		case "#about-game":
+		case "#about":
 		case "#registration":
 		case "#pers-cab":
 			HashGoStart();
@@ -152,7 +153,7 @@ function HashManager()
 	}
 	switch (location.hash)
 	{
-		case "#about-game":
+		case "#about":
 			ToggleRules();
 		break;
 		case "#registration":
