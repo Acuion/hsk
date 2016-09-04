@@ -246,8 +246,8 @@ function ForcedMainScreen()
 }
 
 var LKActive = false;
-var scorePerc = 0.72;
-var kills = 13, score = 57, rank = 42;
+var scorePerc;
+var kills, score, rank, achievements;
 var bck2, scoreProgress;
 var achievementCount = 5;
 var acHints = ['<div class="underlined">Кильки в бочке I</div>Пример ачивки', '<div class="underlined">Кильки в бочке II</div>Пример ачивки', '<div class="underlined">Кильки в бочке III</div>Пример ачивки', '<div class="underlined">Кильки в бочке VI</div>Пример ачивки', '<div class="underlined">Кильки в бочке V</div>Пример ачивки'];
@@ -287,6 +287,7 @@ function FillLK()
 		}
 		$('#victim-name').val(data['victim_name']);
 		$('#victim-dep').val(data['victim_dep']);
+		achievements = $.parseJSON(data['achievements']);//TODO: маркировка ачивок
 
 		kills = data['killed_count'];
 		score = data['score'];
