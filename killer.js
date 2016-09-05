@@ -4,6 +4,7 @@ var secs = 420000;
 var rotAngle = 0;
 var rotInterval;
 var leaderboard;
+var vkSession = 0;
 
 function RecalcBody()
 {
@@ -100,6 +101,15 @@ $(document).ready(function(){
 	ResizeEvent();
 	$(window).bind('hashchange', HashManager);
 	VK.init({apiId: 5170996});
+
+	setInterval(function() {
+	VK.Auth.getLoginStatus(function(response) {
+		if (response.session) {
+			vkSession = 1;
+		} else {
+			vkSession = 0;
+		}
+	});}, 2000);
 
 	var leaderLoad = function (data)
 	{
@@ -256,11 +266,17 @@ function LoginIntoLK()
 {
 	if (!LKActive)
 	{
-		VK.Auth.login(function(response)
-		{
-			if (response.session)
-				FillLK();
-		});
+		if (vkSession)
+			FillLK();
+		else
+			VK.Auth.login(function(response)
+			{
+				if (response.session)
+				{
+					vkSession = 1;
+					FillLK();
+				}
+			});
 	}
 	else
 		ToggleLK();

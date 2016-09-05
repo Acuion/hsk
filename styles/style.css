@@ -445,6 +445,11 @@ a
 	background-image: url('../images/achievementSelected.png');
 }
 
+.clickable
+{
+	cursor: pointer;
+}
+
 ::-webkit-scrollbar {/*todo crossbrowser*/
 	width: 6px;
 }
