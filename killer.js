@@ -103,14 +103,8 @@ $(document).ready(function(){
 	ResizeEvent();
 	$(window).bind('hashchange', HashManager);
 
-	setInterval(function() {
-	VK.Auth.getLoginStatus(function(response) {
-		if (response.session) {
-			vkSession = 1;
-		} else {
-			vkSession = 0;
-		}
-	});}, 2000);
+	CheckVK();
+	setInterval(function() {CheckVK();}, 2000);
 
 	var leaderLoad = function (data)
 	{
@@ -134,6 +128,17 @@ $(document).ready(function(){
 	GET('/engine/leaderboard.php', leaderLoad)
 });
 
+function CheckVK()
+{
+	VK.Auth.getLoginStatus(function(response) {
+		if (response.session) {
+			vkSession = 1;
+		} else {
+			vkSession = 0;
+		}
+	});
+}
+
 var prvHash = "";
 function HashGoStart()
 {
@@ -153,8 +158,6 @@ function HashGoStart()
 }
 function HashManager()
 {
-	if (hashManualSet)
-		return;
 	$("*").finish();
 	switch (prvHash)
 	{
@@ -259,7 +262,6 @@ function ForcedMainScreen()
 	}
 }
 
-var hashManualSet = false;
 var LKActive = false;
 var scorePerc;
 var kills, score, rank, achievements;
@@ -268,13 +270,12 @@ var achievementCount = 5;
 var acHints = ['<div class="underlined">Кильки в бочке I</div>Пример ачивки', '<div class="underlined">Кильки в бочке II</div>Пример ачивки', '<div class="underlined">Кильки в бочке III</div>Пример ачивки', '<div class="underlined">Кильки в бочке VI</div>Пример ачивки', '<div class="underlined">Кильки в бочке V</div>Пример ачивки'];
 function LKEnter()
 {
+	CheckVK();
 	if (vkSession)
 		location.hash = '#pers-cab';
 	else
 	{
-		hashManualSet = true;
-		location.hash = '#pers-cab';
-		hashManualSet = false;
+		history.pushState({},'','#pers-cab');
 		HashManager();
 	}
 }
