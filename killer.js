@@ -153,6 +153,8 @@ function HashGoStart()
 }
 function HashManager()
 {
+	if (hashManualSet)
+		return;
 	$("*").finish();
 	switch (prvHash)
 	{
@@ -257,12 +259,26 @@ function ForcedMainScreen()
 	}
 }
 
+var hashManualSet = false;
 var LKActive = false;
 var scorePerc;
 var kills, score, rank, achievements;
 var bck2, scoreProgress;
 var achievementCount = 5;
 var acHints = ['<div class="underlined">Кильки в бочке I</div>Пример ачивки', '<div class="underlined">Кильки в бочке II</div>Пример ачивки', '<div class="underlined">Кильки в бочке III</div>Пример ачивки', '<div class="underlined">Кильки в бочке VI</div>Пример ачивки', '<div class="underlined">Кильки в бочке V</div>Пример ачивки'];
+function LKEnter()
+{
+	if (vkSession)
+		location.hash = '#pers-cab';
+	else
+	{
+		hashManualSet = true;
+		location.hash = '#pers-cab';
+		hashManualSet = false;
+		HashManager();
+	}
+}
+
 function LoginIntoLK()
 {
 	if (!LKActive)
