@@ -37,6 +37,8 @@ function ResizeEvent()
 window.onresize = ResizeEvent;
 
 $(document).ready(function(){
+	VK.init({apiId: 5170996});
+
 	$('#inside-logo').hover(function(){
 		clearInterval(rotInterval);
 		rotInterval = setInterval(function(){$('#logo').rotate(rotAngle -= 0.1);}, 30);
@@ -100,7 +102,6 @@ $(document).ready(function(){
 
 	ResizeEvent();
 	$(window).bind('hashchange', HashManager);
-	VK.init({apiId: 5170996});
 
 	setInterval(function() {
 	VK.Auth.getLoginStatus(function(response) {
@@ -617,6 +618,12 @@ function WriteAchievementHint(textToWrite)
 
 function RecaptchaKill(recaptchaResponse)
 {
+	if (trim($('#vic-deathword-text').val())=='')
+	{
+		grecaptcha.reset();
+		return;
+	}
+
 	var tryToKill = function(result)
 	{
 		result = $.parseJSON(result);
