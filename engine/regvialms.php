@@ -25,7 +25,7 @@
 			{
 				$dep = MySubstring($toProc, 'Группа пользователей', true);
 				$dep = MySubstring(MySubstring($dep, 'value="', true), '"', false);
-				if ($dep === 'Н НН БИиПМ 15 ПИ')
+				if ($dep === 'Н НН БИиПМ 15 ПИ' || $dep === 'Н НН БИиПМ 15 ПМИ')
 				{
 					$anontaken = mysql_num_rows(mysql_query("SELECT * FROM KillerTheGame WHERE anon_id = '$anonid'"));
 					if ($anontaken === 0)

@@ -1,5 +1,5 @@
 ﻿<?php
-	include 'dbworks.php';//KillerTheGame - table
+	include 'dbworks.php';
 
 	$tojson = array();
 	$query = mysql_query("SELECT anon_id, score, killed_count, alive FROM KillerTheGame ORDER BY killed_count DESC");

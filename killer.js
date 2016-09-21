@@ -635,7 +635,7 @@ function WriteAchievementHint(textToWrite)
 
 function RecaptchaKill(recaptchaResponse)
 {
-	if (trim($('#vic-deathword-text').val())=='')
+	if ($('#vic-deathword-text').val().trim()=='')
 	{
 		grecaptcha.reset();
 		return;
