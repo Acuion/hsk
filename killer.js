@@ -4,7 +4,6 @@ var secs = 420000;
 var rotAngle = 0;
 var rotInterval;
 var leaderboard;
-var vkSession = 0;
 
 function RecalcBody()
 {
@@ -101,10 +100,6 @@ $(document).ready(function(){
 	});
 
 	ResizeEvent();
-	$(window).bind('hashchange', HashManager);
-
-	CheckVK();
-	setInterval(function() {CheckVK();}, 2000);
 
 	var leaderLoad = function (data)
 	{
@@ -121,66 +116,10 @@ $(document).ready(function(){
 			leaderboard[i]['place'] = lastPlace;
 			$('#leaderboard-table').append('<tr><td width="30px">' + lastPlace + '</td><td width="160px">' + leaderboard[i]['anon_id'] + '</td><td width="70px">' + leaderboard[i]['score'] + '</td><td width="70px">' + leaderboard[i]['killed_count'] + '</td></tr>');
 		}
-
-		location.hash = 'main';
 	};
 
 	GET('/engine/leaderboard.php', leaderLoad)
 });
-
-function CheckVK()
-{
-	VK.Auth.getLoginStatus(function(response) {
-		if (response.session) {
-			vkSession = 1;
-		} else {
-			vkSession = 0;
-		}
-	});
-}
-
-var prvHash = "";
-function HashGoStart()
-{
-	switch (prvHash)
-	{
-		case "#about":
-			ToggleRules();
-		break;
-		case "#registration":
-			ToggleRegister();
-		break;
-		case "#pers-cab":
-			LoginIntoLK();
-		break;
-	}
-	location.hash = "main";
-}
-function HashManager()
-{
-	$("*").finish();
-	switch (prvHash)
-	{
-		case "#about":
-		case "#registration":
-		case "#pers-cab":
-			HashGoStart();
-		break;
-	}
-	switch (location.hash)
-	{
-		case "#about":
-			ToggleRules();
-		break;
-		case "#registration":
-			ToggleRegister();
-		break;
-		case "#pers-cab":
-			LoginIntoLK();
-		break;
-	}
-	prvHash = location.hash;
-}
 
 function WriteAchievementWrapper(i)
 {
@@ -268,33 +207,16 @@ var kills, score, rank, achievements;
 var bck2, scoreProgress;
 var achievementCount = 5;
 var acHints = ['<div class="underlined">Кильки в бочке I</div>Пример ачивки', '<div class="underlined">Кильки в бочке II</div>Пример ачивки', '<div class="underlined">Кильки в бочке III</div>Пример ачивки', '<div class="underlined">Кильки в бочке VI</div>Пример ачивки', '<div class="underlined">Кильки в бочке V</div>Пример ачивки'];
-function LKEnter()
-{
-	CheckVK();
-	if (vkSession)
-		location.hash = '#pers-cab';
-	else
-	{
-		history.pushState({},'','#pers-cab');
-		HashManager();
-	}
-}
 
 function LoginIntoLK()
 {
 	if (!LKActive)
 	{
-		if (vkSession)
-			FillLK();
-		else
-			VK.Auth.login(function(response)
-			{
-				if (response.session)
-				{
-					vkSession = 1;
-					FillLK();
-				}
-			});
+		VK.Auth.login(function(response)
+		{
+			if (response.session)
+				FillLK();
+		});
 	}
 	else
 		ToggleLK();
@@ -308,10 +230,7 @@ function FillLK()
 		if (data['result'] != 'success')
 		{
 			if (data['result'] == 'not a player')
-			{
-				prvHash = '';
-				window.location.href = "#registration";
-			}
+				ToggleRegister();
 			return;
 		}
 		$('#victim-name').val(data['victim_name']);

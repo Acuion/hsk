@@ -43,7 +43,7 @@
                 <div class="reg-hint buxton" id="return-hint">
                     <img class="flip-vertical" src="images/pointer.png">на главную
                 </div>
-                <a id="inside-logo-link" class="clickable" onclick="LKEnter();"><img src="images/InsideLogo.png" class="center-absolute" id="inside-logo"></a>
+                <a id="inside-logo-link" class="clickable" onclick="LoginIntoLK();"><img src="images/InsideLogo.png" class="center-absolute" id="inside-logo"></a>
                 <div>
                     <div class="center-absolute" id="rules-wrapper">
                         <h3 style="text-align: center">HSE.KILLER</h3>
@@ -62,12 +62,12 @@
                         <p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
                         <p>5) Пункт правил под номером пять... Много какого-то текстаМного какого-то текстаМного какого-то текста</p>
                     </div>
-                    <div class="center-absolute" id="back-from-rules"><a href="#main">НАЗАД</a></div>
+                    <div class="center-absolute" id="back-from-rules"><a onclick="ToggleRules()">НАЗАД</a></div>
                 </div>
                     
                 <div class="center-absolute" id="registr">
                     <div class="center-absolute" id="reg-back">
-                        <a href="#main">НАЗАД</a>
+                        <a onclick="ToggleRegister()">НАЗАД</a>
                     </div>
                     <form>
                         <div id="reglabel"><h3 id="reglabel-text">РЕГИСТРАЦИЯ НА ИГРУ</h3></div>
@@ -100,7 +100,7 @@
                 </div>
                 
                 <div style="margin-top: 7px;" id="about-game">
-                    <a href="#about">ОБ ИГРЕ</a><font style="text-decoration: none;">&nbsp;&nbsp;&nbsp;&nbsp;</font><a href="#registration">РЕГИСТРАЦИЯ</a>
+                    <a onclick="ToggleRules()">ОБ ИГРЕ</a><font style="text-decoration: none;">&nbsp;&nbsp;&nbsp;&nbsp;</font><a onclick="ToggleRegister()">РЕГИСТРАЦИЯ</a>
                 </div>
             </div>
             
