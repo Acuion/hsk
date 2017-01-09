@@ -282,7 +282,6 @@ function ToggleLK()
 		$("#words-right").animate({opacity: 1}, 700);
 		$("#victim-left").css('display','inline-block');
 		$("#victim-left").animate({opacity: 1}, 700);
-		$("#inside-logo-link").attr('href', '#main');
 	}
 	else
 	{
@@ -294,7 +293,6 @@ function ToggleLK()
 		$("#words-right").animate({opacity: 0}, 700, function(){$("#words-right").hide();});
 		$("#victim-left").animate({opacity: 0}, 700, function(){$("#victim-left").hide();});
 		$('.pers-name-part').animate({opacity: 0}, 300);
-		$("#inside-logo-link").attr('href', '#pers-cab');
 	}
 	RecalcBody();
 }

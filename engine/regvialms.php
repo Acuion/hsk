@@ -4,14 +4,15 @@
 	include 'curl.php';
 	
 	$member = authOpenAPIMember();
-	$lmsl = mysql_escape_string(trim(strtolower($_POST['lmslogin'])));
+	$lmsl = $mysqli->real_escape_string(trim(strtolower($_POST['lmslogin'])));
 	$lmsp = $_POST['lmspassw'];
-	$anonid = mysql_escape_string(substr($_POST['anonid'], 0, 14));
+	$anonid = $mysqli->real_escape_string(substr($_POST['anonid'], 0, 14));
 	
 	if ($lmsl && $lmsp && $anonid && $member !== false)
 	{
 		$vkid = $member['id'];
-		$playerinfo = mysql_num_rows(mysql_query("SELECT * FROM KillerTheGame WHERE lms_login = '$lmsl'"));
+		$playerinfo = ($mysqli->query("SELECT * FROM KillerTheGame WHERE lms_login = '$lmsl'"));
+		$playerinfo = $playerinfo->num_rows;
 		
 		if ($member['player'] || $playerinfo !== 0)
 		{
@@ -27,12 +28,14 @@
 				$dep = MySubstring(MySubstring($dep, 'value="', true), '"', false);
 				if ($dep === 'Н НН БИиПМ 15 ПИ' || $dep === 'Н НН БИиПМ 15 ПМИ')
 				{
-					$anontaken = mysql_num_rows(mysql_query("SELECT * FROM KillerTheGame WHERE anon_id = '$anonid'"));
+					$anontaken = ($mysqli->query("SELECT * FROM KillerTheGame WHERE anon_id = '$anonid'"));
+					$anontaken = $anontaken->num_rows;
 					if ($anontaken === 0)
 					{
-						$sword = mysql_fetch_assoc(mysql_query("SELECT Word FROM Words WHERE Used = 0 ORDER BY Rand()"));
+						$sword = ($mysqli->query("SELECT Word FROM Words WHERE Used = 0 ORDER BY Rand()"));
+						$sword = $sword->fetch_assoc();
 						$sword = $sword['Word'];
-						mysql_query("UPDATE Words SET Used = 1 WHERE Word = '".$sword."'");
+						$mysqli->query("UPDATE Words SET Used = 1 WHERE Word = '".$sword."'");
 						
 						$alpG = array('у','е','ы','а','о','э','я','и','ю');
 						$alpS = array('й','ц','к','н','ш','щ','з','х','ф','в','п','р','л','д','ж','ч','с','м','т','б');
@@ -45,7 +48,7 @@
 						$oname = MySubstring(MySubstring($toProc, 'name="second_name" type="text" value="', true), '"', false);
 						$name = $fname.' '.$sname.' '.$oname;
 
-						mysql_query("INSERT INTO KillerTheGame values('$lmsl', '$dep', '$vkid', '$name', '$dword', '$sword', '', 0, 0, '', '$anonid', '[]', 1)");
+						$mysqli->query("INSERT INTO KillerTheGame values('$lmsl', '$dep', '$vkid', '$name', '$dword', '$sword', '', 0, 0, '', '$anonid', '[]', 1)");
 						
 						echo '{"result": "УСПЕШНАЯ РЕГИСТРАЦИЯ"}';
 					}

@@ -4,7 +4,8 @@ include 'dbworks.php';//KillerTheGame - table
 function authOpenAPIMember()
 { //vk copypaste
   include 'privatedata.php';
-
+  include 'dbworks.php';
+  
   $session = array(); 
   $member = FALSE; 
   $valid_keys = array('expire', 'mid', 'secret', 'sid', 'sig'); 
@@ -33,7 +34,8 @@ function authOpenAPIMember()
     $sign = md5($sign);
 
 	  //mine
-	  $playerinfo = mysql_num_rows(mysql_query("SELECT * FROM KillerTheGame WHERE vk_id = '".$session['mid']."'"));
+	  $playerinfo = $mysqli->query("SELECT * FROM KillerTheGame WHERE vk_id = '".$session['mid']."'");
+	  $playerinfo = $playerinfo->num_rows;
 	  if ($session['sig'] == $sign && $session['expire'] > time()) { 
       $member = array( 
         'id' => intval($session['mid']), 

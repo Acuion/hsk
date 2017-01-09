@@ -14,8 +14,10 @@
 		}
 		else
 		{
-			$userinfo = mysql_fetch_assoc(mysql_query("SELECT * FROM KillerTheGame WHERE vk_id = '".$member['id']."'"));
-			$victiminfo = mysql_fetch_assoc(mysql_query("SELECT * FROM KillerTheGame WHERE vk_id = '".$userinfo['victim_vk_id']."'"));
+			$userinfo = ($mysqli->query("SELECT * FROM KillerTheGame WHERE vk_id = '".$member['id']."'"));
+			$userinfo = $userinfo->fetch_assoc();
+			$victiminfo = ($mysqli->query("SELECT * FROM KillerTheGame WHERE vk_id = '".$userinfo['victim_vk_id']."'"));
+			$victiminfo = $victiminfo->fetch_assoc();
 
 			$userinfo['result'] = 'success';
 			$userinfo['victim_name'] = $victiminfo['name'];
@@ -28,10 +30,10 @@
 				$recap = json_decode($recap);
 				if ($recap->success === true && trim(strtolower($_POST['death_word'])) === $victiminfo['death_word'])
 				{
-					mysql_query("UPDATE KillerTheGame SET alive=0 WHERE vk_id = '".$userinfo['victim_vk_id']."'");
-					mysql_query("UPDATE KillerTheGame SET killed_count=".($userinfo['killed_count'] + 1)." WHERE vk_id = '".$member['id']."'");//TODO: as json
-					mysql_query("UPDATE KillerTheGame SET killed_list='".$userinfo['killed_list'].','.$userinfo['victim_vk_id']."' WHERE vk_id = '".$member['id']."'");
-					mysql_query("UPDATE KillerTheGame SET victim_vk_id='".$victiminfo['victim_vk_id']."' WHERE vk_id = '".$member['id']."'");
+					$mysqli->query("UPDATE KillerTheGame SET alive=0 WHERE vk_id = '".$userinfo['victim_vk_id']."'");
+					$mysqli->query("UPDATE KillerTheGame SET killed_count=".($userinfo['killed_count'] + 1)." WHERE vk_id = '".$member['id']."'");//TODO: as json
+					$mysqli->query("UPDATE KillerTheGame SET killed_list='".$userinfo['killed_list'].','.$userinfo['victim_vk_id']."' WHERE vk_id = '".$member['id']."'");
+					$mysqli->query("UPDATE KillerTheGame SET victim_vk_id='".$victiminfo['victim_vk_id']."' WHERE vk_id = '".$member['id']."'");
 					echo '{"result": "success"}';
 				}
 				else
