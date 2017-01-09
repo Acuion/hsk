@@ -9,7 +9,9 @@
     <script src="extraJs/jquery/jquery-2.1.4.min.js"></script>
     <script src="extraJs/jquery/jquery.rotate.js"></script>
     <script src="https://vk.com/js/api/openapi.js"></script>
-    <script src="killer.js"></script>
+    <script src="js/mainPage.js"></script>
+	<script src="js/persCab.js"></script>
+	<script src="js/misc.js"></script>
     <script src="extraJs/progressbar.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
@@ -157,7 +159,7 @@
                         <img src="images/killFailed.png" class="floatLeft">
                         <div class="kill-info">Неверное секретное слово</div>
                     </div>
-                    <div id="recap-div" class="g-recaptcha" data-callback="RecaptchaKill" data-theme="dark" data-sitekey="6LfCSiETAAAAAKRizhoIIxKoP7ge1WkJzhm_sll5"></div>
+                    <div id="recap-div" class="g-recaptcha" data-callback="RecaptchaCallbackKillRequest" data-theme="dark" data-sitekey="6LfCSiETAAAAAKRizhoIIxKoP7ge1WkJzhm_sll5"></div>
                     <div class="buxton" id="captcha-hint">
                         <img class="flip-vertical" id="captcha-hint-pic" src="images/pointer.png">
                         <a id="caphint-text">Прохождение капчи автоматически отсылает запрос на убийство</a>
