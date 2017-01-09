@@ -48,6 +48,7 @@ function ResizeEventHandler()
 //инициализация
 $(document).ready(function()
 {
+	$('img').on('dragstart', function(event) { event.preventDefault(); });
 	VK.init({apiId: 5170996});
 
 	$('#inside-logo').hover(function(){

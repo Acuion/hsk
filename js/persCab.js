@@ -6,10 +6,12 @@ var LKActive = false;
 
 $(document).ready(function()
 {
+	var safdGen = function(i) {return function(){SelectAchievementForDescribe(i)}};
 	for (var i = 1; i <= acHints.length; ++i)
 	{
-		$('#ac' + i).on('click', SelectAchievementForDescribe(i));
-		$('#ac' + i).on('mouseenter', SelectAchievementForDescribe(i));
+		var currSafd = safdGen(i);
+		$('#ac' + i).on('click', currSafd);
+		$('#ac' + i).on('mouseenter', currSafd);
 	}
 	SelectAchievementForDescribe(1);
 	
