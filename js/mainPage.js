@@ -186,6 +186,7 @@ function ToogleMainFade()
 		$("#about-game").css( 'pointer-events', 'auto' );
 			
 		$("#logo").animate({opacity: 1}, 1000);
+		$("#loading-bar").animate({opacity: 1}, 1000);
 		$("#inside-logo").animate({opacity: 1}, 1000);
 		$("#inside-logo").css( 'pointer-events', 'auto' );
 
@@ -214,6 +215,7 @@ function ToogleMainFade()
 		$("#about-game").css( 'pointer-events', 'none' );
 		
 		$("#logo").animate({opacity: 0.1}, 700);
+		$("#loading-bar").animate({opacity: 0.1}, 700);
 		$("#inside-logo").animate({opacity: 0.1}, 700);
 		$("#inside-logo").css( 'pointer-events', 'none' );
 
