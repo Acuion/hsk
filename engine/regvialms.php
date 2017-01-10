@@ -20,7 +20,7 @@
 		}
 		else
 		{
-			$loginAns = curl_POST('http://lms.hse.ru/index.php?index_page','_qf__login_form=&user_login=$lmsl&user_password=$lmsp&userLogin=%D0%92%D0%BE%D0%B9%D1%82%D0%B8',$member['id']);
+			$loginAns = curl_POST('http://lms.hse.ru/index.php?index_page',"_qf__login_form=&user_login=$lmsl&user_password=$lmsp&userLogin=%D0%92%D0%BE%D0%B9%D1%82%D0%B8",$member['id']);
 			$toProc = curl_GET('http://lms.hse.ru/student.php?ctg=personal&op=account', $member['id']);
 			if (strpos($toProc, 'Группа пользователей') !== false)
 			{
