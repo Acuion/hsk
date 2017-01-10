@@ -33,8 +33,11 @@
 					$killled_list = json_decode($userinfo['killed_list']);
 					$killled_list[] =  $userinfo['victim_vk_id'];
 					$killled_list = json_encode($killled_list);
+					$score = $userinfo['score'] + 1;//TODO: дополнительные очки?
+
 					$mysqli->query("UPDATE KillerTheGame SET alive=0 WHERE vk_id = '".$userinfo['victim_vk_id']."'");
-					$mysqli->query("UPDATE KillerTheGame SET killed_count=".($userinfo['killed_count'] + 1)." WHERE vk_id = '".$member['id']."'");//TODO: as json
+					$mysqli->query("UPDATE KillerTheGame SET killed_count=".($userinfo['killed_count'] + 1)." WHERE vk_id = '".$member['id']."'");
+					$mysqli->query("UPDATE KillerTheGame SET score=$score WHERE vk_id = '".$member['id']."'");
 					$mysqli->query("UPDATE KillerTheGame SET killed_list='$killled_list' WHERE vk_id = '".$member['id']."'");
 					$mysqli->query("UPDATE KillerTheGame SET victim_vk_id='".$victiminfo['victim_vk_id']."' WHERE vk_id = '".$member['id']."'");
 					echo '{"result": "success"}';
