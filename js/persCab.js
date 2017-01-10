@@ -73,14 +73,34 @@ function ToggleLK()
 	RecalcBodyHeight();
 }
 
+var authing = false;
 function LoginIntoLK()
 {
 	if (!LKActive)
 	{
-		VK.Auth.login(function(response)
+		//начало авторизации
+		if (authing)
+			return;
+		authing = true;
+		//TODO: loadbar
+		VK.Auth.getLoginStatus(function(response)
 		{
 			if (response.session)
-				FillLK();//TODO: повторный вызов, запоминание сессии (чтобы работало с мобильных)
+			{
+				authing = false;
+				//конец авторизации
+				FillLK();
+			} 
+			else
+			{
+				VK.Auth.login(function(response)
+				{
+					authing = false;
+					//конец авторизации
+					if (response.session)
+						FillLK();
+				});	
+			}
 		});
 	}
 	else

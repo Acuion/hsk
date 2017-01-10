@@ -1,7 +1,7 @@
 var currDispMode = -1;//0-mob,1-desk
 
 var secondsLeftTimer = 420000;
-var logoRotationStep = 0;
+var logoRotationStep = 0, logoRotationDelta = 0.1;
 var logoRotationInterval;
 var leaderboardData;
 //таймер
@@ -53,14 +53,14 @@ $(document).ready(function()
 
 	$('#inside-logo').hover(function(){
 		clearInterval(logoRotationInterval);
-		logoRotationInterval = setInterval(function(){$('#logo').rotate(logoRotationStep -= 0.1);}, 30);
+		logoRotationInterval = setInterval(function(){$('#logo').rotate(logoRotationStep -= logoRotationDelta);}, 30);
 	}, function(){
 		clearInterval(logoRotationInterval);
-		logoRotationInterval = setInterval(function(){$('#logo').rotate(logoRotationStep += 0.1);}, 65);
+		logoRotationInterval = setInterval(function(){$('#logo').rotate(logoRotationStep += logoRotationDelta);}, 60);
 	});
 	TimerUpdate();
 	setInterval(TimerUpdate, 1000);
-	logoRotationInterval = setInterval(function(){$('#logo').rotate(logoRotationStep += 0.1);}, 60);
+	logoRotationInterval = setInterval(function(){$('#logo').rotate(logoRotationStep += logoRotationDelta);}, 60);
 	
 	$('#reg-1').focusin(function(){$('#reg-hint-1').animate({opacity: 1, right: -165}, 300);});
 	$('#reg-1').focusout(function(){$('#reg-hint-1').animate({opacity: 0, right: -175}, 300);});
