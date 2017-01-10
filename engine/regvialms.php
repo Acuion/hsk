@@ -47,7 +47,7 @@
 						$oname = MySubstring(MySubstring($toProc, 'name="second_name" type="text" value="', true), '"', false);
 						$name = $fname.' '.$sname.' '.$oname;
 
-						$mysqli->query("INSERT INTO KillerTheGame values('$lmsl', '$dep', '$vkid', '$name', '$dword', '$sword', '', 0, 0, '', '$anonid', '[]', 1)");
+						$mysqli->query("INSERT INTO KillerTheGame values('$lmsl', '$dep', '$vkid', '$name', '$dword', '$sword', '', 0, 0, '[]', '$anonid', '[]', 1)");
 						
 						echo '{"result": "УСПЕШНАЯ РЕГИСТРАЦИЯ"}';
 					}
