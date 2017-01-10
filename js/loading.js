@@ -17,7 +17,7 @@ function LoadbarAnimateStep()
 {
     loadingMarker.animate(loadingMakerAnimationCurrConst);
     loadingMakerAnimationCurrConst *= -1;
-    loadingMarkerAnimationTimeout = setTimeout(LoadbarAnimateStep, 3800);
+    loadingMarkerAnimationTimeout = setTimeout(LoadbarAnimateStep, 3500);
 }
 
 function EnableLoadbar()
@@ -25,7 +25,7 @@ function EnableLoadbar()
     clearTimeout(loadingMarkerAnimationTimeout);
     loadingMarker.animate(-1);
     loadingMakerAnimationCurrConst = 1;
-    loadingMarkerAnimationTimeout = setTimeout(LoadbarAnimateStep, 3800);
+    loadingMarkerAnimationTimeout = setTimeout(LoadbarAnimateStep, 3500);
 }
 
 function DisableLoadbar()
