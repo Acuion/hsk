@@ -122,7 +122,7 @@ function FillLK()
 				ToggleRegister();
 			return;
 		}
-		$('#victim-name').val(data['victim_name']);
+		$('#victim-name').val(data['victim_name']);//TODO: обработать отсутствие victim_vk_id
 		$('#victim-dep').val(data['victim_dep']);
 		achievements = $.parseJSON(data['achievements']);//TODO: маркировка полученных ачивок
 

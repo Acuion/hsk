@@ -115,6 +115,7 @@ function ToggleMainScreen()
 		
 		$("#inside-logo").css( 'pointer-events', 'none' );
 		$("#logo").animate({width: 140}, 1000, function(){if (!mainShown) $("#return-hint").animate({opacity: 1}, 300);});
+		$("#loading-bar").animate({width: 140, height: 140}, 1000);
 		$("#inside-logo").animate({width: 60, marginTop: 40}, 1000, function(){$("#inside-logo").css( 'pointer-events', 'auto' );});
 
 		if (currDispMode == 1)
@@ -145,7 +146,8 @@ function ToggleMainScreen()
 		$("#backg-timer").animate({marginTop: 40, opacity: 1}, 1000);
 		
 		$("#logo").animate({width: 282}, 1000, function(){if (mainShown) $("#enter-hint").animate({opacity: 1}, 300);});
-		
+		$("#loading-bar").animate({width: 280, height: 280}, 1000);
+
 		$("#inside-logo").css( 'pointer-events', 'none' );
 		$("#inside-logo").animate({width: 141, marginTop: 65}, 1000, function(){$("#inside-logo").css( 'pointer-events', 'auto' );});
 		
