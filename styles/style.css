@@ -471,3 +471,32 @@ a
 ::-webkit-scrollbar-thumb:hover {
 	background:#7d7d7d;
 }			
+
+/*lb*/
+@keyframes rotating-loading-bar
+{
+	from
+	{
+		transform: translate(-50%, 0) rotate(0deg);
+	}
+	to
+	{
+		transform: translate(-50%, 0) rotate(360deg);
+	}
+}
+
+.loading-bar
+{
+	position: absolute;
+	left: 50%;
+	animation: rotating-loading-bar 2s linear infinite;
+	top: 1px;
+	height: 280px;
+	width: 280px;
+	pointer-events: none;
+}
+
+.loading-bar > svg {
+	height: 100%;
+	display: block;
+}

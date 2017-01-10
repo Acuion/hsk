@@ -82,6 +82,7 @@ function LoginIntoLK()
 		if (authing)
 			return;
 		authing = true;
+		EnableLoadbar();
 		//TODO: loadbar
 		VK.Auth.getLoginStatus(function(response)
 		{
@@ -96,7 +97,10 @@ function LoginIntoLK()
 					if (response.session)
 						FillLK();
 					else
+					{
 						authing = false;//конец авторизации
+						DisableLoadbar();
+					}
 				});	
 			}
 		});
@@ -113,6 +117,7 @@ function FillLK()
 		if (data['result'] != 'success')
 		{
 			authing = false;
+			DisableLoadbar();
 			if (data['result'] == 'not a player')
 				ToggleRegister();
 			return;
@@ -145,6 +150,7 @@ function FillLK()
 			$('#pers-name-part-right').text(data['anon_id']);
 
 			authing = false;
+			DisableLoadbar();
 			ToggleLK();
 		}
 		GET('/engine/leaderboard.php?count=1', stage4);

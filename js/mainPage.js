@@ -333,6 +333,7 @@ function Register()
 		return;
 
 	registring = true;
+	EnableLoadbar();
 
 	var registerResult = function (result)
 	{
@@ -350,6 +351,7 @@ function Register()
 			break;
 		}
 		registring = false;
+		DisableLoadbar();
 	};
 
 	var startRegister = function(){POST('/engine/regvialms.php', {lmslogin: login, lmspassw: password, anonid: anon_id}, registerResult);};
@@ -367,7 +369,10 @@ function Register()
 				if (response.session)
 					startRegister();
 				else
+				{
 					registring = false;
+					DisableLoadbar();
+				}
 			});	
 		}
 	});
