@@ -348,7 +348,23 @@ function Register()
 		}
 	};
 
-	POST('/engine/regvialms.php', {lmslogin: login, lmspassw: password, anonid: anon_id}, registerResult);
+	var startRegister = function(){POST('/engine/regvialms.php', {lmslogin: login, lmspassw: password, anonid: anon_id}, registerResult);};
+
+	VK.Auth.getLoginStatus(function(response)
+	{
+		if (response.session)
+		{
+			startRegister();
+		} 
+		else
+		{
+			VK.Auth.login(function(response)
+			{
+				if (response.session)
+					startRegister();
+			});	
+		}
+	});
 }
 
 var flipRegisterForwardInterval, flipRegisterBackwardInterval;
