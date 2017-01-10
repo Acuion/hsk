@@ -87,18 +87,16 @@ function LoginIntoLK()
 		{
 			if (response.session)
 			{
-				authing = false;
-				//конец авторизации
 				FillLK();
 			} 
 			else
 			{
 				VK.Auth.login(function(response)
 				{
-					authing = false;
-					//конец авторизации
 					if (response.session)
 						FillLK();
+						else
+					authing = false;//конец авторизации
 				});	
 			}
 		});
@@ -114,6 +112,7 @@ function FillLK()
 		data = $.parseJSON(data);
 		if (data['result'] != 'success')
 		{
+			authing = false;
 			if (data['result'] == 'not a player')
 				ToggleRegister();
 			return;
@@ -145,6 +144,7 @@ function FillLK()
 			$('#pers-name-part-left').text(data['name']);
 			$('#pers-name-part-right').text(data['anon_id']);
 
+			authing = false;
 			ToggleLK();
 		}
 		GET('/engine/leaderboard.php?count=1', stage4);
