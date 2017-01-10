@@ -32,11 +32,12 @@
 					$anontaken = $anontaken->num_rows;
 					if ($anontaken === 0)
 					{
-						$sword = ($mysqli->query('SELECT Word FROM Words WHERE Used = 0 ORDER BY Rand()'));
-						$sword = $sword->fetch_assoc();
-						$sword = $sword['Word'];
-						$mysqli->query("UPDATE Words SET Used = 1 WHERE Word = '".$sword."'");
-						
+						$sword = ($mysqli->query('SELECT Word FROM Words ORDER BY Rand()'));
+						$sword1 = $sword->fetch_assoc();
+						$sword1 = $sword1['Word'];
+						$sword2 = $sword->fetch_assoc();
+						$sword2 = $sword2['Word'];
+
 						$alpG = array('у','е','ы','а','о','э','я','и','ю');
 						$alpS = array('й','ц','к','н','ш','щ','з','х','ф','в','п','р','л','д','ж','ч','с','м','т','б');
 						
@@ -47,7 +48,7 @@
 						$oname = MySubstring(MySubstring($toProc, 'name="second_name" type="text" value="', true), '"', false);
 						$name = $fname.' '.$sname.' '.$oname;
 
-						$mysqli->query("INSERT INTO KillerTheGame values('$lmsl', '$dep', '$vkid', '$name', '$dword', '$sword', '', 0, 0, '[]', '$anonid', '[]', 1)");
+						$mysqli->query("INSERT INTO KillerTheGame values('$lmsl', '$dep', '$vkid', '$name', '$dword', '$sword1 и $sword2', '', 0, 0, '[]', '$anonid', '[]', 1)");
 						
 						echo '{"result": "УСПЕШНАЯ РЕГИСТРАЦИЯ"}';
 					}
