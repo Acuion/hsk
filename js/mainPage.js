@@ -305,6 +305,7 @@ function OnRegChange()
 	}
 }
 
+var registring = false;
 function Register()
 {
 	var login = $("#reg-1").val().trim();
@@ -328,8 +329,10 @@ function Register()
 		fieldsOk = false;
 	}
 	
-	if (!fieldsOk)
+	if (!fieldsOk || registring)
 		return;
+
+	registring = true;
 
 	var registerResult = function (result)
 	{
@@ -346,6 +349,7 @@ function Register()
 				FlipRegisterLabel(result['result'], 'red', true);
 			break;
 		}
+		registring = false;
 	};
 
 	var startRegister = function(){POST('/engine/regvialms.php', {lmslogin: login, lmspassw: password, anonid: anon_id}, registerResult);};
@@ -362,6 +366,8 @@ function Register()
 			{
 				if (response.session)
 					startRegister();
+				else
+					registring = false;
 			});	
 		}
 	});

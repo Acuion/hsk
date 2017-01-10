@@ -95,8 +95,8 @@ function LoginIntoLK()
 				{
 					if (response.session)
 						FillLK();
-						else
-					authing = false;//конец авторизации
+					else
+						authing = false;//конец авторизации
 				});	
 			}
 		});
