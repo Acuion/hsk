@@ -295,6 +295,7 @@ function ToggleRegister()
 		setTimeout(function(){$(".reg-field").animate({width: 250}, 700);}, 300);
 		$("#registr").show();
 		$("#registr").animate({opacity: 1}, 1000);
+		$('#reg-1').focus();
 	}
 	registerShown = !registerShown;
 }
