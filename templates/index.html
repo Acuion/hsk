@@ -3,17 +3,17 @@
 <head>
     <meta charset="utf-8">
     <meta id="viewport" name="viewport" content="width=device-width, user-scalable=no">
-    <link rel="stylesheet" type="text/css" href="styles/style.css">
-    <link rel="stylesheet" type="text/css" media="all and (max-width: 1106px)" href="styles/tiny.css">
-    <link rel="stylesheet" type="text/css" media="all and (min-width: 1107px)" href="styles/wide.css">
-    <script src="extraJs/jquery/jquery-2.1.4.min.js"></script>
-    <script src="extraJs/jquery/jquery.rotate.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/styles/style.css">
+    <link rel="stylesheet" type="text/css" media="all and (max-width: 1106px)" href="static/styles/tiny.css">
+    <link rel="stylesheet" type="text/css" media="all and (min-width: 1107px)" href="static/styles/wide.css">
+    <script src="static/extraJs/jquery/jquery-2.1.4.min.js"></script>
+    <script src="static/extraJs/jquery/jquery.rotate.js"></script>
+    <script src="static/extraJs/progressbar.min.js"></script>
+    <script src="static/js/mainPage.js"></script>
+    <script src="static/js/persCab.js"></script>
+    <script src="static/js/loading.js"></script>
+    <script src="static/js/misc.js"></script>
     <script src="https://vk.com/js/api/openapi.js"></script>
-    <script src="js/mainPage.js"></script>
-	<script src="js/persCab.js"></script>
-    <script src="js/loading.js"></script>
-	<script src="js/misc.js"></script>
-    <script src="extraJs/progressbar.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js"></script>
 </head>
 <body>
@@ -28,7 +28,7 @@
         </div>
         <div id="hello-page">
             <div class="inrow" id="leader-left">
-                <img src="images/Leaderboard.png">
+                <img src="static/images/Leaderboard.png">
                 <table width="330" style="margin-left: 20px">
                     <tr><td width="30px">№</td><td width="160px">Псевдоним</td><td width="70px">Очков</td><td width="70px">Раскрытий</td></tr>
                 </table>
@@ -40,14 +40,14 @@
             
             <div  class="inrow" id="logo-center">
                 <div class="buxton font23px" id="enter-hint">
-                    <img src="images/pointer.png">Вход
+                    <img src="static/images/pointer.png">Вход
                 </div>
-                <img src="images/logo.png" id="logo" style="pointer-events:none;">
+                <img src="static/images/logo.png" id="logo" style="pointer-events:none;">
                 <div class="loading-bar" id="loading-bar"></div>
                 <div class="reg-hint buxton" id="return-hint">
-                    <img class="flip-vertical" src="images/pointer.png">на главную
+                    <img class="flip-vertical" src="static/images/pointer.png">на главную
                 </div>
-                <a id="inside-logo-link" class="clickable" onclick="LoginIntoLK();"><img src="images/InsideLogo.png" class="center-absolute" id="inside-logo"></a>
+                <a id="inside-logo-link" class="clickable" onclick="LoginIntoLK();"><img src="static/images/InsideLogo.png" class="center-absolute" id="inside-logo"></a>
                 <div>
                     <div class="center-absolute" id="rules-wrapper">
                         <h3 style="text-align: center">HSE.?</h3>
@@ -78,25 +78,25 @@
                         <div><span onclick="$('#reg-1').focus()" class="reg-header">Логин в LMS</span></div>
                         <input type="text" name="loginlms" class="reg-field form-field buxton" id="reg-1" placeholder="Необходим для получения ФИО">
                             <div class="reg-hint buxton font15px" id="reg-hint-1">
-                                <img class="reg-hint-pic" id="reg-hint-1-pic" src="images/pointer.png">
+                                <img class="reg-hint-pic" id="reg-hint-1-pic" src="static/images/pointer.png">
                                 Данные для входа в LMS нужны для единоразового забора системой гарантированно верных имени и фамилии, а также чтобы не допустить повторной регистрации
                             </div>
                         <div><span onclick="$('#reg-2').focus()" class="reg-header">Пароль в LMS</span></div>
                         <input type="password" name="passwordlms" class="reg-field form-field buxton" id="reg-2" placeholder="Мы не храним ваши пароли!">
                             <div class="reg-hint buxton font15px" id="reg-hint-2">
-                                <img class="reg-hint-pic flip-horisontal flip-vertical" id="reg-hint-2-pic" src="images/pointer.png">
+                                <img class="reg-hint-pic flip-horisontal flip-vertical" id="reg-hint-2-pic" src="static/images/pointer.png">
                                 Мы не храним ваши пароли,<br>честное вышкинское!
                             </div>
                         <div><span onclick="$('#reg-3').focus()" class="reg-header">Псевдоним для таблицы рекордов</span></div>
                         <input type="text" name="anon" class="reg-field form-field buxton" id="reg-3" maxlength="14" placeholder="Требуется для сохранения интриги">
                             <div class="reg-hint buxton font15px" id="reg-hint-3">
-                                <img class="reg-hint-pic flip-vertical" id="reg-hint-3-pic" src="images/pointer.png">
+                                <img class="reg-hint-pic flip-vertical" id="reg-hint-3-pic" src="static/images/pointer.png">
                                 Чтобы сохранить интригу, игроки в таблице рекордов будут фигурировать под выбранными псевдонимами. Кстати, выбрать себе оскорбительный псевдоним - один из способов получить бан в нашей игре (или, что ещё хуже, мы сами выберем тебе новый ник)
                             </div>
                         <div style="margin-top: 10px">
                             <a href="javascript:void(0)" onclick="Register();">[В] ЗАРЕГИСТРИРОВАТЬСЯ</a>
                             <div class="reg-hint buxton font15px" id="reg-hint-4">
-                                <img class="reg-hint-pic flip-horisontal" id="reg-hint-4-pic" src="images/pointer.png">
+                                <img class="reg-hint-pic flip-horisontal" id="reg-hint-4-pic" src="static/images/pointer.png">
                                 Авторизация VK необходима для возможности быстрой связи с игроками, получения уведомлений и упрощённого входа в личный кабинет
                             </div>
                         </div>
@@ -109,7 +109,7 @@
             </div>
             
             <div class="inrow" id="news-right">
-                <img src="images/ProjectNews.png">
+                <img src="static/images/ProjectNews.png">
                 <div id="text330" style="margin-left: 20px">
                 11.01.2017: Продолжена работа, смена тематики<br>
                 02.09.2016: Дизайн теперь адаптивный! (если что, такие "новости" тут временно)<br>
@@ -120,8 +120,8 @@
             </div>
         </div>
         <div id="lk-page"><!-- вторая страница -->
-            <img src="images/lk.png" class="center-absolute wide-mode-pic pers-logo">
-            <img src="images/lk_small.png" class="center-absolute tiny-mode-pic pers-logo">
+            <img src="static/images/lk.png" class="center-absolute wide-mode-pic pers-logo">
+            <img src="static/images/lk_small.png" class="center-absolute tiny-mode-pic pers-logo">
             <div id="pers-name">
                 <div class="pers-name-part" id="pers-name-part-left">
                 Иванов Иван
@@ -155,16 +155,16 @@
                         <input type="text" name="deathword" class="victim-field form-field buxton" id="vic-deathword-text">
                     </div>
                     <div class="buxton kill-result" id="succ-kill">
-                        <img src="images/killSuccess.png" class="floatLeft">
+                        <img src="static/images/killSuccess.png" class="floatLeft">
                         <div class="kill-info">Успешное раскрытие! +? очков</div>
                     </div>
                     <div class="buxton kill-result" id="fail-kill">
-                        <img src="images/killFailed.png" class="floatLeft">
+                        <img src="static/images/killFailed.png" class="floatLeft">
                         <div class="kill-info">Неверная шифровка</div>
                     </div>
                     <div id="recap-div" class="g-recaptcha" data-callback="RecaptchaCallbackKillRequest" data-theme="dark" data-sitekey="6LfCSiETAAAAAKRizhoIIxKoP7ge1WkJzhm_sll5"></div>
                     <div class="buxton" id="captcha-hint">
-                        <img class="flip-vertical" id="captcha-hint-pic" src="images/pointer.png">
+                        <img class="flip-vertical" id="captcha-hint-pic" src="static/images/pointer.png">
                         <a id="caphint-text">Прохождение капчи автоматически отсылает запрос на раскрытие</a>
                     </div>
                 </form>
@@ -173,7 +173,7 @@
             <div class="inrow" id="progress-center">
                 <div id="progress-perc-info" class="buxton">
                     <div id="progress-text">Твой результат лучше чем у ?% игроков</div>
-                    <img src="images/pointer.png" id="progress-pointer">
+                    <img src="static/images/pointer.png" id="progress-pointer">
                 </div>
                 <div class="center-absolute score-progress" id="score-progress-bck"></div>
                 <div class="center-absolute score-progress" id="score-progress"></div>
@@ -216,11 +216,11 @@
                         <div id="secretword-text">[нажми, чтобы увидеть]</div>
                     </div>
                     <div style="margin-top: 30px">
-                        <img id="ac1" src="images/achievement.png">
-                        <img id="ac2" src="images/achievement.png">
-                        <img id="ac3" src="images/achievement.png">
-                        <img id="ac4" src="images/achievement.png">
-                        <img id="ac5" src="images/achievement.png">
+                        <img id="ac1" src="static/images/achievement.png">
+                        <img id="ac2" src="static/images/achievement.png">
+                        <img id="ac3" src="static/images/achievement.png">
+                        <img id="ac4" src="static/images/achievement.png">
+                        <img id="ac5" src="static/images/achievement.png">
                     </div>
                     <div id="achievement-hint"></div>
             </div>
@@ -231,11 +231,11 @@
     </div>
     <div id="socnetw">
         <div id="sochint" class="buxton">
-            будь в курсе всех новостей<img class="flip-horisontal" src="images/pointer.png">
+            будь в курсе всех новостей<img class="flip-horisontal" src="static/images/pointer.png">
         </div>
-        <img src="images/vk.png">
-        <img src="images/vk.png">
-        <img src="images/vk.png">
+        <img src="static/images/vk.png">
+        <img src="static/images/vk.png">
+        <img src="static/images/vk.png">
     </div>
 </body>
 </html>

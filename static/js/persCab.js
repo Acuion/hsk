@@ -83,7 +83,7 @@ function LoginIntoLK()
 			return;
 		authing = true;
 		EnableLoadbar();
-		//TODO: loadbar
+		
 		VK.Auth.getLoginStatus(function(response)
 		{
 			if (response.session)
@@ -153,10 +153,10 @@ function FillLK()
 			DisableLoadbar();
 			ToggleLK();
 		}
-		GET('/engine/leaderboard.php?count=1', stage4);
+		GET('/engine/leaderboard?count=1', stage4);
 
 	}
-	GET('/engine/profile.php', stage2);
+	GET('/engine/profile', stage2);
 }
 
 function SelectAchievementForDescribe(i)
@@ -236,7 +236,7 @@ function RecaptchaCallbackKillRequest(recaptchaResponse)
 			}
 		}, 10);
 	}
-	POST('/engine/profile.php', {recaptcha_response: recaptchaResponse, death_word: $('#vic-deathword-text').val()}, tryToKill);
+	POST('/engine/profile', {recaptcha_response: recaptchaResponse, death_word: $('#vic-deathword-text').val()}, tryToKill);
 }
 
 function FlipWordInit(wordId, wordText)

@@ -97,7 +97,7 @@ $(document).ready(function()
 		}
 	};
 
-	GET('/engine/leaderboard.php', leaderLoad)
+	GET('/engine/leaderboard', leaderLoad)
 });
 
 //главный экран
@@ -359,7 +359,7 @@ function Register()
 		DisableLoadbar();
 	};
 
-	var startRegister = function(){POST('/engine/regvialms.php', {lmslogin: login, lmspassw: password, anonid: anon_id}, registerResult);};
+	var startRegister = function(){POST('/engine/regvialms', {lmslogin: login, lmspassw: password, anonid: anon_id}, registerResult);};
 
 	VK.Auth.getLoginStatus(function(response)
 	{
