@@ -489,7 +489,7 @@ a
 {
 	position: absolute;
 	left: 50%;
-	animation: rotating-loading-bar 2s linear infinite;
+	animation: rotating-loading-bar 3s linear infinite;
 	top: 1px;
 	height: 280px;
 	width: 280px;

@@ -1,57 +1,58 @@
 var loadingMarker;
-var loadingMakerAnimationCurrConst;
+var loadingMarkerAnimationCurrConst;
 var loadingMarkerAnimationTimeout, loadingMarkerRecreationTimeout;
 
 $(document).ready(function()
 {
 	loadingMarker = new ProgressBar.Circle('#loading-bar', {
 		color: '#FFFFFF',
-		duration: 4000,
+		duration: 7000,
 		easing: 'easeInOut',
 		strokeWidth: 1
 	});
     loadingMarker.set(1);
 });
 
+function RecreateLoadbarWithSpeed(speed)
+{
+    var currVal = loadingMarker.value();
+    loadingMarker.destroy();
+	loadingMarker = new ProgressBar.Circle('#loading-bar', {
+		color: '#FFFFFF',
+		duration: speed,
+		easing: 'easeInOut',
+		strokeWidth: 1
+	});
+    loadingMarker.set(currVal);
+}
+
+var loaderEvenStep = false;
 function LoadbarAnimateStep()
 {
-    loadingMarker.animate(loadingMakerAnimationCurrConst);
-    loadingMakerAnimationCurrConst *= -1;
-    loadingMarkerAnimationTimeout = setTimeout(LoadbarAnimateStep, 3500);
+    //TODO: Раскрутка
+    loadingMarker.animate(loadingMarkerAnimationCurrConst);
+    loadingMarkerAnimationTimeout = setTimeout(LoadbarAnimateStep, 6500);
+    loadingMarkerAnimationCurrConst++;
+    loaderEvenStep = !loaderEvenStep;
 }
 
 function EnableLoadbar()
 {
     clearTimeout(loadingMarkerAnimationTimeout);
-    loadingMarker.animate(-1);
-    loadingMakerAnimationCurrConst = 1;
-    loadingMarkerAnimationTimeout = setTimeout(LoadbarAnimateStep, 3500);
+    loadingMarker.animate(2);
+    loadingMarkerAnimationCurrConst = 3;
+    loadingMarkerAnimationTimeout = setTimeout(LoadbarAnimateStep, 6500);
 }
 
 function DisableLoadbar()
 {
     clearTimeout(loadingMarkerAnimationTimeout);
 
-    var currVal = loadingMarker.value();
-    loadingMarker.destroy();
-    loadingMarker = new ProgressBar.Circle('#loading-bar', {
-        color: '#FFFFFF',
-        duration: 700,
-        easing: 'easeInOut',
-        strokeWidth: 1
-    });
-    loadingMarker.set(currVal);
+    RecreateLoadbarWithSpeed(700);
     loadingMarker.animate(1);
 
     clearTimeout(loadingMarkerRecreationTimeout);
     loadingMarkerRecreationTimeout = setTimeout(function (){
-        loadingMarker.destroy();
-        loadingMarker = new ProgressBar.Circle('#loading-bar', {
-            color: '#FFFFFF',
-            duration: 4000,
-            easing: 'easeInOut',
-            strokeWidth: 1
-        });
-        loadingMarker.set(1);
+        RecreateLoadbarWithSpeed(7000);
         }, 700);
 }

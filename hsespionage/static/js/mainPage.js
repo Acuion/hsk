@@ -85,13 +85,17 @@ $(document).ready(function()
 		leaderboardData = $.parseJSON(data);
 		var lastPlace = 0;
 		var lastScore = -1;
+		var toAdd = 0;
 		for (var i = 0; i < leaderboardData.length; ++i)
 		{
 			if (lastScore != leaderboardData[i]['score'])
 			{
 				lastScore = leaderboardData[i]['score'];
-				lastPlace++;
+				lastPlace = lastPlace + toAdd + 1;
+				toAdd = 0;
 			}
+			else
+				toAdd++;//TODO: проверить корректность построения таблицы
 			leaderboardData[i]['place'] = lastPlace;
 			$('#leaderboard-table').append('<tr><td width="30px">' + lastPlace + '</td><td width="160px">' + leaderboardData[i]['anon_id'] + '</td><td width="70px">' + leaderboardData[i]['score'] + '</td><td width="70px">' + leaderboardData[i]['killed_count'] + '</td></tr>');
 		}

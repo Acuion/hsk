@@ -122,9 +122,10 @@ function FillLK()
 				ToggleRegister();
 			return;
 		}
-		$('#victim-name').val(data['victim_name']);//TODO: обработать отсутствие victim_vk_id
-		$('#victim-dep').val(data['victim_dep']);
-		achievements = $.parseJSON(data['achievements']);//TODO: маркировка полученных ачивок
+		var victims = data['victims_data']
+		$('#victim-name').val(victims[0]['showing_name']);//TODO: обработать отсутствие victim_vk_id
+		$('#victim-dep').val(victims[0]['showing_dep']);
+		achievements = data['achievements'];//TODO: маркировка полученных ачивок
 
 		kills = data['killed_count'];
 		score = data['score'];
@@ -144,7 +145,7 @@ function FillLK()
 
 			FlipWordInit('#deathword', data['death_word']);
 			FlipWordInit('#secretword', data['secret_word']);
-			FlipWordInit('#vic-secword', data['victim_secret_word']);
+			FlipWordInit('#vic-secword', victims[0]['showing_secret_word']);
 
 			$('#pers-name-part-left').text(data['name']);
 			$('#pers-name-part-right').text(data['anon_id']);
@@ -236,7 +237,8 @@ function RecaptchaCallbackKillRequest(recaptchaResponse)
 			}
 		}, 10);
 	}
-	POST('/engine/profile', {recaptcha_response: recaptchaResponse, death_word: $('#vic-deathword-text').val()}, tryToKill);
+	//TODO: victim_id
+	POST('/engine/profile', {recaptcha_response: recaptchaResponse, death_word: $('#vic-deathword-text').val(), victim_id: 0}, tryToKill);
 }
 
 function FlipWordInit(wordId, wordText)

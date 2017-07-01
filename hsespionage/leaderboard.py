@@ -1,6 +1,6 @@
 import json
-from hsespionage import app
-from hsespionage import postgresdb
+from hsespionage_dev import app
+from hsespionage_dev import postgresdb
 from flask import request
 
 @app.route("/engine/leaderboard")
