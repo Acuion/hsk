@@ -1,8 +1,8 @@
 import collections
 import hashlib
 import time
-from hsespionage_dev import privatedata
-from hsespionage_dev import postgresdb
+from hsespionage import privatedata
+from hsespionage import pgInstance
 from flask import request
 
 def authOpenAPIMember():
@@ -36,7 +36,7 @@ def authOpenAPIMember():
         if session["sig"] == sign and float(session["expire"]) > time.time():
             member = {
                 "id": str(session["mid"]),
-                "player": (True if postgresdb.one("SELECT vk_id FROM hsspies_game WHERE vk_id={0}".format(repr(session["mid"]))) else False)
+                "player": (True if pgInstance().one("SELECT vk_id FROM hsspies_game WHERE vk_id={0}".format(repr(session["mid"]))) else False)
             }
 
     return member

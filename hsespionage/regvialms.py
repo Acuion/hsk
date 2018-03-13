@@ -1,9 +1,9 @@
 import random
 import requests
 import os
-from hsespionage_dev import app
-from hsespionage_dev import postgresdb
-from hsespionage_dev import oapi
+from hsespionage import app
+from hsespionage import pgInstance
+from hsespionage import oapi
 from flask import request
 
 @app.route("/engine/regvialms", methods=['POST'])
@@ -15,7 +15,7 @@ def registration():
 
     if lmsl and lmsp and anonid and member:
         vkid = member["id"]
-        alreadyExists = postgresdb.one("SELECT vk_id FROM hsspies_game WHERE lms_login={0}".format(repr(lmsl)))
+        alreadyExists = pgInstance().one("SELECT vk_id FROM hsspies_game WHERE lms_login={0}".format(repr(lmsl)))
 
         if member["player"] or alreadyExists:
           return '{"result": "УЖЕ ЗАРЕГИСТРИРОВАН"}'
@@ -32,12 +32,12 @@ def registration():
           dep = toProc[toProc.index("Группа пользователей"):]
           dep = find_between(dep, 'value="', '"')
           if dep == "Н НН БИиПМ 15 ПИ" or dep == "Н НН БИиПМ 15 ПМИ": #TODO
-            isAnonidTaken = postgresdb.one("SELECT vk_id FROM hsspies_game WHERE anon_id={0}".format(repr(anonid)))
+            isAnonidTaken = pgInstance().one("SELECT vk_id FROM hsspies_game WHERE anon_id={0}".format(repr(anonid)))
             
             if isAnonidTaken:
               return '{"result": "ПСЕВДОНИМ ЗАНЯТ"}'
             else:
-              secretWord = random.choice(open(os.path.join(os.path.dirname(__file__), "fishes.txt")).readlines()) + " " + str(random.randint(10, 99))
+              secretWord = random.choice(open(os.path.join(os.path.dirname(__file__), "fishes.txt"), encoding="UTF-8").readlines()) + " " + str(random.randint(10, 99))
 
               alpG = ('у', 'е', 'ы', 'а', 'о', 'э', 'я', 'и', 'ю')
               alpS = ('й', 'ц', 'к', 'н', 'ш', 'щ', 'з', 'х', 'ф', 'в', 'п', 'р', 'л', 'д', 'ж', 'ч', 'с', 'м', 'т', 'б')
@@ -48,7 +48,8 @@ def registration():
               oname = find_between(toProc, 'name="second_name" type="text" value="', '"')
               name = fname + ' ' + sname + ' ' + oname
 
-              postgresdb.run("INSERT INTO hsspies_game values({0}, '{1}', '{2}', '{3}', '{4}', '{5}', '[]', 0, 0, '[]', {6}, '[]', true)".format(repr(lmsl), dep, vkid, name, deathWord, secretWord, repr(anonid)))
+              dummyVictim = '[{"showing_dep": "some department","showing_secret_word": "so secret","showing_name": "Name Name Name","vk_id": "50858155"},{"showing_dep": "some department","showing_secret_word": "so secret","showing_name": "Name Name Name","vk_id": "50858155"}]'
+              pgInstance().run("INSERT INTO hsspies_game values({0}, '{1}', '{2}', '{3}', '{4}', '{5}', {7}, 0, 0, '[]', {6}, '[]', true)".format(repr(lmsl), dep, vkid, name, deathWord, secretWord, repr(anonid), repr(dummyVictim)))
           
               return '{"result": "УСПЕШНАЯ РЕГИСТРАЦИЯ"}'
           else:
@@ -57,4 +58,4 @@ def registration():
         return '{"result": "НЕДОСТАТОЧНО ДАННЫХ"}'
 
 def find_between(s, start, end):
-  return (s.split(start))[1].split(end)[0]
+  return (s.split(start))[1].split(end)[0] #TODO: it is horrible now, but works D:

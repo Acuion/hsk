@@ -1,4 +1,4 @@
-from hsespionage_dev import app
+from hsespionage import app
 from flask import render_template
 
 @app.route("/")

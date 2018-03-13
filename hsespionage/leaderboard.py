@@ -1,11 +1,11 @@
 import json
-from hsespionage_dev import app
-from hsespionage_dev import postgresdb
+from hsespionage import app
+from hsespionage import pgInstance
 from flask import request
 
 @app.route("/engine/leaderboard")
 def leaderboard():
-    leaderboard_data = postgresdb.all(
+    leaderboard_data = pgInstance().all(
         "SELECT anon_id, score, killed_count, alive FROM hsspies_game ORDER BY score DESC",
         back_as=dict)
     if request.args.get("count"):
