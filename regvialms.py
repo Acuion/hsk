@@ -48,8 +48,8 @@ def registration():
               oname = find_between(toProc, 'name="second_name" type="text" value="', '"')
               name = fname + ' ' + sname + ' ' + oname
 
-              dummyVictim = '[{"showing_dep": "some department","showing_secret_word": "so secret","showing_name": "Name Name Name","vk_id": "50858155"},{"showing_dep": "some department","showing_secret_word": "so secret","showing_name": "Name Name Name","vk_id": "50858155"}]'
-              pgInstance().run("INSERT INTO hsspies_game values({0}, '{1}', '{2}', '{3}', '{4}', '{5}', {7}, 0, 0, '[]', {6}, '[]', true)".format(repr(lmsl), dep, vkid, name, deathWord, secretWord, repr(anonid), repr(dummyVictim)))
+              dummyVictim = '[{"showing_dep": "some department","showing_secret_word": "so secret","showing_name": "Name Name Name"},{"showing_dep": "some department","showing_secret_word": "so secret","showing_name": "Name Name Name"}]'
+              pgInstance().run("INSERT INTO hsspies_game values({0}, '{1}', '{2}', '{3}', '{4}', '{5}', {7}, 0, 0, '[]', {6}, '[]', true, '[50858155, 50858155]')".format(repr(lmsl), dep, vkid, name, deathWord, secretWord, repr(anonid), repr(dummyVictim)))
           
               return '{"result": "УСПЕШНАЯ РЕГИСТРАЦИЯ"}'
           else:

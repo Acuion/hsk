@@ -122,8 +122,8 @@ function FillLK()
 				ToggleRegister();
 			return;
 		}
-		var victims = data['victims_data']
-		$('#victim-name').val(victims[0]['showing_name']);//TODO: обработать отсутствие victim_vk_id
+		var victims = data['victims_showed']
+		$('#victim-name').val(victims[0]['showing_name']);
 		$('#victim-dep').val(victims[0]['showing_dep']);
 		achievements = data['achievements'];//TODO: маркировка полученных ачивок
 
