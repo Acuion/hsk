@@ -24,8 +24,8 @@ def registration():
           return '{"result": "УЖЕ ЗАРЕГИСТРИРОВАН"}'
         else:
           authSession = requests.Session()
-          authSession.post("http://lms.hse.ru/index.php", data = {"_qf__login_form" : "", "user_login" : lmsl, "user_password" : lmsp, "userLogin" : "Войти"})
-          toProc = authSession.get("http://lms.hse.ru/student.php?ctg=personal&op=account").text
+          authSession.post("https://lms.hse.ru/index.php", data = {"_qf__login_form" : "", "user_login" : lmsl, "user_password" : lmsp, "userLogin" : "Войти"})
+          toProc = authSession.get("https://lms.hse.ru/student.php?ctg=personal&op=account").text
 
           try:
             toProc.index("Группа пользователей")
