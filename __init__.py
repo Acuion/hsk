@@ -9,8 +9,8 @@ app = Flask(__name__)
 
 from hsespionage import index
 from hsespionage import leaderboard
-from hsespionage import profile
 from hsespionage import regvialms
+from hsespionage import profile
 from hsespionage import githubwebhook
 
 from werkzeug.debug import DebuggedApplication
