@@ -5,6 +5,7 @@ from hsespionage import privatedata
 from hsespionage import app
 from hsespionage import pgInstance
 from hsespionage import oapi
+from hsespionage import VICTIMS_PER_USER
 from flask import request
 
 @app.route("/engine/profile", methods=["GET","POST"])

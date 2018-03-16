@@ -5,9 +5,8 @@ import json
 from hsespionage import app
 from hsespionage import pgInstance
 from hsespionage import oapi
+from hsespionage import VICTIMS_PER_USER
 from flask import request
-
-VICTIMS_PER_USER = 3
 
 @app.route("/engine/regvialms", methods=['POST'])
 def registration():

@@ -2,6 +2,8 @@ from hsespionage import privatedata
 from flask import Flask
 from postgres import Postgres
 
+VICTIMS_PER_USER = 3
+
 def pgInstance():
     return Postgres(privatedata.pgconnectionstring)
 
