@@ -23,7 +23,7 @@ def profile():
                     {"secret": privatedata.recaptchaSecret, "response": request.form.get("recaptcha_response")})
                 recap = json.loads(recap.text)
 
-                toBeKilled = pgInstance().one("SELECT death_word FROM hsspies_game WHERE vk_id=%(vid)s", {'vid': str(victims[int(victimId)])})
+                toBeKilled = pgInstance().one("SELECT death_word FROM hsspies_game WHERE vk_id=%(vid)s", {'vid': str(victims[int(victimId)])}, back_as=dict)
 
                 if recap["success"] and request.form.get("death_word").lower().strip() == toBeKilled["death_word"]:
                     killed_list = userinfo["killed_list"]
