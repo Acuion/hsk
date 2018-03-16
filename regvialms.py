@@ -56,7 +56,7 @@ def registration():
               for i in range(0, VICTIMS_PER_USER):
                 dummyVictimsIds.append(0)
                 dummyVictims.append({"showing_dep": "Группа","showing_secret_word": "Позывной","showing_name": "Никтов Никто Никтович"})
-              pgInstance().run("INSERT INTO hsspies_game values({0}, '{1}', '{2}', '{3}', '{4}', '{5}', {7}, 0, 0, '[]', {6}, '[]', true, {7})".format(repr(lmsl), dep, vkid, name, deathWord, secretWord, repr(anonid), repr(json.dumps(dummyVictims)), repr(json.dumps(dummyVictimsIds)))
+              pgInstance().run("INSERT INTO hsspies_game values({0}, '{1}', '{2}', '{3}', '{4}', '{5}', {7}, 0, 0, '[]', {6}, '[]', true, {7})".format(repr(lmsl), dep, vkid, name, deathWord, secretWord, repr(anonid), repr(json.dumps(dummyVictims)), repr(json.dumps(dummyVictimsIds))))
           
               return '{"result": "УСПЕШНАЯ РЕГИСТРАЦИЯ"}'
           else:
