@@ -1,10 +1,13 @@
 import random
 import requests
 import os
+import json
 from hsespionage import app
 from hsespionage import pgInstance
 from hsespionage import oapi
 from flask import request
+
+VICTIMS_PER_USER = 3
 
 @app.route("/engine/regvialms", methods=['POST'])
 def registration():
@@ -48,8 +51,12 @@ def registration():
               oname = find_between(toProc, 'name="second_name" type="text" value="', '"')
               name = fname + ' ' + sname + ' ' + oname
 
-              dummyVictim = '[{"showing_dep": "some department","showing_secret_word": "so secret","showing_name": "Name Name Name"},{"showing_dep": "some department","showing_secret_word": "so secret","showing_name": "Name Name Name"}]'
-              pgInstance().run("INSERT INTO hsspies_game values({0}, '{1}', '{2}', '{3}', '{4}', '{5}', {7}, 0, 0, '[]', {6}, '[]', true, '[50858155, 50858155]')".format(repr(lmsl), dep, vkid, name, deathWord, secretWord, repr(anonid), repr(dummyVictim)))
+              dummyVictims = []
+              dummyVictimsIds = []
+              for i in range(0, VICTIMS_PER_USER):
+                dummyVictimsIds.append(0)
+                dummyVictims.append({"showing_dep": "Группа","showing_secret_word": "Позывной","showing_name": "Никтов Никто Никтович"})
+              pgInstance().run("INSERT INTO hsspies_game values({0}, '{1}', '{2}', '{3}', '{4}', '{5}', {7}, 0, 0, '[]', {6}, '[]', true, {7})".format(repr(lmsl), dep, vkid, name, deathWord, secretWord, repr(anonid), repr(json.dumps(dummyVictims)), repr(json.dumps(dummyVictimsIds)))
           
               return '{"result": "УСПЕШНАЯ РЕГИСТРАЦИЯ"}'
           else:
