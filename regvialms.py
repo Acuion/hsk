@@ -33,7 +33,7 @@ def registration():
           
           dep = toProc[toProc.index("Группа пользователей"):]
           dep = find_between(dep, 'value="', '"')
-          if dep == "Н НН БИиПМ 15 ПИ" or dep == "Н НН БИиПМ 15 ПМИ": #TODO
+          if str.startswith(dep, "Н НН"): #TODO
             isAnonidTaken = pgInstance().one("SELECT vk_id FROM hsspies_game WHERE anon_id=%(anonid)s", {'anonid': anonid})
             
             if isAnonidTaken:
