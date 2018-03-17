@@ -118,6 +118,16 @@ function FillVictim(id)
 	FlipWordInit('#vic-secword', victims[id]['showing_secret_word']);
 }
 
+function NextVictim()
+{
+	FillVictim((currentVictimId + 1) % victims.length);
+}
+
+function PrevVictim()
+{
+	FillVictim((currentVictimId + victims.length - 1) % victims.length);
+}
+
 function FillLK()
 {
 	var stage2 = function (data)
