@@ -113,6 +113,25 @@ a
 	vertical-align: top;
 }
 
+#arrow-container
+{
+	position: relative;
+}
+
+#list-arrow-right
+{
+	position: absolute;
+	top: 25px;
+	left: 275px;
+}
+
+#list-arrow-left
+{
+	position: absolute;
+	top: 25px;
+	left: -10px;
+}
+
 #progress-perc-info
 {
 	width: 300px;
