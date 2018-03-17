@@ -3,6 +3,7 @@ var kills, score, rank, achievements;
 var backgroundProgressCircle, foregroundProgressCircle;
 var acHints = ['<div class="underlined">Кильки в бочке I</div>Пример ачивки', '<div class="underlined">Кильки в бочке II</div>Пример ачивки', '<div class="underlined">Кильки в бочке III</div>Пример ачивки', '<div class="underlined">Кильки в бочке VI</div>Пример ачивки', '<div class="underlined">Кильки в бочке V</div>Пример ачивки'];
 var LKActive = false;
+var victims, currentVictimId;
 
 $(document).ready(function()
 {
@@ -109,6 +110,14 @@ function LoginIntoLK()
 		ToggleLK();
 }
 
+function FillVictim(id)
+{
+	currentVictimId = id;
+	$('#victim-name').val(victims[id]['showing_name']);
+	$('#victim-dep').val(victims[id]['showing_dep']);
+	FlipWordInit('#vic-secword', victims[id]['showing_secret_word']);
+}
+
 function FillLK()
 {
 	var stage2 = function (data)
@@ -122,9 +131,7 @@ function FillLK()
 				ToggleRegister();
 			return;
 		}
-		var victims = data['victims_showed']
-		$('#victim-name').val(victims[0]['showing_name']);
-		$('#victim-dep').val(victims[0]['showing_dep']);
+		victims = data['victims_showed'];
 		achievements = data['achievements'];//TODO: маркировка полученных ачивок
 
 		kills = data['killed_count'];
@@ -145,7 +152,7 @@ function FillLK()
 
 			FlipWordInit('#deathword', data['death_word']);
 			FlipWordInit('#secretword', data['secret_word']);
-			FlipWordInit('#vic-secword', victims[0]['showing_secret_word']);
+			FillVictim(0);
 
 			$('#pers-name-part-left').text(data['name']);
 			$('#pers-name-part-right').text(data['anon_id']);
@@ -237,8 +244,8 @@ function RecaptchaCallbackKillRequest(recaptchaResponse)
 			}
 		}, 10);
 	}
-	//TODO: victim_id
-	POST('/engine/profile', {recaptcha_response: recaptchaResponse, death_word: $('#vic-deathword-text').val(), victim_id: 0}, tryToKill);
+
+	POST('/engine/profile', {recaptcha_response: recaptchaResponse, death_word: $('#vic-deathword-text').val(), victim_id: currentVictimId}, tryToKill);
 }
 
 function FlipWordInit(wordId, wordText)
@@ -263,6 +270,7 @@ function FlipWordInit(wordId, wordText)
 		}, 10);
 	};
 	
+	$(wordId).off('click');
 	$(wordId).on('click', function(){
 		if ($(wordId + '-text').text() == '[нажми, чтобы увидеть]' || $(wordId + '-text').val() == '[нажми, чтобы увидеть]')
 			FlipWordAndReplaceWith(wordId + '-text', wordText);

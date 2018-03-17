@@ -29,7 +29,6 @@ function RecreateLoadbarWithSpeed(speed)
 var loaderEvenStep = false;
 function LoadbarAnimateStep()
 {
-    //TODO: Раскрутка
     loadingMarker.animate(loadingMarkerAnimationCurrConst);
     loadingMarkerAnimationTimeout = setTimeout(LoadbarAnimateStep, 6500);
     loadingMarkerAnimationCurrConst++;
