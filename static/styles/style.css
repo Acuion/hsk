@@ -123,6 +123,7 @@ a
 	position: absolute;
 	top: 25px;
 	left: 275px;
+	cursor: pointer;
 }
 
 #list-arrow-left
@@ -130,6 +131,7 @@ a
 	position: absolute;
 	top: 25px;
 	left: -10px;
+	cursor: pointer;
 }
 
 #progress-perc-info
