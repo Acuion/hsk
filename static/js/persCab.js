@@ -85,26 +85,16 @@ function LoginIntoLK()
 		authing = true;
 		EnableLoadbar();
 		
-		VK.Auth.getLoginStatus(function(response)
+		VK.Auth.login(function(response)
 		{
 			if (response.session)
-			{
 				FillLK();
-			} 
 			else
 			{
-				VK.Auth.login(function(response)
-				{
-					if (response.session)
-						FillLK();
-					else
-					{
-						authing = false;//конец авторизации
-						DisableLoadbar();
-					}
-				});	
+				authing = false;//конец авторизации
+				DisableLoadbar();
 			}
-		});
+		});	
 	}
 	else
 		ToggleLK();
