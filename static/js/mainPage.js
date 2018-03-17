@@ -32,7 +32,7 @@ function ResizeEventHandler()
 	}
 	else
 	{//mob
-		$('#caphint-text').text('Чтобы убить');
+		$('#caphint-text').text('Раскрыть цель');
 		$('#captcha-hint-pic').removeClass('flip-vertical');
 		currDispMode = 0;
 	}
