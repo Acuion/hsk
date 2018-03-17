@@ -113,6 +113,19 @@ a
 	vertical-align: top;
 }
 
+#simple-ended
+{
+	opacity: 0.7;
+}
+
+#watch-ended
+{
+	display: none;
+	position: relative;
+	bottom: 80px;
+	font-size: 20px;
+}
+
 #arrow-container
 {
 	position: relative;

@@ -154,6 +154,15 @@ function FillLK()
 			FlipWordInit('#secretword', data['secret_word']);
 			FillVictim(0);
 
+			if (!data['alive'])
+			{
+				$('#vic-deathword-text').css('pointer-events', 'none');
+				$('#recap-div').css('pointer-events', 'none');
+				$('#recap-div').css('opacity', '0.2');
+				$('#captcha-hint').hide();
+				$('#watch-ended').show();
+			}
+
 			$('#pers-name-part-left').text(data['name']);
 			$('#pers-name-part-right').text(data['anon_id']);
 

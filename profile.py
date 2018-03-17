@@ -26,6 +26,9 @@ def profile():
                 toBeKilled = pgInstance().one("SELECT death_word, vk_id, victims_ids FROM hsspies_game WHERE vk_id=%(vid)s", {'vid': str(victims[int(victimId)])}, back_as=dict)
 
                 if recap["success"] and request.form.get("death_word").lower().strip() == toBeKilled["death_word"]:
+                    if not userinfo['alive']:
+                        return '{"result": "Not in the game"}'
+
                     killed_list = userinfo["killed_list"]
                     killed_list.append(toBeKilled["vk_id"])
                     userinfo["killed_list"] = json.dumps(killed_list)
@@ -36,9 +39,11 @@ def profile():
                     victims = []
                     for victimid in toBeKilled["victims_ids"]:
                         victims.append(pgInstance().one("SELECT vk_id, name, dep, secret_word FROM hsspies_game WHERE vk_id=%(vid)s", {'vid': victimid}))
-                    killers = pgInstance().all("SELECT vk_id, victims_showed, victims_ids FROM hsspies_game WHERE (victims_ids ? %(vid)s)", {'vid': toBeKilled["vk_id"]}, back_as=dict)
+                    killers = pgInstance().all("SELECT vk_id, victims_showed, victims_ids, alive FROM hsspies_game WHERE (victims_ids ? %(vid)s)", {'vid': toBeKilled["vk_id"]}, back_as=dict)
                     
                     for i in range(0, len(killers)):
+                        if not killers[i]['alive']:
+                            continue
                         thisVictimPos = killers[i]['victims_ids'].index(toBeKilled["vk_id"])
                         killers[i]['victims_ids'][thisVictimPos] = victims[i]['vk_id'] # replace killed victim with the new one
                         killers[i]['victims_showed'] = {"showing_dep": victims[i]['dep'],"showing_secret_word": victims[i]['secret_word'],"showing_name": victims[i]['name']}
