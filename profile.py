@@ -13,7 +13,7 @@ def profile():
     member = oapi.authOpenAPIMember()
     if member:
         if member["player"]:
-            userinfo = pgInstance().one("SELECT dep,name,death_word,secret_word,victims_showed,score,killed_count,killed_list,anon_id,achievements,alive,victims_ids FROM hsspies_game WHERE vk_id=%(id)s", {'id': member["id"]}, back_as=dict)
+            userinfo = pgInstance().one("SELECT dep,name,death_word,secret_word,victims_showed,score,killed_count,killed_list,anon_id,achievements,alive,victims_ids FROM players WHERE vk_id=%(id)s", {'id': member["id"]}, back_as=dict)
             victims = userinfo["victims_ids"]
 
             victimId = request.form.get("victim_id")
@@ -23,7 +23,7 @@ def profile():
                     {"secret": privatedata.recaptchaSecret, "response": request.form.get("recaptcha_response")})
                 recap = json.loads(recap.text)
 
-                toBeKilled = pgInstance().one("SELECT death_word, vk_id, victims_ids FROM hsspies_game WHERE vk_id=%(vid)s", {'vid': str(victims[int(victimId)])}, back_as=dict)
+                toBeKilled = pgInstance().one("SELECT death_word, vk_id, victims_ids FROM players WHERE vk_id=%(vid)s", {'vid': str(victims[int(victimId)])}, back_as=dict)
 
                 if recap["success"] and request.form.get("death_word").lower().strip() == toBeKilled["death_word"]:
                     if not userinfo['alive']:
@@ -34,12 +34,12 @@ def profile():
                     userinfo["killed_list"] = json.dumps(killed_list)
                     userinfo["score"] += 1 #TODO: score++ -> score += x
                     userinfo["killed_count"] += 1
-                    pgInstance().run("UPDATE hsspies_game SET score=%(score)d, killed_count=%(kc)d, killed_list=%(kl)s WHERE vk_id=%(vid)s", {'score': userinfo["score"], 'kc': userinfo["killed_count"], 'kl': userinfo["killed_list"], 'vid': userinfo["vk_id"]})
+                    pgInstance().run("UPDATE players SET score=%(score)d, killed_count=%(kc)d, killed_list=%(kl)s WHERE vk_id=%(vid)s", {'score': userinfo["score"], 'kc': userinfo["killed_count"], 'kl': userinfo["killed_list"], 'vid': userinfo["vk_id"]})
                     
                     victims = []
                     for victimid in toBeKilled["victims_ids"]:
-                        victims.append(pgInstance().one("SELECT vk_id, name, dep, secret_word FROM hsspies_game WHERE vk_id=%(vid)s", {'vid': victimid}))
-                    killers = pgInstance().all("SELECT vk_id, victims_showed, victims_ids, alive FROM hsspies_game WHERE (victims_ids ? %(vid)s)", {'vid': toBeKilled["vk_id"]}, back_as=dict)
+                        victims.append(pgInstance().one("SELECT vk_id, name, dep, secret_word FROM players WHERE vk_id=%(vid)s", {'vid': victimid}))
+                    killers = pgInstance().all("SELECT vk_id, victims_showed, victims_ids, alive FROM players WHERE (victims_ids ? %(vid)s)", {'vid': toBeKilled["vk_id"]}, back_as=dict)
                     
                     for i in range(0, len(killers)):
                         if not killers[i]['alive']:
@@ -47,9 +47,9 @@ def profile():
                         thisVictimPos = killers[i]['victims_ids'].index(toBeKilled["vk_id"])
                         killers[i]['victims_ids'][thisVictimPos] = victims[i]['vk_id'] # replace killed victim with the new one
                         killers[i]['victims_showed'] = {"showing_dep": victims[i]['dep'],"showing_secret_word": victims[i]['secret_word'],"showing_name": victims[i]['name']}
-                        pgInstance().run("UPDATE hsspies_game SET victims_showed=%(vshow)s, victims_ids=%(vids)s WHERE vk_id=%(vid)s", {'vshow': json.dumps(killers[i]['victims_showed'], ensure_ascii=False), 'vids': json.dumps(killers[i]['victims_ids']), 'vid': killers[i]["vk_id"]})
+                        pgInstance().run("UPDATE players SET victims_showed=%(vshow)s, victims_ids=%(vids)s WHERE vk_id=%(vid)s", {'vshow': json.dumps(killers[i]['victims_showed'], ensure_ascii=False), 'vids': json.dumps(killers[i]['victims_ids']), 'vid': killers[i]["vk_id"]})
 
-                    pgInstance().run("UPDATE hsspies_game SET alive=false WHERE vk_id=%(vid)s", {'vid': toBeKilled["vk_id"]})
+                    pgInstance().run("UPDATE players SET alive=false WHERE vk_id=%(vid)s", {'vid': toBeKilled["vk_id"]})
                     return '{"result": "success"}'
                 else:
                     return '{"result": "wrong secret word"}'

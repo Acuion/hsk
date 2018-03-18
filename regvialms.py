@@ -17,7 +17,7 @@ def registration():
 
     if lmsl and lmsp and anonid and member:
         vkid = member["id"]
-        alreadyExists = pgInstance().one("SELECT vk_id FROM hsspies_game WHERE lms_login=%(lmsl)s", {'lmsl': lmsl})
+        alreadyExists = pgInstance().one("SELECT vk_id FROM players WHERE lms_login=%(lmsl)s", {'lmsl': lmsl})
 
         if member["player"] or alreadyExists:
           return '{"result": "УЖЕ ЗАРЕГИСТРИРОВАН"}'
@@ -34,7 +34,7 @@ def registration():
           dep = toProc[toProc.index("Группа пользователей"):]
           dep = find_between(dep, 'value="', '"')
           if str.startswith(dep, "Н НН"): #TODO
-            isAnonidTaken = pgInstance().one("SELECT vk_id FROM hsspies_game WHERE anon_id=%(anonid)s", {'anonid': anonid})
+            isAnonidTaken = pgInstance().one("SELECT vk_id FROM players WHERE anon_id=%(anonid)s", {'anonid': anonid})
             
             if isAnonidTaken:
               return '{"result": "ПСЕВДОНИМ ЗАНЯТ"}'
@@ -57,7 +57,7 @@ def registration():
                 dummyVictims.append({"showing_dep": "Группа","showing_secret_word": "Позывной","showing_name": "Никтов Никто Никтович"})
               dummyVictims = json.dumps(dummyVictims, ensure_ascii=False)
               dummyVictimsIds = json.dumps(dummyVictimsIds)
-              pgInstance().run("INSERT INTO hsspies_game values(%(lmsl)s, %(dep)s, %(vkid)s, %(name)s, %(deathWord)s, %(secretWord)s, %(dummyVictims)s, 0, 0, '[]', %(anonid)s, '[]', true, %(dummyVictimsIds)s)", {'lmsl': lmsl, 'dep': dep, 'vkid': vkid, 'name': name, 'deathWord': deathWord, 'secretWord': secretWord, 'dummyVictims': dummyVictims, 'anonid': anonid, 'dummyVictimsIds': dummyVictimsIds})
+              pgInstance().run("INSERT INTO players values(%(lmsl)s, %(dep)s, %(vkid)s, %(name)s, %(deathWord)s, %(secretWord)s, %(dummyVictims)s, 0, 0, '[]', %(anonid)s, '[]', true, %(dummyVictimsIds)s)", {'lmsl': lmsl, 'dep': dep, 'vkid': vkid, 'name': name, 'deathWord': deathWord, 'secretWord': secretWord, 'dummyVictims': dummyVictims, 'anonid': anonid, 'dummyVictimsIds': dummyVictimsIds})
           
               return '{"result": "УСПЕШНАЯ РЕГИСТРАЦИЯ"}'
           else:

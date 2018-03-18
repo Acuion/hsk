@@ -36,7 +36,7 @@ def authOpenAPIMember():
         if session["sig"] == sign and float(session["expire"]) > time.time():
             member = {
                 "id": str(session["mid"]),
-                "player": (True if pgInstance().one("SELECT vk_id FROM hsspies_game WHERE vk_id=%(mid)s", {'mid': session["mid"]}) else False)
+                "player": (True if pgInstance().one("SELECT vk_id FROM players WHERE vk_id=%(mid)s", {'mid': session["mid"]}) else False)
             }
 
     return member
