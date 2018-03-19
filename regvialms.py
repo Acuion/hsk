@@ -53,7 +53,7 @@ def registration():
               dummyVictims = []
               dummyVictimsIds = []
               for i in range(0, VICTIMS_PER_USER):
-                dummyVictimsIds.append(vkid)
+                dummyVictimsIds.append(vkid) # TODO: not real id & check in profile.py
                 dummyVictims.append({"showing_dep": "Группа","showing_secret_word": "Позывной","showing_name": "Никтов Никто Никтович"})
               dummyVictims = json.dumps(dummyVictims, ensure_ascii=False)
               dummyVictimsIds = json.dumps(dummyVictimsIds)
