@@ -54,7 +54,7 @@ def profile():
 
                         victims = [] # victims of the victim
                         for victimid in toBeKilled["victims_ids"]:
-                            victims.append(pgInstance().one("SELECT vk_id, name, dep, secret_word FROM players WHERE vk_id=%(vid)s", {'vid': victimid}))
+                            victims.append(pgInstance().one("SELECT vk_id, name, dep, secret_word FROM players WHERE vk_id=%(vid)s", {'vid': victimid}, back_as=dict))
                         killers = pgInstance().all("SELECT vk_id, victims_showed, victims_ids, alive FROM players WHERE (victims_ids ? %(vid)s)", {'vid': toBeKilled["vk_id"]}, back_as=dict)
 
                         for killer in killers:
