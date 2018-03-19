@@ -49,7 +49,7 @@ def profile():
                         userinfo["killed_list"] = json.dumps(killed_list)
                         userinfo["score"] += 1 #TODO: score++ -> score += x
                         userinfo["killed_count"] += 1
-                        pgInstance().run("UPDATE players SET score=%(score)d, killed_count=%(kc)d, killed_list=%(kl)s WHERE vk_id=%(vid)s", {'score': userinfo["score"], 'kc': userinfo["killed_count"], 'kl': userinfo["killed_list"], 'vid': member["id"]})
+                        pgInstance().run("UPDATE players SET score=%(score)s, killed_count=%(kc)s, killed_list=%(kl)s WHERE vk_id=%(vid)s", {'score': userinfo["score"], 'kc': userinfo["killed_count"], 'kl': userinfo["killed_list"], 'vid': member["id"]})
                         pgInstance().run("UPDATE players SET alive=false WHERE vk_id=%(vid)s", {'vid': toBeKilled["vk_id"]})
 
                         victims = [] # victims of the victim
