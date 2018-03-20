@@ -6,7 +6,7 @@ from flask import render_template
 def index():
     return render_template("index.html")
 
-@app.route("/gamevis")
+@app.route("/gamevis") # TODO: protect
 def gamevis():
     labels = [] # id:
     edges = [] # from: to:

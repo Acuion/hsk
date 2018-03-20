@@ -110,11 +110,15 @@ function FillVictim(id)
 
 function NextVictim()
 {
+	if ($('#vic-secword-text').text() != '[нажми, чтобы увидеть]' && $('#vic-secword-text').val() != '[нажми, чтобы увидеть]')
+		$('#vic-secword').click();
 	FillVictim((currentVictimId + 1) % victims.length);
 }
 
 function PrevVictim()
 {
+	if ($('#vic-secword-text').text() != '[нажми, чтобы увидеть]' && $('#vic-secword-text').val() != '[нажми, чтобы увидеть]')
+		$('#vic-secword').click();
 	FillVictim((currentVictimId + victims.length - 1) % victims.length);
 }
 
