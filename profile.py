@@ -57,7 +57,7 @@ def profile():
                             vicInfo = pgInstance().one("SELECT vk_id, name, dep, secret_word FROM players WHERE vk_id=%(vid)s", {'vid': victimid}, back_as=dict)
                             victims[vicInfo['vk_id']] = vicInfo
                         killers = {}
-                        for killerInfo in pgInstance().all("SELECT vk_id, victims_showed, victims_ids, alive FROM players WHERE (victims_ids ? %(vid)s)", {'vid': toBeKilled["vk_id"]}, back_as=dict):
+                        for killerInfo in pgInstance().all("SELECT vk_id, victims_showed, victims_ids, alive FROM players WHERE (victims_ids ? %(vid)s) AND alive=true", {'vid': toBeKilled["vk_id"]}, back_as=dict):
                             killers[killerInfo['vk_id']] = killerInfo
 
                         for vkid, killer in killers.items():
@@ -81,6 +81,7 @@ def profile():
 
                         if len(matched) != VICTIMS_PER_USER: # TODO: add more than 1 edge?
                             # add an extra edge
+                            # TODO: some graph health notifications?
                             vc = None
                             for victimid in victims:
                                 if victimid not in matched:
@@ -93,15 +94,11 @@ def profile():
                                     break
                             matched[vc] = kl
 
-                        print(absentEdges)
-                        print(matched)
-
                         for victimid, killerid in matched.items():
                             killers[killerid]['victims_ids'].append(victimid)
                             killers[killerid]['victims_showed'].append({"showing_dep": victims[victimid]['dep'],"showing_secret_word": victims[victimid]['secret_word'],"showing_name": victims[victimid]['name']})
 
                         for killer in killers.values():
-                            print(killer)
                             pgInstance().run("UPDATE players SET victims_showed=%(vshow)s, victims_ids=%(vids)s WHERE vk_id=%(vid)s", {'vshow': json.dumps(killer['victims_showed'], ensure_ascii=False), 'vids': json.dumps(killer['victims_ids']), 'vid': killer["vk_id"]})
                     return '{"result": "success"}'
                 else:
