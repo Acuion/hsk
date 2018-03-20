@@ -9,14 +9,6 @@ def spawnDummies(count):
 
 def initGame():
     players = pgInstance().all("SELECT * FROM players", back_as=dict)
-    for player in players:
-        player['victims_ids'] = []
-        player['victims_showed'] = []
-        player['alive'] = True
-        player['score'] = 0
-        player['killed_count'] = 0
-        player['killed_list'] = []
-        player['achievements'] = []
     random.shuffle(players)
     for i in range(len(players)):
         victimIds = []
@@ -25,7 +17,7 @@ def initGame():
             vc = players[(i + j) % len(players)] # TODO
             victimIds.append(vc['vk_id'])
             victimDescs.append({"showing_dep": vc['dep'],"showing_secret_word": vc['secret_word'],"showing_name": vc['name']})
-        pgInstance().run("UPDATE players SET victims_showed=%(vshow)s, victims_ids=%(vids)s WHERE vk_id=%(vid)s", {'vshow': json.dumps(victimDescs, ensure_ascii=False), 'vids': json.dumps(victimIds), 'vid': players[i]["vk_id"]})
+        pgInstance().run("UPDATE players SET victims_showed=%(victimDescs)s, score=0, killed_count=0, killed_list='[]', achievements='[]', alive=true, victims_ids=%(victimIds)s WHERE vk_id=%(vid)s", {'victimDescs': json.dumps(victimDescs, ensure_ascii=False), 'victimIds': json.dumps(victimIds), 'vid': players[i]['vk_id']})
 
 if __name__ == '__main__':
     initGame()
