@@ -350,6 +350,9 @@ function Register()
 		switch (result['result'])
 		{
 			case 'УСПЕШНАЯ РЕГИСТРАЦИЯ':
+				var lbTempEntry = {"place": 1, "score": 0, "alive": true, "killed_count": 0, "anon_id": $("#reg-3").val()};
+				leaderboardData.push(lbTempEntry);
+				$('#leaderboard-table').append('<tr><td width="30px">1</td><td width="160px">' + lbTempEntry['anon_id'] + '</td><td width="70px">' + lbTempEntry['score'] + '</td><td width="70px">' + lbTempEntry['killed_count'] + '</td></tr>');
 				$("#reg-1").val('');
 				$("#reg-2").val('');
 				$("#reg-3").val('');
