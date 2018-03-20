@@ -2,7 +2,7 @@
 <!doctype html>
 <html>
 <head>
-  <title>Network | Basic usage</title>
+  <title>Game visio</title>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.css" rel="stylesheet" type="text/css" />
@@ -10,16 +10,12 @@
   <style type="text/css">
     #mynetwork {
       width: 100%;
-      height: 100%;
+      height: 100vh;
       border: 1px solid lightgray;
     }
   </style>
 </head>
 <body>
-
-<p>
-  Create a simple network with some nodes and edges.
-</p>
 
 <div id="mynetwork"></div>
 
@@ -27,7 +23,7 @@
   // create an array with nodes
   var nodes = new vis.DataSet([
     {% for label in labels %}
-    {id: {{ label.id }}, label: {{ label.id }}},
+    {id: {{ label.id }}, label: '{{ label.id }}'},
     {% endfor %}
     {id: -1, label: 'Hello'}
   ]);
@@ -35,7 +31,7 @@
   // create an array with edges
   var edges = new vis.DataSet([
     {% for edge in edges %}
-    {from: {{ edge.from }}, to: {{ edge.to }}},
+    {from: {{ edge.from }}, to: {{ edge.to }}, arrows: 'to'},
     {% endfor %}
     {from: -1, to: -1}
   ]);
