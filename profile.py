@@ -37,7 +37,10 @@ def profile():
                     {"secret": privatedata.recaptchaSecret, "response": request.form.get("recaptcha_response")})
                 recap = json.loads(recap.text)
 
-                toBeKilled = pgInstance().one("SELECT death_word, vk_id, victims_ids FROM players WHERE vk_id=%(vid)s", {'vid': str(victims[int(victimId)])}, back_as=dict)
+                tobekilledId = str(victims[int(victimId)])
+                if tobekilledId == '-1':
+                    return '{"result": "success"}'
+                toBeKilled = pgInstance().one("SELECT death_word, vk_id, victims_ids FROM players WHERE vk_id=%(vid)s", {'vid': tobekilledId}, back_as=dict)
 
                 if recap["success"] and request.form.get("death_word").lower().strip() == toBeKilled["death_word"]:
                     if not userinfo['alive']:

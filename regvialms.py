@@ -53,8 +53,8 @@ def registration():
               dummyVictims = []
               dummyVictimsIds = []
               for i in range(0, VICTIMS_PER_USER):
-                dummyVictimsIds.append(vkid) # TODO: not real id & check in profile.py
-                dummyVictims.append({"showing_dep": "Группа","showing_secret_word": "Позывной","showing_name": "Никтов Никто Никтович"})
+                dummyVictimsIds.append(-1)
+                dummyVictims.append({"showing_dep": "Группа","showing_secret_word": "00"+str(i),"showing_name": "Джеймс Бонд Петрович"})
               dummyVictims = json.dumps(dummyVictims, ensure_ascii=False)
               dummyVictimsIds = json.dumps(dummyVictimsIds)
               pgInstance().run("INSERT INTO players values(%(lmsl)s, %(dep)s, %(vkid)s, %(name)s, %(deathWord)s, %(secretWord)s, %(dummyVictims)s, 0, 0, '[]', %(anonid)s, '[]', true, %(dummyVictimsIds)s)", {'lmsl': lmsl, 'dep': dep, 'vkid': vkid, 'name': name, 'deathWord': deathWord, 'secretWord': secretWord, 'dummyVictims': dummyVictims, 'anonid': anonid, 'dummyVictimsIds': dummyVictimsIds})
