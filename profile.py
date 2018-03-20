@@ -93,11 +93,15 @@ def profile():
                                     break
                             matched[vc] = kl
 
+                        print(absentEdges)
+                        print(matched)
+
                         for victimid, killerid in matched.items():
                             killers[killerid]['victims_ids'].append(victimid)
                             killers[killerid]['victims_showed'].append({"showing_dep": victims[victimid]['dep'],"showing_secret_word": victims[victimid]['secret_word'],"showing_name": victims[victimid]['name']})
 
                         for killer in killers.values():
+                            print(killer)
                             pgInstance().run("UPDATE players SET victims_showed=%(vshow)s, victims_ids=%(vids)s WHERE vk_id=%(vid)s", {'vshow': json.dumps(killer['victims_showed'], ensure_ascii=False), 'vids': json.dumps(killer['victims_ids']), 'vid': killer["vk_id"]})
                     return '{"result": "success"}'
                 else:
