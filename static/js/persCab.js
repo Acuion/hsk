@@ -16,6 +16,10 @@ $(document).ready(function()
 	}
 	SelectAchievementForDescribe(1);
 	
+	$('.list-arrow').on('click', function(){
+		$(this).animate({marginTop: 3}, 200, function(){$(this).animate({marginTop: 0}, 200);});
+	});
+
 	backgroundProgressCircle = new ProgressBar.Circle('#score-progress-bck', {
 		color: '#4E4E4E',
 		duration: 1500,
