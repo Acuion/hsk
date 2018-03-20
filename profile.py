@@ -52,49 +52,52 @@ def profile():
                         pgInstance().run("UPDATE players SET score=%(score)s, killed_count=%(kc)s, killed_list=%(kl)s WHERE vk_id=%(vid)s", {'score': userinfo["score"], 'kc': userinfo["killed_count"], 'kl': userinfo["killed_list"], 'vid': member["id"]})
                         pgInstance().run("UPDATE players SET alive=false WHERE vk_id=%(vid)s", {'vid': toBeKilled["vk_id"]})
 
-                        victims = [] # victims of the victim
+                        victims = {} # victims of the victim
                         for victimid in toBeKilled["victims_ids"]:
-                            victims.append(pgInstance().one("SELECT vk_id, name, dep, secret_word FROM players WHERE vk_id=%(vid)s", {'vid': victimid}, back_as=dict))
-                        killers = pgInstance().all("SELECT vk_id, victims_showed, victims_ids, alive FROM players WHERE (victims_ids ? %(vid)s)", {'vid': toBeKilled["vk_id"]}, back_as=dict)
+                            vicInfo = pgInstance().one("SELECT vk_id, name, dep, secret_word FROM players WHERE vk_id=%(vid)s", {'vid': victimid}, back_as=dict)
+                            victims[vicInfo['vk_id']] = vicInfo
+                        killers = {}
+                        for killerInfo in pgInstance().all("SELECT vk_id, victims_showed, victims_ids, alive FROM players WHERE (victims_ids ? %(vid)s)", {'vid': toBeKilled["vk_id"]}, back_as=dict):
+                            killers[killerInfo['vk_id']] = killerInfo
 
-                        for killer in killers:
+                        for vkid, killer in killers.items():
                             iof = killer['victims_ids'].index(toBeKilled["vk_id"])
                             del killer['victims_ids'][iof]
                             del killer['victims_showed'][iof]
 
                         # match killers & victims. Kuhn algo
                         absentEdges = {}
-                        for killer in killers:
-                            for victim in victims:
-                                if victim['vk_id'] not in killer['victims_ids']:
-                                    if killer not in absentEdges:
-                                        absentEdges[killer] = []
-                                    absentEdges[killer].append(victim) # killer -> victim info
+                        for killerid, killer in killers.items():
+                            for victimid, victim in victims.items():
+                                if victimid not in killer['victims_ids']:
+                                    if killerid not in absentEdges:
+                                        absentEdges[killerid] = []
+                                    absentEdges[killerid].append(victimid) # killer id -> victim id
 
-                        matched = {} # victim to killer
-                        for killer in killers:
+                        matched = {} # victim id to killer id
+                        for killerid in killers:
                             used = set()
-                            tryKuhn(killer, used, matched, absentEdges)
+                            tryKuhn(killerid, used, matched, absentEdges)
 
                         if len(matched) != VICTIMS_PER_USER: # TODO: add more than 1 edge?
                             # add an extra edge
                             vc = None
-                            for victim in victims:
-                                if victim['vk_id'] not in matched.keys():
-                                    vc = victim['vk_id']
+                            for victimid in victims:
+                                if victimid not in matched:
+                                    vc = victimid
                                     break
                             kl = None
-                            for killer in killers:
-                                if killer['vk_id'] not in matched.values():
-                                    kl = killer['vk_id']
+                            for killerid in killers:
+                                if killerid not in matched.values():
+                                    kl = killerid
                                     break
                             matched[vc] = kl
 
-                        for victim, killer in matched.items():
-                            killer['victims_ids'].append(victim['vk_id'])
-                            killer['victims_showed'].append({"showing_dep": victim['dep'],"showing_secret_word": victim['secret_word'],"showing_name": victim['name']})
+                        for victimid, killerid in matched.items():
+                            killers[killerid]['victims_ids'].append(victimid)
+                            killers[killerid]['victims_showed'].append({"showing_dep": victims[victimid]['dep'],"showing_secret_word": victims[victimid]['secret_word'],"showing_name": victims[victimid]['name']})
 
-                        for killer in killers:
+                        for killer in killers.values():
                             pgInstance().run("UPDATE players SET victims_showed=%(vshow)s, victims_ids=%(vids)s WHERE vk_id=%(vid)s", {'vshow': json.dumps(killer['victims_showed'], ensure_ascii=False), 'vids': json.dumps(killer['victims_ids']), 'vid': killer["vk_id"]})
                     return '{"result": "success"}'
                 else:
