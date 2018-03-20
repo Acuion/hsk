@@ -12,6 +12,8 @@ def gamevis():
     edges = [] # from: to:
     players = pgInstance().all("SELECT * FROM players", back_as=dict)
     for player in players:
+        if not player['alive']:
+            continue
         labels.append({'id': player['vk_id']})
         for vic in player['victims_ids']:
             edges.append({'from': player['vk_id'], 'to': vic})
