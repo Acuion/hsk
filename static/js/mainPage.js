@@ -45,6 +45,33 @@ function ResizeEventHandler()
 		$('#viewport').attr('content', 'width=400, user-scalable=0');
 }
 
+function UpdateLeaderboard(thencallback)
+{
+	var update = function(data)
+	{
+		leaderboardData = $.parseJSON(data);
+		var lastPlace = 0;
+		var lastScore = -1;
+		var toAdd = 0;
+		$('#leaderboard-table').empty();
+		for (var i = 0; i < leaderboardData.length; ++i)
+		{
+			if (lastScore != leaderboardData[i]['score'])
+			{
+				lastScore = leaderboardData[i]['score'];
+				lastPlace = lastPlace + toAdd + 1;
+				toAdd = 0;
+			}
+			else
+				toAdd++;//TODO: проверить корректность построения таблицы
+			leaderboardData[i]['place'] = lastPlace;
+			$('#leaderboard-table').append('<tr><td width="30px">' + lastPlace + '</td><td width="160px">' + leaderboardData[i]['anon_id'] + '</td><td width="70px">' + leaderboardData[i]['score'] + '</td><td width="70px">' + leaderboardData[i]['killed_count'] + '</td></tr>');
+		}
+		thencallback();
+	}
+	GET('/engine/leaderboard', update);
+};
+
 //инициализация
 $(document).ready(function()
 {
@@ -80,28 +107,7 @@ $(document).ready(function()
 
 	ResizeEventHandler();
 
-	var leaderLoad = function (data)
-	{
-		leaderboardData = $.parseJSON(data);
-		var lastPlace = 0;
-		var lastScore = -1;
-		var toAdd = 0;
-		for (var i = 0; i < leaderboardData.length; ++i)
-		{
-			if (lastScore != leaderboardData[i]['score'])
-			{
-				lastScore = leaderboardData[i]['score'];
-				lastPlace = lastPlace + toAdd + 1;
-				toAdd = 0;
-			}
-			else
-				toAdd++;//TODO: проверить корректность построения таблицы
-			leaderboardData[i]['place'] = lastPlace;
-			$('#leaderboard-table').append('<tr><td width="30px">' + lastPlace + '</td><td width="160px">' + leaderboardData[i]['anon_id'] + '</td><td width="70px">' + leaderboardData[i]['score'] + '</td><td width="70px">' + leaderboardData[i]['killed_count'] + '</td></tr>');
-		}
-	};
-
-	GET('/engine/leaderboard', leaderLoad)
+	UpdateLeaderboard(function(){});
 });
 
 //главный экран
@@ -350,13 +356,13 @@ function Register()
 		switch (result['result'])
 		{
 			case 'УСПЕШНАЯ РЕГИСТРАЦИЯ':
-				var lbTempEntry = {"place": 1, "score": 0, "alive": true, "killed_count": 0, "anon_id": $("#reg-3").val()};
-				leaderboardData.push(lbTempEntry);
-				$('#leaderboard-table').append('<tr><td width="30px">1</td><td width="160px">' + lbTempEntry['anon_id'] + '</td><td width="70px">' + lbTempEntry['score'] + '</td><td width="70px">' + lbTempEntry['killed_count'] + '</td></tr>');
-				$("#reg-1").val('');
-				$("#reg-2").val('');
-				$("#reg-3").val('');
-				FlipRegisterLabel(result['result'], 'green', true);
+				UpdateLeaderboard(function()
+				{
+					$("#reg-1").val('');
+					$("#reg-2").val('');
+					$("#reg-3").val('');
+					FlipRegisterLabel(result['result'], 'green', true);
+				});
 			break;
 			default:
 				FlipRegisterLabel(result['result'], 'red', true);

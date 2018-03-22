@@ -126,6 +126,47 @@ function PrevVictim()
 	FillVictim((currentVictimId + victims.length - 1) % victims.length);
 }
 
+function MarkAchievements()
+{
+	//TODO: маркировка полученных ачивок
+}
+
+function ReloadLKData()
+{
+	var stage2 = function (data)
+	{
+		data = $.parseJSON(data);
+		if (data['result'] != 'success')
+			return;
+		victims = data['victims_showed'];
+		achievements = data['achievements'];
+		MarkAchievements();
+
+		kills = data['killed_count'];
+		score = data['score'];
+
+		UpdateLeaderboard(function()
+		{
+			var lowerRank = 0;//игроков хуже чем этот
+			for (var i = 0; i < leaderboardData.length; ++i)
+				if (leaderboardData[i]['anon_id'] == data['anon_id'])
+				{
+					rank = leaderboardData[i]['place'];
+					lowerRank = 0;
+					for (var j = 0; j < leaderboardData.length; ++j)
+						if (leaderboardData[j]['score'] < leaderboardData[i]['score'])
+							lowerRank++;
+					break;
+				}
+
+			scorePerc =  lowerRank / (leaderboardData.length - 1);
+			FillVictim(victims.length - 1);
+			foregroundProgressCircle.animate(scorePerc);
+		});
+	} 
+	GET('/engine/profile', stage2)
+}
+
 function FillLK()
 {
 	var stage2 = function (data)
@@ -140,7 +181,8 @@ function FillLK()
 			return;
 		}
 		victims = data['victims_showed'];
-		achievements = data['achievements'];//TODO: маркировка полученных ачивок
+		achievements = data['achievements'];
+		MarkAchievements();
 
 		kills = data['killed_count'];
 		score = data['score'];
@@ -149,36 +191,34 @@ function FillLK()
 			if (leaderboardData[i]['anon_id'] == data['anon_id'])
 			{
 				rank = leaderboardData[i]['place'];
-				while (i < leaderboardData.length && leaderboardData[i]['place'] == rank)
-					++i;
-				lowerRank = i;
+				lowerRank = 0;
+				for (var j = 0; j < leaderboardData.length; ++j)
+					if (leaderboardData[j]['score'] < leaderboardData[i]['score'])
+						lowerRank++;
 				break;
 			}
-		var stage4 = function(plc)
+
+		scorePerc =  lowerRank / (leaderboardData.length - 1);
+
+		FlipWordInit('#deathword', data['death_word']);
+		FlipWordInit('#secretword', data['secret_word']);
+		FillVictim(0);
+
+		if (!data['alive'])
 		{
-			scorePerc =  (plc - lowerRank) / (plc - 1);
-
-			FlipWordInit('#deathword', data['death_word']);
-			FlipWordInit('#secretword', data['secret_word']);
-			FillVictim(0);
-
-			if (!data['alive'])
-			{
-				$('#vic-deathword-text').css('pointer-events', 'none');
-				$('#recap-div').css('pointer-events', 'none');
-				$('#recap-div').css('opacity', '0.2');
-				$('#captcha-hint').hide();
-				$('#watch-ended').show();
-			}
-
-			$('#pers-name-part-left').text(data['name']);
-			$('#pers-name-part-right').text(data['anon_id']);
-
-			authing = false;
-			DisableLoadbar();
-			ToggleLK();
+			$('#vic-deathword-text').css('pointer-events', 'none');
+			$('#recap-div').css('pointer-events', 'none');
+			$('#recap-div').css('opacity', '0.2');
+			$('#captcha-hint').hide();
+			$('#watch-ended').show();
 		}
-		GET('/engine/leaderboard?count=1', stage4);
+
+		$('#pers-name-part-left').text(data['name']);
+		$('#pers-name-part-right').text(data['anon_id']);
+
+		authing = false;
+		DisableLoadbar();
+		ToggleLK();
 
 	}
 	GET('/engine/profile', stage2);
@@ -212,6 +252,7 @@ function RecaptchaCallbackKillRequest(recaptchaResponse)
 		{
 			picToShow = '#succ-kill';
 			$('#vic-deathword-text').val('');
+			ReloadLKData();
 		}
 		else
 			picToShow = '#fail-kill';
