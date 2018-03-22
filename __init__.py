@@ -14,6 +14,7 @@ from hsespionage import leaderboard
 from hsespionage import regvialms
 from hsespionage import profile
 from hsespionage import githubwebhook
+from hsespionage import gamevis
 
 from werkzeug.debug import DebuggedApplication
 app.debug = True
