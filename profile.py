@@ -107,6 +107,10 @@ def profile():
 
                         for killer in killers.values():
                             pgInstance().run("UPDATE players SET victims_showed=%(vshow)s, victims_ids=%(vids)s WHERE vk_id=%(vid)s", {'vshow': json.dumps(killer['victims_showed'], ensure_ascii=False), 'vids': json.dumps(killer['victims_ids']), 'vid': killer["vk_id"]})
+
+                        #check gamefinish
+                        if len(pgInstance().all("SELECT vk_id FROM players WHERE alive=true")) <= (VICTIMS_PER_USER + 1):
+                            pgInstance().run("UPDATE vars SET value='finished' WHERE name='status'")
                     return '{"result": "success"}'
                 else:
                     return '{"result": "wrong secret word"}'

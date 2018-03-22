@@ -204,6 +204,16 @@ function FillLK()
 		FlipWordInit('#secretword', data['secret_word']);
 		FillVictim(0);
 
+		if (gameStatus == 'finished')
+		{
+			$('#vic-deathword-text').css('pointer-events', 'none');
+			$('#recap-div').css('pointer-events', 'none');
+			$('#recap-div').css('opacity', '0.2');
+			$('#captcha-hint').hide();
+			$('#watch-ended').html('Игра окончена<br><span class="font15px" id="simple-ended">до новых встреч!</span>');
+			$('#watch-ended').show();
+		}
+		else
 		if (!data['alive'])
 		{
 			$('#vic-deathword-text').css('pointer-events', 'none');
