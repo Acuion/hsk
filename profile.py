@@ -44,6 +44,9 @@ def profile():
                 toBeKilled = pgInstance().one("SELECT death_word, vk_id, victims_ids FROM players WHERE vk_id=%(vid)s", {'vid': tobekilledId}, back_as=dict)
 
                 if recap["success"] and request.form.get("death_word").lower().strip() == toBeKilled["death_word"]:
+                    status = pgInstance().one("SELECT value FROM vars WHERE name='status'")
+                    if status != "running":
+                        return '{"result": "Game not running"}'
                     if not userinfo['alive']:
                         return '{"result": "Not in the game"}'
 
