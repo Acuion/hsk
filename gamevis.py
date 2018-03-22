@@ -1,6 +1,8 @@
-from hsespionage import app
 from flask import request
+from flask import render_template
+from hsespionage import app
 from hsespionage import privatedata
+from hsespionage import pgInstance
 
 @app.route("/gamevis")
 def gamevis():
