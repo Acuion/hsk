@@ -7,6 +7,8 @@ var leaderboardData;
 //таймер
 function TimerUpdate()
 {
+	if (secondsLeftTimer <= 0)
+		return;
 	var days = FillWithLeadingZeros(Math.floor(secondsLeftTimer / 60 / 60 / 24), 2).toString();
 	var hours = FillWithLeadingZeros(Math.floor(secondsLeftTimer / 60 / 60) % 24, 2).toString();
 	var minutes = FillWithLeadingZeros(Math.floor(secondsLeftTimer / 60) % 60, 2).toString();
