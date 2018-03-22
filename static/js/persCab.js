@@ -1,7 +1,7 @@
 var scorePerc;
 var kills, score, rank, achievements;
 var backgroundProgressCircle, foregroundProgressCircle;
-var acHints = ['<div class="underlined">Кильки в бочке I</div>Пример ачивки', '<div class="underlined">Кильки в бочке II</div>Пример ачивки', '<div class="underlined">Кильки в бочке III</div>Пример ачивки', '<div class="underlined">Кильки в бочке VI</div>Пример ачивки', '<div class="underlined">Кильки в бочке V</div>Пример ачивки'];
+var acHints = ['<div class="underlined">Достижение I</div>Здесь будет описание', '<div class="underlined">Достижение II</div>Здесь будет описание', '<div class="underlined">Достижение III</div>Здесь будет описание', '<div class="underlined">Достижение IV</div>Здесь будет описание', '<div class="underlined">Достижение V</div>Здесь будет описание'];
 var LKActive = false;
 var victims, currentVictimId;
 
