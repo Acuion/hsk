@@ -362,6 +362,14 @@ function Register()
 					$("#reg-2").val('');
 					$("#reg-3").val('');
 					FlipRegisterLabel(result['result'], 'green', true);
+					setTimeout(function()
+					{
+						ToggleRegister();
+						setTimeout(function()
+						{
+							LoginIntoLK();
+						}, 1100);
+					}, 1000);
 				});
 			break;
 			default:
