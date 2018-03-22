@@ -1,6 +1,8 @@
 from hsespionage import app
 from hsespionage import pgInstance
 from flask import render_template
+from flask import request
+from hsespionage import privatedata
 
 @app.route("/")
 def index():
@@ -8,6 +10,8 @@ def index():
 
 @app.route("/gamevis") # TODO: protect
 def gamevis():
+    if 'visiokey' not in request.args or request.args['visiokey'] != privatedata.visiokey:
+        return "¯\_(ツ)_/¯"
     labels = [] # id:
     edges = [] # from: to:
     players = pgInstance().all("SELECT * FROM players", back_as=dict)
