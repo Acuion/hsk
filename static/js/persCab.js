@@ -186,51 +186,56 @@ function FillLK()
 
 		kills = data['killed_count'];
 		score = data['score'];
-		var lowerRank = 0;//игроков хуже чем этот
-		for (var i = 0; i < leaderboardData.length; ++i)
-			if (leaderboardData[i]['anon_id'] == data['anon_id'])
+		UpdateLeaderboard(function()
+		{
+			var lowerRank = 0;//игроков хуже чем этот
+			for (var i = 0; i < leaderboardData.length; ++i)
+				if (leaderboardData[i]['anon_id'] == data['anon_id'])
+				{
+					rank = leaderboardData[i]['place'];
+					lowerRank = 0;
+					for (var j = 0; j < leaderboardData.length; ++j)
+						if (leaderboardData[j]['score'] < leaderboardData[i]['score'])
+							lowerRank++;
+					break;
+				}
+
+			if (leaderboardData.length == 1)
+				scorePerc = 0;
+			else
+				scorePerc =  lowerRank / (leaderboardData.length - 1);
+
+			FlipWordInit('#deathword', data['death_word']);
+			FlipWordInit('#secretword', data['secret_word']);
+			FillVictim(0);
+
+			if (gameStatus == 'finished')
 			{
-				rank = leaderboardData[i]['place'];
-				lowerRank = 0;
-				for (var j = 0; j < leaderboardData.length; ++j)
-					if (leaderboardData[j]['score'] < leaderboardData[i]['score'])
-						lowerRank++;
-				break;
+				$('#vic-deathword-text').css('pointer-events', 'none');
+				$('#recap-div').css('pointer-events', 'none');
+				$('#recap-div').css('opacity', '0.2');
+				$('#captcha-hint').hide();
+				$('#watch-ended').html('Игра окончена<br><span class="font15px" id="simple-ended">до новых встреч!</span>');
+				$('#watch-ended').show();
+			}
+			else
+			if (!data['alive'])
+			{
+				$('#vic-deathword-text').css('pointer-events', 'none');
+				$('#recap-div').css('pointer-events', 'none');
+				$('#recap-div').css('opacity', '0.2');
+				$('#captcha-hint').hide();
+				$('#watch-ended').show();
 			}
 
-		scorePerc =  lowerRank / (leaderboardData.length - 1);
+			var namepieces = data['name'].split(' ');
+			$('#pers-name-part-left').text(namepieces[0] + ' ' + namepieces[1]);
+			$('#pers-name-part-right').text(data['anon_id']);
 
-		FlipWordInit('#deathword', data['death_word']);
-		FlipWordInit('#secretword', data['secret_word']);
-		FillVictim(0);
-
-		if (gameStatus == 'finished')
-		{
-			$('#vic-deathword-text').css('pointer-events', 'none');
-			$('#recap-div').css('pointer-events', 'none');
-			$('#recap-div').css('opacity', '0.2');
-			$('#captcha-hint').hide();
-			$('#watch-ended').html('Игра окончена<br><span class="font15px" id="simple-ended">до новых встреч!</span>');
-			$('#watch-ended').show();
-		}
-		else
-		if (!data['alive'])
-		{
-			$('#vic-deathword-text').css('pointer-events', 'none');
-			$('#recap-div').css('pointer-events', 'none');
-			$('#recap-div').css('opacity', '0.2');
-			$('#captcha-hint').hide();
-			$('#watch-ended').show();
-		}
-
-		var namepieces = data['name'].split(' ');
-		$('#pers-name-part-left').text(namepieces[0] + ' ' + namepieces[1]);
-		$('#pers-name-part-right').text(data['anon_id']);
-
-		authing = false;
-		DisableLoadbar();
-		ToggleLK();
-
+			authing = false;
+			DisableLoadbar();
+			ToggleLK();
+		});
 	}
 	GET('/engine/profile', stage2);
 }
