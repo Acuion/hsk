@@ -18,6 +18,7 @@
     <script src="https://www.google.com/recaptcha/api.js"></script>
     <script>
         secondsLeftTimer = {{timerValue}};
+        gameStatus = '{{status}}';
     </script>
 </head>
 <body>
@@ -108,7 +109,7 @@
                 </div>
                 
                 <div style="margin-top: 7px;" id="about-game">
-                    <a href="javascript:void(0)" onclick="ToggleRules()">ОБ ИГРЕ</a><font style="text-decoration: none;">&nbsp;&nbsp;&nbsp;&nbsp;</font><a href="javascript:void(0)" onclick="ToggleRegister()">РЕГИСТРАЦИЯ</a>
+                    <a href="javascript:void(0)" onclick="ToggleRules()">ОБ ИГРЕ</a><font style="text-decoration: none;">&nbsp;&nbsp;&nbsp;&nbsp;</font><a href="javascript:void(0)" onclick="ToggleRegister()" id="reglink">РЕГИСТРАЦИЯ</a>
                 </div>
             </div>
             

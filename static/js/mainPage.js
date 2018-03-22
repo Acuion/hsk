@@ -109,6 +109,12 @@ $(document).ready(function()
 
 	ResizeEventHandler();
 
+	if (gameStatus != 'register')
+	{
+		$('#reglink').css('text-decoration', 'line-through');
+		$('#reglink').css('opacity', '0.8');
+	}
+
 	UpdateLeaderboard(function(){});
 });
 
@@ -293,6 +299,8 @@ function ToggleRules()
 var registerShown = false;
 function ToggleRegister()
 {
+	if (gameStatus != 'register')
+		return;
 	if (!mainShown)
 		return;
 	if (registerShown)

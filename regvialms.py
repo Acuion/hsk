@@ -10,6 +10,10 @@ from flask import request
 
 @app.route("/engine/regvialms", methods=['POST'])
 def registration():
+    status = pgInstance().one("SELECT value FROM vars WHERE name='status'")
+    if status != "register":
+      return '{"result": "РЕГИСТРАЦИЯ НЕВОЗМОЖНА"}'
+
     member = oapi.authOpenAPIMember()
     lmsl = request.form.get("lmslogin").strip()
     lmsp = request.form.get("lmspassw")

@@ -10,4 +10,4 @@ def index():
     val = int(datetime.datetime.strptime(until, "%d.%m.%Y %H:%M:%S").timestamp() - time.time())
     if val < 0:
         val = 0
-    return render_template("index.html", timerValue=val)
+    return render_template("index.html", timerValue=val, status=pgInstance().one("SELECT value FROM vars WHERE name='status'"))
