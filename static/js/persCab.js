@@ -213,7 +213,8 @@ function FillLK()
 			$('#watch-ended').show();
 		}
 
-		$('#pers-name-part-left').text(data['name']);
+		var namepieces = data['name'].split(' ');
+		$('#pers-name-part-left').text(namepieces[0] + ' ' + namepieces[1]);
 		$('#pers-name-part-right').text(data['anon_id']);
 
 		authing = false;
