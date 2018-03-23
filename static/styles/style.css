@@ -91,6 +91,11 @@ a
 	color: #4E4E4E;
 }
 
+.locked
+{
+	opacity: 0.6;
+}
+
 .underlined
 {
 	text-decoration: underline;
