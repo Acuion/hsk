@@ -96,6 +96,11 @@ a
 	text-decoration: underline;
 }
 
+#victim-counter
+{
+	margin-bottom: 4px;
+}
+
 .kill-result
 {
     background: #222;
@@ -472,6 +477,11 @@ a
 	position: relative;
 	top: -50px;
 	left: 271px;
+}
+
+#victim-counter
+{
+
 }
 
 .reg-header

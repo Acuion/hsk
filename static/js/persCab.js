@@ -109,6 +109,7 @@ function FillVictim(id)
 	currentVictimId = id;
 	$('#victim-name').val(victims[id]['showing_name']);
 	$('#victim-dep').val(victims[id]['showing_dep']);
+	$('#victim-counter').text((currentVictimId + 1) + '/' + victims.length);
 	FlipWordInit('#vic-secword', victims[id]['showing_secret_word']);
 }
 
