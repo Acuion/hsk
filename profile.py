@@ -43,7 +43,7 @@ def profile():
                 tobekilledId = str(victims[int(victimId)])
                 if tobekilledId == '-1':
                     return '{"result": "success"}'
-                toBeKilled = pgInstance().one("SELECT name, death_word, vk_id, victims_ids, anon_id FROM players WHERE vk_id=%(vid)s", {'vid': tobekilledId}, back_as=dict)
+                toBeKilled = pgInstance().one("SELECT name, death_word, vk_id, victims_ids, killed_count, anon_id FROM players WHERE vk_id=%(vid)s", {'vid': tobekilledId}, back_as=dict)
 
                 if recap["success"] and request.form.get("death_word").lower().strip() == toBeKilled["death_word"]:
                     status = pgInstance().one("SELECT value FROM vars WHERE name='status'")
@@ -131,7 +131,7 @@ def profile():
                                 logging.info('New ac: 2')
                                 userinfo['achievements'].append(2)
                         if 3 not in userinfo['achievements']: # rock
-                            if toBeKilled['killed_cout'] > userinfo['killed_count']:
+                            if toBeKilled['killed_count'] > userinfo['killed_count']:
                                 logging.info('New ac: 3')
                                 userinfo['achievements'].append(3)
                         pgInstance().run("UPDATE players SET achievements=%(achs)s WHERE vk_id=%(vid)s", {'achs': json.dumps(userinfo['achievements']), 'vid': member["id"]})
