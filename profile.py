@@ -43,7 +43,7 @@ def profile():
                 tobekilledId = str(victims[int(victimId)])
                 if tobekilledId == '-1':
                     return '{"result": "success"}'
-                toBeKilled = pgInstance().one("SELECT death_word, vk_id, victims_ids FROM players WHERE vk_id=%(vid)s", {'vid': tobekilledId}, back_as=dict)
+                toBeKilled = pgInstance().one("SELECT name, death_word, vk_id, victims_ids, anon_id FROM players WHERE vk_id=%(vid)s", {'vid': tobekilledId}, back_as=dict)
 
                 if recap["success"] and request.form.get("death_word").lower().strip() == toBeKilled["death_word"]:
                     status = pgInstance().one("SELECT value FROM vars WHERE name='status'")
