@@ -28,7 +28,7 @@ def profile():
     member = oapi.authOpenAPIMember()
     if member:
         if member["player"]:
-            userinfo = pgInstance().one("SELECT dep,name,death_word,secret_word,victims_showed,score,killed_count,killed_list,anon_id,achievements,alive,victims_ids FROM players WHERE vk_id=%(id)s", {'id': member["id"]}, back_as=dict)
+            userinfo = pgInstance().one("SELECT * FROM players WHERE vk_id=%(id)s", {'id': member["id"]}, back_as=dict)
             victims = userinfo["victims_ids"]
 
             victimId = request.form.get("victim_id")
@@ -56,7 +56,8 @@ def profile():
                         userinfo["killed_list"] = json.dumps(killed_list)
                         userinfo["score"] += 1 #TODO: score++ -> score += x
                         userinfo["killed_count"] += 1
-                        pgInstance().run("UPDATE players SET score=%(score)s, killed_count=%(kc)s, killed_list=%(kl)s, last_kill_time=%(time)s WHERE vk_id=%(vid)s", {'score': userinfo["score"], 'kc': userinfo["killed_count"], 'kl': userinfo["killed_list"], 'time': time.time(), 'vid': member["id"]})
+                        currKillTime = time.time()
+                        pgInstance().run("UPDATE players SET score=%(score)s, killed_count=%(kc)s, killed_list=%(kl)s, last_kill_time=%(time)s WHERE vk_id=%(vid)s", {'score': userinfo["score"], 'kc': userinfo["killed_count"], 'kl': userinfo["killed_list"], 'time': currKillTime, 'vid': member["id"]})
                         pgInstance().run("UPDATE players SET alive=false WHERE vk_id=%(vid)s", {'vid': toBeKilled["vk_id"]})
 
                         victims = {} # victims of the victim
@@ -86,7 +87,7 @@ def profile():
                             used = set()
                             tryKuhn(killerid, used, matched, absentEdges)
 
-                        if len(matched) != VICTIMS_PER_USER: # TODO: add more than 1 edge?
+                        if len(matched) != VICTIMS_PER_USER:
                             # add an extra edge
                             # TODO: some graph health notifications?
                             vc = None
@@ -111,6 +112,18 @@ def profile():
                         #check gamefinish
                         if len(pgInstance().all("SELECT vk_id FROM players WHERE alive=true")) <= (VICTIMS_PER_USER + 1):
                             pgInstance().run("UPDATE vars SET value='finished' WHERE name='status'")
+
+                        #achievements
+                        if 1 not in userinfo['achievements']: # hat
+                            if len(pgInstance().all("SELECT vk_id FROM players WHERE alive=false")) == 1: # TODO: to COUNT()
+                                userinfo['achievements'].append(1)
+                        if 2 not in userinfo['achievements']: # double
+                            if currKillTime - userinfo['last_kill_time'] < 86400: # 24h
+                                userinfo['achievements'].append(2)
+                        if 3 not in userinfo['achievements']: # rock
+                            if toBeKilled['killed_cout'] > userinfo['killed_count']:
+                                userinfo['achievements'].append(3)
+                        pgInstance().run("UPDATE players SET achievements=%(achs)s WHERE vk_id=%(vid)s", {'achs': json.dumps(userinfo['achievements']), 'vid': member["id"]})
                     return '{"result": "success"}'
                 else:
                     return '{"result": "wrong secret word"}'
