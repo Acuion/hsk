@@ -68,8 +68,8 @@ function UpdateLeaderboard(thencallback)
 				toAdd++;
 			leaderboardData[i]['place'] = lastPlace;
 			var lbRow = '<tr><td width="30px">' + lastPlace + '</td>';
-			lbRow += '<td width="160px">'+ (!leaderboardData[i]['alive'] ? '<img title="Раскрыт" src="static/images/jailed.png"> ' : '') + leaderboardData[i]['anon_id'] + '</td>';
-			lbRow += '<td width="70px">' + leaderboardData[i]['score'] + '</td>';
+			lbRow += '<td width="133px">'+ (!leaderboardData[i]['alive'] ? '<img title="Раскрыт" src="static/images/jailed.png"> ' : '') + leaderboardData[i]['anon_id'] + '</td>';
+			lbRow += '<td width="64px">' + leaderboardData[i]['score'] + '</td>';
 			var achImgs = '';
 			if (leaderboardData[i]['achievements'].includes(1))
 				achImgs += '<img title="Снимаю шляпу" src="static/images/achievement_hat.png" width=21 height=21/>';
@@ -77,7 +77,7 @@ function UpdateLeaderboard(thencallback)
 				achImgs += '<img title="Цепная реакция" src="static/images/achievement_chain.png" width=21 height=21/>';
 			if (leaderboardData[i]['achievements'].includes(3))
 				achImgs += '<img title="Рокировка" src="static/images/achievement_rock.png" width=21 height=21/>';
-			lbRow += '<td width="70px">' + achImgs + '</td></tr>';
+			lbRow += '<td width="93px">' + achImgs + '</td></tr>';
 			$('#leaderboard-table').append(lbRow);
 		}
 		thencallback();
