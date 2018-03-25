@@ -129,7 +129,9 @@ function PrevVictim()
 
 function MarkAchievements()
 {
-	//TODO: маркировка полученных ачивок
+	achievements.forEach(function(achid) {
+		$('#ac' + achid).removeClass('locked');
+	});
 }
 
 function ReloadLKData()
