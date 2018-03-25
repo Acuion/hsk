@@ -20,5 +20,16 @@ def initGame():
         pgInstance().run("UPDATE players SET victims_showed=%(victimDescs)s, score=0, killed_count=0, killed_list='[]', achievements='[]', alive=true, victims_ids=%(victimIds)s, last_kill_time=0 WHERE vk_id=%(vid)s", {'victimDescs': json.dumps(victimDescs, ensure_ascii=False), 'victimIds': json.dumps(victimIds), 'vid': players[i]['vk_id']})
     pgInstance().run("UPDATE vars SET value='running' WHERE name='status'")
 
-if __name__ == '__main__':
-    initGame()
+def finishGame():
+    pgInstance().run("UPDATE vars SET value='finished' WHERE name='status'")
+
+def resetPlayers():
+    dummyVictims = []
+    dummyVictimsIds = []
+    for i in range(0, VICTIMS_PER_USER):
+        dummyVictimsIds.append(-1)
+        dummyVictims.append({"showing_dep": "Игра ещё не началась","showing_secret_word": "00"+str(i),"showing_name": "Джеймс Бонд Петрович"})
+    players = pgInstance().all("SELECT * FROM players", back_as=dict)
+    for player in players:
+        pgInstance().run("UPDATE players SET victims_showed=%(victimDescs)s, score=0, killed_count=0, killed_list='[]', achievements='[]', alive=true, victims_ids=%(victimIds)s, last_kill_time=0 WHERE vk_id=%(vid)s", {'victimDescs': json.dumps(dummyVictims, ensure_ascii=False), 'victimIds': json.dumps(dummyVictimsIds), 'vid': player['vk_id']})
+    pgInstance().run("UPDATE vars SET value='register' WHERE name='status'")
