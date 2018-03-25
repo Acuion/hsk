@@ -54,7 +54,7 @@ def profile():
                         killed_list = userinfo["killed_list"]
                         killed_list.append(toBeKilled["vk_id"])
                         userinfo["killed_list"] = json.dumps(killed_list)
-                        userinfo["score"] += 1 #TODO: score++ -> score += x
+                        userinfo["score"] += 10 #TODO: score+=10 -> score += x
                         userinfo["killed_count"] += 1
                         currKillTime = time.time()
                         pgInstance().run("UPDATE players SET score=%(score)s, killed_count=%(kc)s, killed_list=%(kl)s, last_kill_time=%(time)s WHERE vk_id=%(vid)s", {'score': userinfo["score"], 'kc': userinfo["killed_count"], 'kl': userinfo["killed_list"], 'time': currKillTime, 'vid': member["id"]})
