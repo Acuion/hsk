@@ -1,6 +1,7 @@
 import json
 import sys
 import time
+import logging
 import itertools
 import requests
 from threading import Lock
@@ -12,6 +13,7 @@ from hsespionage import VICTIMS_PER_USER
 from flask import request
 
 killLock = Lock()
+logging.basicConfig(filename='/var/log/hsk/game.log',level=logging.DEBUG)
 
 def tryKuhn(v, used, matched, edges):
     if v in used:
@@ -49,6 +51,8 @@ def profile():
                         return '{"result": "Game not running"}'
                     if not userinfo['alive']:
                         return '{"result": "Not in the game"}'
+
+                    logging.info('{0} ({1}) killed {2} ({3})'.format(userinfo['anon_id'], userinfo['name'], toBeKilled['anon_id'], toBeKilled['name']))
 
                     with killLock:
                         killed_list = userinfo["killed_list"]
@@ -88,6 +92,7 @@ def profile():
                             tryKuhn(killerid, used, matched, absentEdges)
 
                         if len(matched) != VICTIMS_PER_USER:
+                            logging.warning('Edges problem!')
                             # add an extra edge
                             # TODO: some graph health notifications?
                             vc = None
@@ -102,6 +107,8 @@ def profile():
                                     break
                             matched[vc] = kl
 
+                        logging.warning('Rematch: ' + json.dumps(matched))
+
                         for victimid, killerid in matched.items():
                             killers[killerid]['victims_ids'].append(victimid)
                             killers[killerid]['victims_showed'].append({"showing_dep": victims[victimid]['dep'],"showing_secret_word": victims[victimid]['secret_word'],"showing_name": victims[victimid]['name']})
@@ -111,17 +118,21 @@ def profile():
 
                         #check gamefinish
                         if len(pgInstance().all("SELECT vk_id FROM players WHERE alive=true")) <= (VICTIMS_PER_USER + 1):
+                            logging.info('Game finished')
                             pgInstance().run("UPDATE vars SET value='finished' WHERE name='status'")
 
                         #achievements
                         if 1 not in userinfo['achievements']: # hat
                             if len(pgInstance().all("SELECT vk_id FROM players WHERE alive=false")) == 1: # TODO: to COUNT()
+                                logging.info('New ac: 1')
                                 userinfo['achievements'].append(1)
                         if 2 not in userinfo['achievements']: # double
                             if currKillTime - userinfo['last_kill_time'] < 86400: # 24h
+                                logging.info('New ac: 2')
                                 userinfo['achievements'].append(2)
                         if 3 not in userinfo['achievements']: # rock
                             if toBeKilled['killed_cout'] > userinfo['killed_count']:
+                                logging.info('New ac: 3')
                                 userinfo['achievements'].append(3)
                         pgInstance().run("UPDATE players SET achievements=%(achs)s WHERE vk_id=%(vid)s", {'achs': json.dumps(userinfo['achievements']), 'vid': member["id"]})
                     return '{"result": "success"}'
