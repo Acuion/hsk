@@ -65,9 +65,9 @@ function UpdateLeaderboard(thencallback)
 				toAdd = 0;
 			}
 			else
-				toAdd++;//TODO: проверить корректность построения таблицы
+				toAdd++;
 			leaderboardData[i]['place'] = lastPlace;
-			$('#leaderboard-table').append('<tr><td width="30px">' + lastPlace + '</td><td width="160px">' + leaderboardData[i]['anon_id'] + '</td><td width="70px">' + leaderboardData[i]['score'] + '</td><td width="70px">' + leaderboardData[i]['killed_count'] + '</td></tr>');
+			$('#leaderboard-table').append('<tr><td width="30px">' + lastPlace + '</td><td width="160px">'+ (!leaderboardData[i]['alive'] ? '<img alt="Раскрыт" src="/static/images/jailed.png"> ' : '') + leaderboardData[i]['anon_id'] + '</td><td width="70px">' + leaderboardData[i]['score'] + '</td><td width="70px">' + leaderboardData[i]['killed_count'] + '</td></tr>');
 		}
 		thencallback();
 	}
