@@ -17,7 +17,7 @@ def initGame():
             vc = players[(i + j) % len(players)] # TODO
             victimIds.append(vc['vk_id'])
             victimDescs.append({"showing_dep": vc['dep'],"showing_secret_word": vc['secret_word'],"showing_name": vc['name']})
-        pgInstance().run("UPDATE players SET victims_showed=%(victimDescs)s, score=0, killed_count=0, killed_list='[]', achievements='[]', alive=true, victims_ids=%(victimIds)s WHERE vk_id=%(vid)s", {'victimDescs': json.dumps(victimDescs, ensure_ascii=False), 'victimIds': json.dumps(victimIds), 'vid': players[i]['vk_id']})
+        pgInstance().run("UPDATE players SET victims_showed=%(victimDescs)s, score=0, killed_count=0, killed_list='[]', achievements='[]', alive=true, victims_ids=%(victimIds)s, last_kill_time=0 WHERE vk_id=%(vid)s", {'victimDescs': json.dumps(victimDescs, ensure_ascii=False), 'victimIds': json.dumps(victimIds), 'vid': players[i]['vk_id']})
     pgInstance().run("UPDATE vars SET value='running' WHERE name='status'")
 
 if __name__ == '__main__':
