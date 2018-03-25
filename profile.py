@@ -94,7 +94,6 @@ def profile():
                         if len(matched) != VICTIMS_PER_USER:
                             logging.warning('Edges problem!')
                             # add an extra edge
-                            # TODO: some graph health notifications?
                             vc = None
                             for victimid in victims:
                                 if victimid not in matched:
