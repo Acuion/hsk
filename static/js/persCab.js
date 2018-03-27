@@ -101,7 +101,10 @@ function LoginIntoLK()
 		});	
 	}
 	else
+	{
+		UpdateLeaderboard(function(){});
 		ToggleLK();
+	}
 }
 
 function FillVictim(id)
