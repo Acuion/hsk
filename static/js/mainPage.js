@@ -4,6 +4,7 @@ var secondsLeftTimer = 420000;
 var logoRotationStep = 0, logoRotationDelta = 0.1;
 var logoRotationInterval;
 var leaderboardData;
+var loggedInVk = false;
 //таймер
 function TimerUpdate()
 {
@@ -90,6 +91,13 @@ $(document).ready(function()
 {
 	$('img').on('dragstart', function(event) { event.preventDefault(); });
 	VK.init({apiId: 5170996});
+	VK.Auth.getLoginStatus(function(response)
+	{
+		if (response.session)
+		{
+			loggedInVk = true;
+		}
+	});
 
 	$('#inside-logo').hover(function(){
 		clearInterval(logoRotationInterval);
@@ -403,26 +411,22 @@ function Register()
 
 	var startRegister = function(){POST('/engine/regvialms', {lmslogin: login, lmspassw: password, anonid: anon_id}, registerResult);};
 
-	VK.Auth.getLoginStatus(function(response)
-	{
-		if (response.session)
+	if (loggedInVk)
+		startRegister();
+	else
+		VK.Auth.login(function(response)
 		{
-			startRegister();
-		} 
-		else
-		{
-			VK.Auth.login(function(response)
+			if (response.session)
 			{
-				if (response.session)
-					startRegister();
-				else
-				{
-					registring = false;
-					DisableLoadbar();
-				}
-			});	
-		}
-	});
+				startRegister();
+				loggedInVk = true;
+			}
+			else
+			{
+				registring = false;
+				DisableLoadbar();
+			}
+		});	
 }
 
 var flipRegisterForwardInterval, flipRegisterBackwardInterval;
