@@ -86,18 +86,29 @@ function UpdateLeaderboard(thencallback)
 	GET('/engine/leaderboard', update);
 };
 
-//инициализация
-$(document).ready(function()
+function CheckVkSession()
 {
-	$('img').on('dragstart', function(event) { event.preventDefault(); });
-	VK.init({apiId: 5170996});
 	VK.Auth.getLoginStatus(function(response)
 	{
 		if (response.session)
 		{
 			loggedInVk = true;
 		}
+		else
+		{
+			loggedInVk = false;
+		}
 	});
+}
+
+//инициализация
+$(document).ready(function()
+{
+	$('img').on('dragstart', function(event) { event.preventDefault(); });
+	VK.init({apiId: 5170996});
+
+	CheckVkSession();
+	setInterval(CheckVkSession, 1000 * 60 * 3);
 
 	$('#inside-logo').hover(function(){
 		clearInterval(logoRotationInterval);
