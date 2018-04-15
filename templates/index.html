@@ -11,11 +11,15 @@
     <script src="static/extraJs/jquery/jquery-2.1.4.min.js"></script>
     <script src="static/extraJs/jquery/jquery.rotate.js"></script>
     <script src="static/extraJs/progressbar.min.js"></script>
-    <script src="static/js/rotating.js?{{ range(1, 10000000) | random }}"></script>
+    <script src="static/js/mainPage.js?{{ range(1, 10000000) | random }}"></script>
+    <script src="static/js/persCab.js?{{ range(1, 10000000) | random }}"></script>
     <script src="static/js/loading.js?{{ range(1, 10000000) | random }}"></script>
     <script src="static/js/misc.js?{{ range(1, 10000000) | random }}"></script>
+    <script src="https://vk.com/js/api/openapi.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
     <script>
         secondsLeftTimer = {{timerValue}};
+        gameStatus = '{{status}}';
     </script>
 </head>
 <body>
@@ -29,13 +33,205 @@
             </div>
         </div>
         <div id="hello-page">
-            <div class="inrow" id="logo-center">
+            <div class="inrow" id="leader-left">
+                <img src="static/images/Leaderboard.png">
+                <table width="330" style="margin-left: 15px">
+                    <tr><td width="30px">№</td><td width="133px">Псевдоним</td><td width="64px">Очков</td><td width="93px">Достижения</td></tr>
+                </table>
+                <div id="leaderboard">
+                    <table id="leaderboard-table" width="330" style="margin-left: 15px">
+                    </table>
+                </div>
+            </div>
+            
+            <div  class="inrow" id="logo-center">
                 <div class="buxton font23px" id="enter-hint">
-                    <img src="static/images/pointer.png">Soon
+                    <img src="static/images/pointer.png">Вход
                 </div>
                 <img src="static/images/logo.png" id="logo" style="pointer-events:none;">
                 <div class="loading-bar" id="loading-bar"></div>
-                <a id="inside-logo-link" class="clickable"><img src="static/images/InsideLogo.png" class="center-absolute" id="inside-logo"></a>
+                <div class="reg-hint buxton" id="return-hint">
+                    <img class="flip-vertical" src="static/images/pointer.png">на главную
+                </div>
+                <a id="inside-logo-link" class="clickable" onclick="LoginIntoLK();"><img src="static/images/InsideLogo.png" class="center-absolute" id="inside-logo"></a>
+                <div>
+                    <div class="center-absolute" id="rules-wrapper">
+                        <h3 style="text-align: center">Суть игры</h3>
+                        После начала игры каждому будет распределено несколько (в зависимости от количества участников) случайных игроков - целей из числа зарегистрированных на игру.<br>
+                        Необходимо будет в реальном мире по имеющейся информации найти любого из указанных в личном кабинете на сайте людей, остаться с ним наедине, специальной фразой подтвердить своё право на вывод выбранного участника из игры и получить от него секретный код, который, будучи введенным в личном кабинете на сайте, увеличит количество очков и запустит алгоритм получения новой цели взамен только что раскрытой.<br>
+                        <br>
+                        <h3 style="text-align: center">Две фразы</h3>
+                        Каждый игрок в момент регистрации получает две случайно сгенерированные фразы: Позывной и Шифровку.<br>
+                        Позывной известен как самому игроку, так и всем тем, для кого этот игрок является целью. Он необходим для подтверждения права на раскрытие.<br>
+                        Шифровка же не больше никому не известна и нужна для того, чтобы зарегистрировать факт раскрытия в игровой системе. При соблюдении всех необходимых условий (рядом никого, назван позывной) игрок обязан отдать шифровку раскрывшему его человеку.<br>
+                        <br>
+                        <h3 style="text-align: center">Система регистрации</h3>
+                        Для получения настоящих сведений об игроке (ФИО и группа) при регистрации будут использованы данные из HSE LMS. Дальнейшая работа с игровой системой происходит с помощью привязанного в момент регистрации аккаунта VK.<br>
+                        <br>
+                        <h3 style="text-align: center">Рейтинг игроков</h3>
+                        Игрокам за каждое раскрытие начисляется такое-то кол-во очков. Очки суммируются в течение всей игры. Чем больше у игрока очков, тем выше он расположен в рейтинговой таблице. Если количество очков совпадает с другим игроком, то выше располагается тот, кто раньше сделал последнее раскрытие.<br>
+                        <br>
+                        <h3 style="text-align: center">Победители</h3>
+                        Призы получит игрок находящийся на первом месте в таблице, вне зависимости от того был он раскрыт или нет, а также два самых успешных нераскрытых игрока.<br>                        
+                    </div>
+                    <div class="center-absolute" id="back-from-rules"><a href="javascript:void(0)" onclick="ToggleRules()">НАЗАД</a></div>
+                </div>
+                    
+                <div class="center-absolute" id="registr">
+                    <div class="center-absolute" id="reg-back">
+                        <a href="javascript:void(0)" onclick="ToggleRegister()">НАЗАД</a>
+                    </div>
+                    <form>
+                        <div id="reglabel"><h3 id="reglabel-text">РЕГИСТРАЦИЯ НА ИГРУ</h3></div>
+                        <div><span onclick="$('#reg-1').focus()" class="reg-header">Логин в LMS</span></div>
+                        <input type="text" name="loginlms" class="reg-field form-field buxton" id="reg-1" placeholder="Необходим для получения ФИО">
+                            <div class="reg-hint buxton font18px" id="reg-hint-1">
+                                <img class="reg-hint-pic" id="reg-hint-1-pic" src="static/images/pointer.png">
+                                Данные для входа в LMS нужны для единоразового забора системой гарантированно верных имени и фамилии, а также чтобы не допустить повторной регистрации
+                            </div>
+                        <div><span onclick="$('#reg-2').focus()" class="reg-header">Пароль в LMS</span></div>
+                        <input type="password" name="passwordlms" class="reg-field form-field buxton" id="reg-2" placeholder="Мы не храним ваши пароли!">
+                            <div class="reg-hint buxton font18px" id="reg-hint-2">
+                                <img class="reg-hint-pic flip-horisontal flip-vertical" id="reg-hint-2-pic" src="static/images/pointer.png">
+                                Мы не храним ваши пароли,<br>честное вышкинское!
+                            </div>
+                        <div><span onclick="$('#reg-3').focus()" class="reg-header">Псевдоним для таблицы рекордов</span></div>
+                        <input type="text" name="anon" class="reg-field form-field buxton" id="reg-3" maxlength="14" placeholder="Требуется для сохранения интриги">
+                            <div class="reg-hint buxton font18px" id="reg-hint-3">
+                                <img class="reg-hint-pic flip-vertical" id="reg-hint-3-pic" src="static/images/pointer.png">
+                                Чтобы сохранить интригу, игроки в таблице рекордов будут фигурировать под выбранными псевдонимами. Кстати, выбрать себе оскорбительный псевдоним - один из способов получить бан в нашей игре (или, что ещё хуже, мы сами выберем тебе новый ник)
+                            </div>
+                        <div style="margin-top: 10px">
+                            <a href="javascript:void(0)" onclick="Register();">[В] ЗАРЕГИСТРИРОВАТЬСЯ</a>
+                            <div class="reg-hint buxton font18px" id="reg-hint-4">
+                                <img class="reg-hint-pic flip-horisontal" id="reg-hint-4-pic" src="static/images/pointer.png">
+                                Авторизация VK необходима для возможности быстрой связи с игроками и упрощённого входа в личный кабинет
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <div style="margin-top: 7px;" id="about-game">
+                    <a href="javascript:void(0)" onclick="ToggleRules()">ОБ ИГРЕ</a><font style="text-decoration: none;">&nbsp;&nbsp;&nbsp;&nbsp;</font><a href="javascript:void(0)" onclick="ToggleRegister()" id="reglink">РЕГИСТРАЦИЯ</a>
+                </div>
+            </div>
+            
+            <div class="inrow" id="news-right">
+                <img src="static/images/ProjectNews.png">
+                <div id="text330" style="margin-left: 20px">
+                15.04.2018: Запущена регистрация!<br>
+                30.11.2015: Родилась идея этого проекта
+                </div>
+            </div>
+        </div>
+        <div id="lk-page"><!-- вторая страница -->
+            <img src="static/images/lk.png" class="center-absolute wide-mode-pic pers-logo">
+            <img src="static/images/lk_small.png" class="center-absolute tiny-mode-pic pers-logo">
+            <div id="pers-name">
+                <div class="pers-name-part" id="pers-name-part-left">
+                Иванов Иван
+                </div>
+                <div class="pers-name-part" id="pers-name-part-center">
+                /
+                </div>
+                <div class="pers-name-part" id="pers-name-part-right">
+                Some nickname 
+                </div>
+            </div>
+
+            <div class="inrow" id="victim-left">
+                <form>
+                    <div class="underlined font15px" id="victim-counter">x/n</div>
+                    <span class="reg-header">ФИО цели</span>
+                    <div>
+                        <input type="text" name="name" id="victim-name" class="victim-field form-field buxton" value="" readonly>
+                    </div>
+                    <span class="reg-header">Группа</span>
+                    <div>
+                        <div id="arrow-container">
+                            <img class="list-arrow" id="list-arrow-right" onclick="NextVictim()" src="static/images/listArrow.png">
+                            <img class="list-arrow flip-horisontal" id="list-arrow-left" onclick="PrevVictim()" src="static/images/listArrow.png">
+                        </div>
+                        <input type="text" name="dep" id="victim-dep" class="victim-field form-field buxton" value="" readonly>
+                    </div>
+                    <div id="vic-secword">
+                        <span class="reg-header">Позывной</span>
+                        <div>
+                            <input type="text" name="secword" class="victim-field form-field buxton" value="[нажми, чтобы увидеть]" id="vic-secword-text" readonly>
+                        </div>
+                    </div>
+                    <span class="reg-header" onclick="$('#vic-deathword-text').focus()">Шифровка</span>
+                    <div>
+                        <input type="text" name="deathword" class="victim-field form-field buxton" id="vic-deathword-text">
+                    </div>
+                    <div class="buxton kill-result" id="succ-kill">
+                        <img src="static/images/killSuccess.png" class="floatLeft">
+                        <div class="kill-info">Успешное раскрытие! Очков: +10</div>
+                    </div>
+                    <div class="buxton kill-result" id="fail-kill">
+                        <img src="static/images/killFailed.png" class="floatLeft">
+                        <div class="kill-info">Неверная шифровка</div>
+                    </div>
+                    <div id="recap-div" class="g-recaptcha" data-callback="RecaptchaCallbackKillRequest" data-theme="dark" data-sitekey="6LfCSiETAAAAAKRizhoIIxKoP7ge1WkJzhm_sll5"></div>
+                    <div class="buxton" id="captcha-hint">
+                        <img class="flip-vertical" id="captcha-hint-pic" src="static/images/pointer.png">
+                        <a id="caphint-text">Прохождение капчи автоматически отсылает запрос на раскрытие</a>
+                    </div>
+                </form>
+                <div class="buxton" id="watch-ended">Твой дозор окончен<br><span class="font15px" id="simple-ended">тебя раскрыли</span></div>
+            </div>
+
+            <div class="inrow" id="progress-center">
+                <div id="progress-perc-info" class="buxton">
+                    <div id="progress-text">Твой результат лучше чем у ?% игроков</div>
+                    <img src="static/images/pointer.png" id="progress-pointer">
+                </div>
+                <div class="center-absolute score-progress" id="score-progress-bck"></div>
+                <div class="center-absolute score-progress" id="score-progress"></div>
+                <div class="incircle-info" id="rating-info">
+                    место в рейтинге
+                    <div class="progress-info font50px color4E">
+                        888
+                    </div>
+                    <div class="progress-info font50px" id="proc-rank">
+                        042
+                    </div>
+                </div>
+                <div class="incircle-info" id="kills-info">
+                    раскрытий
+                    <div class="progress-info font40px color4E">
+                        888
+                    </div>
+                    <div class="progress-info font40px" id="proc-kills">
+                        013
+                    </div>
+                </div>
+                <div class="incircle-info" id="score-info">
+                    очков
+                    <div class="progress-info font40px color4E">
+                        888
+                    </div>
+                    <div class="progress-info font40px" id="proc-score">
+                        057
+                    </div>
+                </div>
+            </div>
+
+            <div class="inrow" id="words-right">
+                    <div id="deathword" style="margin-top: 20px">
+                        <div class="underlined">Твоя шифровка</div>
+                        <div id="deathword-text">[нажми, чтобы увидеть]</div>
+                    </div>
+                    <div id="secretword" style="margin-top: 20px">
+                        <div class="underlined">Твой позывной</div>
+                        <div id="secretword-text">[нажми, чтобы увидеть]</div>
+                    </div>
+                    <div style="margin-top: 30px">
+                        <img id="ac1" class="locked" src="static/images/achievement_hat.png">
+                        <img id="ac2" class="locked" src="static/images/achievement_chain.png">
+                        <img id="ac3" class="locked" src="static/images/achievement_rock.png">
+                    </div>
+                    <div id="achievement-hint"></div>
             </div>
         </div>
     </div>

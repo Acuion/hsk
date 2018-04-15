@@ -1,0 +1,52 @@
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>HSEspionage</title>
+    <meta id="viewport" name="viewport" content="width=device-width, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="static/styles/style.css?{{ range(1, 10000000) | random }}">
+    <link rel="stylesheet" type="text/css" media="all and (max-width: 1106px)" href="static/styles/tiny.css?{{ range(1, 10000000) | random }}">
+    <link rel="stylesheet" type="text/css" media="all and (min-width: 1107px)" href="static/styles/wide.css?{{ range(1, 10000000) | random }}">
+    <link rel="shortcut icon" href="static/favicon.ico">
+    <script src="static/extraJs/jquery/jquery-2.1.4.min.js"></script>
+    <script src="static/extraJs/jquery/jquery.rotate.js"></script>
+    <script src="static/extraJs/progressbar.min.js"></script>
+    <script src="static/js/rotating.js?{{ range(1, 10000000) | random }}"></script>
+    <script src="static/js/loading.js?{{ range(1, 10000000) | random }}"></script>
+    <script src="static/js/misc.js?{{ range(1, 10000000) | random }}"></script>
+    <script>
+        secondsLeftTimer = {{timerValue}};
+    </script>
+</head>
+<body>
+    <div id="main-div">
+        <div id="timer-div">
+            <div id="timer">
+                88:88:88:88
+            </div>
+            <div class="color4E" id="backg-timer">
+                88:88:88:88
+            </div>
+        </div>
+        <div id="hello-page">
+            <div class="inrow" id="logo-center">
+                <div class="buxton font23px" id="enter-hint">
+                    <img src="static/images/pointer.png">Soon
+                </div>
+                <img src="static/images/logo.png" id="logo" style="pointer-events:none;">
+                <div class="loading-bar" id="loading-bar"></div>
+                <a id="inside-logo-link" class="clickable"><img src="static/images/InsideLogo.png" class="center-absolute" id="inside-logo"></a>
+            </div>
+        </div>
+    </div>
+    <div id="copyright">
+        © <!-- Acuion -->
+    </div>
+    <div id="socnetw">
+        <div id="sochint" class="buxton">
+            Будь в курсе всех новостей<img class="flip-horisontal" src="static/images/pointer.png">
+        </div>
+        <a href="https://vk.com/hse_espionage"><img src="static/images/vk.png"></a>
+    </div>
+</body>
+</html>
