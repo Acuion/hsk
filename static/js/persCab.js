@@ -16,6 +16,10 @@ $(document).ready(function()
 	}
 	SelectAchievementForDescribe(1);
 	
+	$('#recap-div').on('click', function(){
+		KillRequest();
+	});
+
 	$('.list-arrow').on('click', function(){
 		$(this).animate({marginTop: 3}, 200, function(){$(this).animate({marginTop: 0}, 200);});
 	});
@@ -263,11 +267,11 @@ function SelectAchievementForDescribe(i)
 	$('#ac' + i).addClass('ach-selected');
 }
 
-function RecaptchaCallbackKillRequest(recaptchaResponse)
+function KillRequest()
 {
 	if ($('#vic-deathword-text').val().trim()=='')
 	{
-		grecaptcha.reset();
+		$("#vic-deathword-text").animate({width: 300}, 300, function(){$("#vic-deathword-text").animate({width: 250}, 300);});
 		return;
 	}
 
@@ -281,6 +285,10 @@ function RecaptchaCallbackKillRequest(recaptchaResponse)
 			picToShow = '#succ-kill';
 			$('#vic-deathword-text').val('');
 			ReloadLKData();
+		}
+		else if (result['result'] == 'time')
+		{
+			picToShow = '#time-kill';
 		}
 		else
 			picToShow = '#fail-kill';
@@ -302,7 +310,6 @@ function RecaptchaCallbackKillRequest(recaptchaResponse)
 				{
 					if (toRot == '#recap-div')
 					{
-						grecaptcha.reset();
 						$('#recap-div').hide();
 						$(picToShow).show();
 						toRot = picToShow;
@@ -331,7 +338,7 @@ function RecaptchaCallbackKillRequest(recaptchaResponse)
 		}, 10);
 	}
 
-	POST('/engine/profile', {recaptcha_response: recaptchaResponse, death_word: $('#vic-deathword-text').val(), victim_id: currentVictimId}, tryToKill);
+	POST('/engine/profile', {death_word: $('#vic-deathword-text').val(), victim_id: currentVictimId}, tryToKill);
 }
 
 function FlipWordInit(wordId, wordText)

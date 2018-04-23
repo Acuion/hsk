@@ -159,8 +159,9 @@ a
 	width: 304px;
 	height: 78px;
 	border-radius: 3px;
-	background: #222222;
+	background-image: url('../images/uncover.png');
 	border: 1px solid #525252;
+	cursor: pointer;
 }
 
 #list-arrow-left
@@ -490,7 +491,7 @@ a
 {
 	position: relative;
 	top: -50px;
-	left: 271px;
+	left: 300px;
 }
 
 .partner

@@ -36,16 +36,15 @@ def profile():
             victimId = request.form.get("victim_id")
 
             if request.form.get("death_word") and victimId and 0 <= int(victimId) < VICTIMS_PER_USER:
-                recap = requests.post("https://www.google.com/recaptcha/api/siteverify",
-                    {"secret": privatedata.recaptchaSecret, "response": request.form.get("recaptcha_response")})
-                recap = json.loads(recap.text)
-
+                if time.time() - userinfo['last_query_time'] < 60:
+                    return '{"result": "time"}'
+                pgInstance().run("UPDATE players SET last_query_time=%(tm)s WHERE vk_id=%(vid)s", {'tm': time.time(), 'vid': member["id"]})
                 tobekilledId = str(victims[int(victimId)])
                 if tobekilledId == '-1':
                     return '{"result": "success"}'
                 toBeKilled = pgInstance().one("SELECT name, death_word, vk_id, victims_ids, killed_count, anon_id FROM players WHERE vk_id=%(vid)s", {'vid': tobekilledId}, back_as=dict)
 
-                if recap["success"] and request.form.get("death_word").lower().strip() == toBeKilled["death_word"]:
+                if request.form.get("death_word").lower().strip() == toBeKilled["death_word"]:
                     status = pgInstance().one("SELECT value FROM vars WHERE name='status'")
                     if status != "running":
                         return '{"result": "Game not running"}'
