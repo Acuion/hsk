@@ -197,7 +197,7 @@ function ToggleMainScreen()
 		$("#loading-bar").animate({width: 280, height: 280}, 1000);
 
 		$("#inside-logo").css( 'pointer-events', 'none' );
-		$("#inside-logo").animate({width: 141, marginTop: 65}, 1000, function(){$("#inside-logo").css( 'pointer-events', 'auto' );});
+		$("#inside-logo").animate({width: 141, marginTop: 85}, 1000, function(){$("#inside-logo").css( 'pointer-events', 'auto' );});
 		
 		$("#return-hint").animate({opacity: 0}, 300, function(){$("#about-game").animate({opacity: 1}, 400); $("#about-game").css( 'pointer-events', 'auto' );});
 	}
