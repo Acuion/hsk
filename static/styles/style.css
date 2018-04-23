@@ -154,6 +154,15 @@ a
 	cursor: pointer;
 }
 
+#recap-div
+{
+	width: 304px;
+	height: 78px;
+	border-radius: 3px;
+	background: #222222;
+	border: 1px solid #525252;
+}
+
 #list-arrow-left
 {
 	position: absolute;
@@ -484,9 +493,10 @@ a
 	left: 271px;
 }
 
-#victim-counter
+.partner
 {
-
+	display: inline-block;
+	margin-top: -10px;
 }
 
 .reg-header

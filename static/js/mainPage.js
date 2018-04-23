@@ -29,13 +29,13 @@ function ResizeEventHandler()
 {
 	if (window.innerWidth >= 1107)
 	{
-		$('#caphint-text').text('Прохождение капчи автоматически отсылает запрос на раскрытие');
+		$('#caphint-text').text('Попытки раскрытия доступны не чаще, чем раз в минуту');
 		$('#captcha-hint-pic').addClass('flip-vertical');
 		currDispMode = 1;
 	}
 	else
 	{//mob
-		$('#caphint-text').text('Раскрыть цель');
+		$('#caphint-text').text('Раз в минуту');
 		$('#captcha-hint-pic').removeClass('flip-vertical');
 		currDispMode = 0;
 	}

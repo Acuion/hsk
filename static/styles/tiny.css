@@ -17,7 +17,8 @@
 
 #news-right
 {
-    margin-top: 20px;
+	margin-top: 20px;
+	height: 350px;
 }
 
 #timer-div
@@ -29,6 +30,11 @@
 #backg-timer
 {
 	width: 380px;
+}
+
+#partners
+{
+	margin-top: 40px;
 }
 
 .form-field::-webkit-input-placeholder       {opacity: 1; transition: opacity 0.3s ease;}
