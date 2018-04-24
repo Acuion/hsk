@@ -109,6 +109,8 @@ $(document).ready(function()
 
 	CheckVkSession();
 	setInterval(CheckVkSession, 1000 * 60 * 3);
+	ShowSomePartners();
+	setInterval(ShowSomePartners, 2000);
 
 	$('#inside-logo').hover(function(){
 		clearInterval(logoRotationInterval);
