@@ -53,7 +53,7 @@ var partnersInfo = [
 function SetPartnerToSlot(partnerindex, slotindex) {
     $('#p' + slotindex + 'p').attr('src', partnersInfo[partnerindex].pic);
     $('#p' + slotindex + 't').attr('href', partnersInfo[partnerindex].link);
-    $('#p' + slotindex + 't').html(partnersInfo[partnerindex].link);
+    $('#p' + slotindex + 't').html(partnersInfo[partnerindex].name);
 }
 
 function ShowSomePartners() {
