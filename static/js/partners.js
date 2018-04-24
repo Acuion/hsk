@@ -53,9 +53,12 @@ var partnersInfo = [
 partnersInfo = partnersInfo.sort(function() {return 0.5 - Math.random()});
 
 function SetPartnerToSlot(partnerindex, slotindex) {
-    $('#p' + slotindex + 'p').attr('src', partnersInfo[partnerindex].pic);
-    $('#p' + slotindex + 't').attr('href', partnersInfo[partnerindex].link);
-    $('#p' + slotindex + 't').html(partnersInfo[partnerindex].name);
+    $('#p' + slotindex + 'g').fadeOut('slow', function() {
+        $('#p' + slotindex + 'p').attr('src', partnersInfo[partnerindex].pic);
+        $('#p' + slotindex + 't').attr('href', partnersInfo[partnerindex].link);
+        $('#p' + slotindex + 't').html(partnersInfo[partnerindex].name);
+        $('#p' + slotindex + 'g').fadeIn('fast', function() {});
+    });
 }
 
 function ShowSomePartners() {
