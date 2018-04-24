@@ -8,7 +8,7 @@ def spawnDummies(count):
         pgInstance().run("INSERT INTO players values(%(lmsl)s, 'dep', %(vkid)s, %(name)s, 'dummy', 'dummy', '[]', 0, 0, '[]', %(anonid)s, '[]', true, '[]')", {'lmsl': 'dummy' + str(i), 'vkid': str(i), 'name': 'dummy' + str(i), 'anonid': 'dummy' + str(i)})
 
 def initGame():
-    players = pgInstance().all("SELECT * FROM players", back_as=dict)
+    players = pgInstance().all("SELECT * FROM players WHERE lms_login NOT LIKE 'dummy%'", back_as=dict)
     random.shuffle(players)
     for i in range(len(players)):
         victimIds = []
